@@ -201,7 +201,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 <div class="sheet" id="adm" hidden><div class="panel">
  <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0">Modo administrador</h2><button class="mini" id="adm-x" type="button" style="background:var(--fill);color:var(--ink)" aria-label="Cerrar">✕</button></div>
  <div id="adm-login">
-  <p class="sub" style="margin-top:10px">Solo el administrador puede subir programas. Pega tu token de GitHub (se guarda solo en este celular).</p>
+  <p class="sub" style="margin-top:10px">Pega tu token de GitHub. Solo se guarda en este celular.</p>
   <label for="a_tok">Token</label><input id="a_tok" type="password" autocomplete="off" placeholder="github_pat_…">
   <button class="btn" id="a_ok" type="button">Entrar</button>
  </div>
@@ -209,7 +209,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   <label>Sección</label><div class="seg" id="a_sec"><button type="button" class="on" data-v="pred">Predicación</button><button type="button" data-v="vym">Vida y Ministerio</button></div>
   <label for="a_mes">Mes del programa</label><input id="a_mes" type="month">
   <label for="a_file">Archivo PDF</label><input id="a_file" type="file" accept="application/pdf,.pdf">
-  <p class="st">Si ese mes ya existe, se reemplaza. Lo verán todos los hermanos.</p>
+  <p class="st">Si ese mes ya existe, se reemplaza.</p>
   <button class="btn" id="a_up" type="button">Subir programa</button>
   <button class="btn ghost" id="a_out" type="button">Cerrar sesión de administrador</button>
  </div>
@@ -330,8 +330,6 @@ const RAW=p=>`https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/${GH.bran
 const API=p=>`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${p}`;
 const IDXP=GH.dir+'/index.json',TOK=()=>localStorage.getItem('gh_token')||'';
 const mlab=m=>{const[y,mo]=m.split('-');return new Date(+y,mo-1,1).toLocaleDateString('es-CL',{month:'short',year:'numeric'}).replace('.','')};
-const ADM=()=>!!TOK()&&configured();
-const allKeys=s=>Object.keys(IDX[s]||{}).sort().reverse();
 let IDX=load('cache:idx',{pred:{},vym:{}}),IDXAT=0,UPAT=0;const sel={pred:null,vym:null},zoom={pred:1,vym:1},RT={pred:0,vym:0};
 
 async function loadIdx(){
@@ -353,10 +351,10 @@ async function histOpen(s){
 }
 function histRender(s){
   const v=$('#v-'+s),mo=v.querySelector('.months'),box=v.querySelector('.pdf'),ext=v.querySelector('.ext');
-  const keys=allKeys(s),cur=HOY.slice(0,7);
+  const keys=Object.keys(IDX[s]||{}).sort().reverse(),cur=HOY.slice(0,7);
   if(!configured()){mo.innerHTML='';ext.hidden=true;box.innerHTML='<div class="ld">Falta configurar el repositorio del historial (GH, en el código de la app).</div>';return;}
   if(!keys.length){mo.innerHTML='';ext.hidden=true;box.innerHTML='<div class="ld">Aún no hay programas en el historial.</div>';return;}
-  if(!sel[s]||!keys.includes(sel[s]))sel[s]=keys.includes(cur)?cur:(keys.find(k=>k<=cur)||keys[0]);
+  if(!sel[s]||!IDX[s][sel[s]])sel[s]=keys.includes(cur)?cur:(keys.find(k=>k<=cur)||keys[0]);
   mo.innerHTML=keys.map(k=>`<button data-m="${k}" class="${k==sel[s]?'on':''} ${k==cur?'cur':''}">${esc(mlab(k))}</button>`).join('');
   mo.querySelector('.on')?.scrollIntoView({inline:'center',block:'nearest'});
   ext.href=pdfUrl(s,sel[s]);ext.hidden=false;
@@ -374,7 +372,7 @@ async function showPdf(s,falta){
   try{
     const lib=await loadPdfJs(),doc=await lib.getDocument({url:pdfUrl(s,m)}).promise;
     if(tk!=RT[s])return;
-    box.innerHTML=(falta?`<div class="note">Aún no se sube el programa de ${esc(mlab(HOY.slice(0,7)))}. Estás viendo ${esc(mlab(m))}.</div>`:'');
+    box.innerHTML=falta?`<div class="note">Aún no se sube el programa de ${esc(mlab(HOY.slice(0,7)))}. Estás viendo ${esc(mlab(m))}.</div>`:'';
     const cw=box.clientWidth-24,dpr=window.devicePixelRatio||1;
     for(let i=1;i<=doc.numPages;i++){
       const pg=await doc.getPage(i);if(tk!=RT[s])return;
@@ -382,7 +380,7 @@ async function showPdf(s,falta){
       const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;c.style.width=zoom[s]*100+'%';box.append(c);
       await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
     }
-    if(tk==RT[s]&&ADM()){const b=document.createElement('button');b.className='btn ghost';b.dataset.del='1';b.textContent='Eliminar este programa';box.append(b);}
+    if(tk==RT[s]&&TOK()){const b=document.createElement('button');b.className='btn ghost';b.dataset.del='1';b.textContent='Eliminar este programa';box.append(b);}
   }catch{ if(tk==RT[s])box.innerHTML='<div class="ld">No se pudo cargar el programa. Revisa tu conexión e inténtalo de nuevo.</div>'; }
 }
 $$('[data-h]').forEach(v=>{const s=v.dataset.h;
@@ -414,11 +412,7 @@ async function updateIdx(mut){
   throw new Error('idx');
 }
 let ASEC='pred',taps=0,tt;
-const rerender=()=>TABS.forEach(t=>SECS[t]&&$('#v-'+t).classList.contains('on')&&histRender(t));
-function admView(){
-  const t=ADM();$('#adm-login').hidden=t;$('#adm-up').hidden=!t;
-  if(t&&!$('#a_mes').value)$('#a_mes').value=HOY.slice(0,7);
-}
+function admView(){const t=!!TOK();$('#adm-login').hidden=t;$('#adm-up').hidden=!t;if(t&&!$('#a_mes').value)$('#a_mes').value=HOY.slice(0,7);}
 $('.logo').onclick=()=>{taps++;clearTimeout(tt);tt=setTimeout(()=>taps=0,1500);
   if(taps>=5){taps=0;if(!configured())toast('Primero configura el repositorio (GH) en el código');else{admView();$('#adm').hidden=false;}}};
 $('#adm-x').onclick=()=>$('#adm').hidden=true;
@@ -430,13 +424,12 @@ $('#a_ok').onclick=async()=>{
     const r=await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}`,{headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json'}});
     if(!r.ok)return toast('Token inválido o sin acceso al repositorio');
     const j=await r.json();if(j.permissions&&!j.permissions.push)return toast('El token no tiene permiso para escribir');
-    localStorage.setItem('gh_token',t);$('#a_tok').value='';admView();rerender();toast('Modo administrador activado');
+    localStorage.setItem('gh_token',t);$('#a_tok').value='';admView();toast('Modo administrador activado');
   }catch{toast('No se pudo verificar el token')}
 };
-$('#a_out').onclick=()=>{localStorage.removeItem('gh_token');$('#adm').hidden=true;toast('Sesión de administrador cerrada');rerender();};
+$('#a_out').onclick=()=>{localStorage.removeItem('gh_token');$('#adm').hidden=true;toast('Sesión de administrador cerrada');TABS.forEach(t=>SECS[t]&&$('#v-'+t).classList.contains('on')&&histRender(t));};
 $('#a_up').onclick=async()=>{
   const m=$('#a_mes').value,f=$('#a_file').files[0],btn=$('#a_up');
-  if(!ADM())return;
   if(!m)return toast('Elige el mes');
   if(!f)return toast('Elige el archivo PDF');
   if(!/\.pdf$/i.test(f.name)&&f.type!='application/pdf')return toast('El archivo debe ser PDF');
@@ -457,7 +450,7 @@ $('#a_up').onclick=async()=>{
   btn.disabled=false;btn.textContent='Subir programa';
 };
 async function delMes(s){
-  const m=sel[s];if(!ADM()||!m||!confirm('¿Eliminar el programa de '+mlab(m)+'?'))return;
+  const m=sel[s];if(!m||!confirm('¿Eliminar el programa de '+mlab(m)+'?'))return;
   try{
     const path=`${GH.dir}/${s}/${m}.pdf`,g=await gh('GET',path);
     if(g.ok){const d=await gh('DELETE',path,{message:`Eliminar ${SECS[s]} ${m}`,sha:(await g.json()).sha,branch:GH.branch});if(!d.ok)throw 0;}
