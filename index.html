@@ -27,7 +27,6 @@ h1{font:600 32px/1.1 var(--serif);letter-spacing:-.02em;margin:12px 0 4px;text-t
 h2{font:600 18px/1.25 var(--serif);margin:0 0 10px}
 .sub{color:var(--soft);margin:0 0 18px;font-size:14px}
 .card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:14px;box-shadow:var(--sh)}
-/* estado */
 .status{display:inline-flex;align-items:center;gap:8px;padding:6px 13px 6px 11px;border-radius:99px;font-weight:600;font-size:13px;background:var(--fill);color:var(--soft)}
 .status::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor}
 .status.live{background:var(--brand-bg);color:var(--ok)}.status.live::before{animation:pulse 1.6s infinite}
@@ -63,21 +62,20 @@ textarea{resize:vertical;min-height:70px}
 .frame{flex:1;min-height:0;position:relative}
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
 .frame .ld{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:var(--soft);font-size:14px;pointer-events:none}
-.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.kp div{background:var(--card);border-radius:18px;padding:13px;box-shadow:var(--sh)}
-.kp b{display:block;font:600 28px/1.1 var(--serif);color:var(--bad)}.kp span{font-size:12px;color:var(--soft)}
-.row{display:grid;grid-template-columns:96px 1fr 28px;gap:10px;align-items:center;font-size:13px;margin:8px 0}
-.row i{height:9px;border-radius:99px;background:var(--fill);overflow:hidden}.row u{display:block;height:100%;background:var(--bad);border-radius:99px}.row span:last-child{text-align:right;font-weight:600}
-.item{padding:13px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;justify-content:space-between;align-items:flex-start}.item:last-child{border:0}
-.item b{font-weight:600}.item small{display:block;color:var(--soft);font-size:12.5px}
-.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px;margin-left:6px;vertical-align:middle}
-.tag.h{background:var(--gold-bg);color:var(--gold)}.tag.c{background:var(--bad-bg);color:var(--bad)}
+.months{flex:none;display:flex;gap:8px;overflow-x:auto;padding:10px 12px;background:var(--card);border-bottom:1px solid var(--line);scrollbar-width:none}
+.months::-webkit-scrollbar{display:none}
+.months button{flex:none;border:0;background:var(--fill);color:var(--soft);font:600 13px Inter,sans-serif;text-transform:capitalize;padding:8px 14px;border-radius:99px;cursor:pointer;transition:.2s}
+.months button.on{background:var(--brand);color:var(--on)}
+.months button.cur::after{content:'';display:inline-block;width:6px;height:6px;margin-left:7px;border-radius:50%;background:var(--ok);vertical-align:middle}
 .empty{color:var(--soft);text-align:center;padding:26px 8px;font-size:14px}
-.sb{position:relative}.sb .i{position:absolute;left:13px;top:13px;color:var(--soft);pointer-events:none}.sb input{padding-left:42px}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.fr>div label{margin-top:0}
-.exp{display:flex;gap:8px;flex-wrap:wrap}
-.exp .chip{flex:1;justify-content:center;white-space:nowrap}.exp .chip.wa{background:#25D366;color:#06311a}
-/* nav */
+.logo{font:700 38px/1 var(--serif);letter-spacing:-.035em;margin:2px 0 16px;color:var(--ink)}
+.logo span{color:var(--brand);font-style:italic;font-weight:600}
+.np ul{list-style:none;margin:0;padding:0}
+.np li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.np li:last-child{border:0}
+.np li::before{content:'';flex:none;width:9px;height:9px;margin-top:7px;border-radius:50%;background:var(--bad)}
+.np h3{font:600 13px Inter,sans-serif;color:var(--bad);margin:14px 0 2px}
+.np .empty{padding:14px 4px}
 nav{flex:none;position:relative;display:grid;grid-template-columns:repeat(4,1fr);height:calc(var(--nav) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:saturate(1.8) blur(18px);-webkit-backdrop-filter:saturate(1.8) blur(18px);border-top:1px solid var(--line)}
 nav button{border:0;background:none;color:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:600 10.5px Inter,sans-serif;white-space:nowrap;cursor:pointer;position:relative;z-index:1;transition:color .2s,transform .15s}
 nav button:active{transform:scale(.9)}
@@ -89,30 +87,13 @@ nav .ind::after{content:'';width:68px;height:100%;border-radius:18px;background:
 body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 .toast{position:fixed;left:50%;bottom:calc(var(--nav) + 20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:.25s;z-index:9;box-shadow:var(--sh)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-/* historial */
-.bar .zb{flex:none;border:0;background:var(--fill);color:var(--ink);width:34px;height:34px;border-radius:10px;font:600 18px Inter,sans-serif;cursor:pointer}
-.bar a[hidden]{display:none}
-.months{flex:none;display:flex;gap:8px;overflow-x:auto;padding:10px 12px;background:var(--card);border-bottom:1px solid var(--line);scrollbar-width:none}
-.months::-webkit-scrollbar{display:none}
-.months button{flex:none;border:0;background:var(--fill);color:var(--soft);font:600 13px Inter,sans-serif;text-transform:capitalize;padding:8px 14px;border-radius:99px;cursor:pointer;transition:.2s}
-.months button.on{background:var(--brand);color:var(--on)}
-.months button.cur::after{content:'';display:inline-block;width:6px;height:6px;margin-left:7px;border-radius:50%;background:var(--ok);vertical-align:middle}
-.pdf{flex:1;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;padding:12px}
-.pdf canvas{display:block;height:auto;margin:0 0 12px;background:#fff;border-radius:10px;box-shadow:var(--sh)}
-.pdf .ld{text-align:center;color:var(--soft);padding:44px 12px;font-size:14px}
-.pdf .note{background:var(--gold-bg);color:var(--gold);font-size:13px;font-weight:600;padding:10px 14px;border-radius:14px;margin-bottom:12px}
 .sheet{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:flex;align-items:flex-end;justify-content:center}.sheet[hidden]{display:none}
 .panel{background:var(--card);width:100%;max-width:640px;border-radius:24px 24px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));max-height:90%;overflow:auto;animation:in .25s ease-out}
-.panel input[type=file]{padding:10px 12px}
-/* logo + no pasar */
-.logo{font:700 38px/1 var(--serif);letter-spacing:-.035em;margin:2px 0 16px;color:var(--ink)}
-.logo span{color:var(--brand);font-style:italic;font-weight:600}
-.np ul{list-style:none;margin:0;padding:0}
-.np li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
-.np li:last-child{border:0}
-.np li::before{content:'';flex:none;width:9px;height:9px;margin-top:7px;border-radius:50%;background:var(--bad)}
-.np h3{font:600 13px Inter,sans-serif;color:var(--bad);margin:14px 0 2px}
-.np .empty{padding:14px 4px}
+.gear{position:fixed;right:16px;bottom:calc(var(--nav) + 16px + env(safe-area-inset-bottom));z-index:8;width:48px;height:48px;border:0;border-radius:50%;background:var(--brand);color:var(--on);font-size:22px;display:grid;place-items:center;cursor:pointer;box-shadow:var(--sh);transition:transform .15s}
+.gear:active{transform:scale(.92)}
+.list-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.list-item:last-child{border:0}
+.list-item button{border:0;background:var(--bad-bg);color:var(--bad);border-radius:8px;padding:4px 10px;font:600 12px Inter,sans-serif;cursor:pointer}
 @media(min-width:700px){.app{box-shadow:0 0 0 1px var(--line)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
@@ -123,12 +104,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 016.5 2H20v15H6.5A2.5 2.5 0 004 19.5z"/><path d="M4 19.5A2.5 2.5 0 006.5 22H20v-5"/></symbol>
 <symbol id="i-nav" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z"/></symbol>
 <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></symbol>
-<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
-<symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 002 2h10a2 2 0 002-2v-5"/></symbol>
-<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></symbol>
-<symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></symbol>
 <symbol id="i-off" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 20h.01M3 3l18 18"/></symbol>
-<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
 </defs></svg>
 
 <div class="app">
@@ -170,18 +146,24 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
  </div>
 </section>
 
-<!-- ===== 2 · PREDICACIÓN (historial) ===== -->
+<!-- ===== 2 · PREDICACIÓN ===== -->
 <section class="view full" id="v-pred" data-h="pred">
- <div class="bar"><span class="bt">Predicación</span><button class="zb" data-z="-" aria-label="Alejar">−</button><button class="zb" data-z="+" aria-label="Acercar">+</button><a class="ext" target="_blank" rel="noopener" hidden>PDF ↗</a></div>
- <div class="months"></div>
- <div class="pdf"></div>
+ <div class="bar"><span class="bt">Predicación</span><a class="ext" id="ext-pred" target="_blank" rel="noopener" hidden>PDF ↗</a></div>
+ <div class="months" id="mo-pred"></div>
+ <div class="frame" id="fr-pred">
+  <div class="ld" id="ld-pred">Selecciona un mes o espera a que se cargue el programa.</div>
+  <iframe id="if-pred" title="Programa de Predicación" allowfullscreen></iframe>
+ </div>
 </section>
 
-<!-- ===== 3 · VIDA Y MINISTERIO (historial) ===== -->
+<!-- ===== 3 · VIDA Y MINISTERIO ===== -->
 <section class="view full" id="v-vym" data-h="vym">
- <div class="bar"><span class="bt">Vida y Ministerio</span><button class="zb" data-z="-" aria-label="Alejar">−</button><button class="zb" data-z="+" aria-label="Acercar">+</button><a class="ext" target="_blank" rel="noopener" hidden>PDF ↗</a></div>
- <div class="months"></div>
- <div class="pdf"></div>
+ <div class="bar"><span class="bt">Vida y Ministerio</span><a class="ext" id="ext-vym" target="_blank" rel="noopener" hidden>PDF ↗</a></div>
+ <div class="months" id="mo-vym"></div>
+ <div class="frame" id="fr-vym">
+  <div class="ld" id="ld-vym">Selecciona un mes o espera a que se cargue el programa.</div>
+  <iframe id="if-vym" title="Programa de Vida y Ministerio" allowfullscreen></iframe>
+ </div>
 </section>
 
 <!-- ===== 4 · MAPA ===== -->
@@ -198,22 +180,40 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
  <button data-t="mapa"><svg class="i"><use href="#i-map"/></svg>Mapa</button>
 </nav>
 </div>
+
+<!-- Botón flotante tuerca -->
+<button class="gear" id="gear" type="button" aria-label="Opciones de Guardado" title="Opciones de Guardado">⚙️</button>
+
+<!-- Panel administrador -->
 <div class="sheet" id="adm" hidden><div class="panel">
- <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0">Modo administrador</h2><button class="mini" id="adm-x" type="button" style="background:var(--fill);color:var(--ink)" aria-label="Cerrar">✕</button></div>
+ <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0">Opciones de Guardado</h2><button class="mini" id="adm-x" type="button" style="background:var(--fill);color:var(--ink)" aria-label="Cerrar">✕</button></div>
+
  <div id="adm-login">
-  <p class="sub" style="margin-top:10px">Pega tu token de GitHub. Solo se guarda en este celular.</p>
-  <label for="a_tok">Token</label><input id="a_tok" type="password" autocomplete="off" placeholder="github_pat_…">
+  <p class="sub" style="margin-top:10px">Ingresa el token de acceso para administrar los programas.</p>
+  <label for="a_tok">Token</label><input id="a_tok" type="password" autocomplete="off" placeholder="Token de acceso">
   <button class="btn" id="a_ok" type="button">Entrar</button>
  </div>
+
  <div id="adm-up" hidden>
-  <label>Sección</label><div class="seg" id="a_sec"><button type="button" class="on" data-v="pred">Predicación</button><button type="button" data-v="vym">Vida y Ministerio</button></div>
-  <label for="a_mes">Mes del programa</label><input id="a_mes" type="month">
-  <label for="a_file">Archivo PDF</label><input id="a_file" type="file" accept="application/pdf,.pdf">
-  <p class="st">Si ese mes ya existe, se reemplaza.</p>
-  <button class="btn" id="a_up" type="button">Subir programa</button>
-  <button class="btn ghost" id="a_out" type="button">Cerrar sesión de administrador</button>
+  <label>Tipo de Programa</label>
+  <div class="seg" id="a_sec">
+   <button type="button" class="on" data-v="pred">Predicación</button>
+   <button type="button" data-v="vym">Vida y Ministerio</button>
+  </div>
+  <label for="a_mes">Mes y Año</label>
+  <input id="a_mes" type="month">
+  <label for="a_url">URL / Enlace del PDF</label>
+  <input id="a_url" type="url" placeholder="https://…">
+  <p class="st">Si ese mes ya existe, se reemplaza el enlace.</p>
+  <button class="btn" id="a_up" type="button">Guardar programa</button>
+
+  <h2 style="margin-top:24px;font-size:16px">Programas guardados</h2>
+  <div id="adm-list"></div>
+
+  <button class="btn ghost" id="a_out" type="button">Cerrar sesión</button>
  </div>
 </div></div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -221,20 +221,13 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const BASE='https://benavitrex.github.io/Predicaci-n-Automatica/';
 const TABS=['inicio','pred','vym','mapa'];
-
-/* ====== HISTORIAL (edítalo aquí) ======
-   Los PDF del historial se guardan en un repositorio de GitHub (público).
-   Crea el repositorio y escribe aquí tu usuario y el nombre del repo. */
-const GH={owner:'TU_USUARIO',repo:'predicapp-historial',branch:'main',dir:'historial'};
+const TOKEN='tuClaveSegura';
 const SECS={pred:'Predicación',vym:'Vida y Ministerio'};
 const MAPA_VER ='https://www.google.com/maps/d/viewer?mid=1H8j2hSNLHMMxyiIiBI___XOZpPDxobc&femb=1&ll=-33.12711459716915%2C-71.57907845698026&z=15';
 const MAPA_EMB ='https://www.google.com/maps/d/embed?mid=1H8j2hSNLHMMxyiIiBI___XOZpPDxobc&ll=-33.12711459716915%2C-71.57907845698026&z=15';
 
-/* ====== NO PASAR ======
-   Agrega las direcciones por número de territorio. Ejemplo:
-   '12':['Los Aromos 345','Calle Mayo 120, depto 4'],  */
-const NO_PASAR={
-};
+/* ====== NO PASAR ====== */
+const NO_PASAR={};
 
 const iso=d=>d.toLocaleDateString('sv');
 const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
@@ -242,7 +235,7 @@ const store=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}ca
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2400);}
 
 /* ---------- Conexión ---------- */
-function net(){document.body.classList.toggle('off',!navigator.onLine);$$('.ld').forEach(l=>{if(!navigator.onLine)l.textContent='Sin conexión. Este contenido necesita internet.'});}
+function net(){document.body.classList.toggle('off',!navigator.onLine);$$('.ld').forEach(l=>{if(!navigator.onLine&&l.id&&(l.id.startsWith('ld-')||l.textContent.includes('Cargando')))l.textContent='Sin conexión. Este contenido necesita internet.'});}
 addEventListener('online',()=>{net();loadToday();toast('Conexión restablecida')});addEventListener('offline',()=>{net();toast('Sin conexión')});
 net();
 
@@ -257,13 +250,13 @@ function tab(t){
   try{history.replaceState(null,'','#'+t)}catch{}
 }
 $$('nav button').forEach(b=>b.onclick=()=>tab(b.dataset.t));
-/* enlaces de las pestañas */
 $('#mext').href=MAPA_VER;
 $('#v-mapa iframe').dataset.src=MAPA_EMB;
 
 /* ---------- Inicio ---------- */
 const hoy=new Date(),HOY=iso(hoy),dow=hoy.getDay(),finde=dow==0||dow==6;
-const SAL=finde?[10,30]:[10,0],DUR=2; // salida y duración estimada (horas)
+const SAL=finde?[10,30]:[10,0],DUR=2;
+const CUR_MES=HOY.slice(0,7);
 $('#fecha').textContent=hoy.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});
 $('#sem').textContent=hoy.getFullYear()+' · '+(finde?'Fin de semana':'Entre semana');
 $('#hora').textContent=finde?'10:30 AM':'10:00 AM';
@@ -324,139 +317,146 @@ function renderNoPasar(terr){
   $('#np-all').innerHTML=keys.length?keys.map(x=>'<h3>Territorio '+esc(x)+'</h3>'+npList(NO_PASAR[x])).join(''):'<p class="empty">Aún no hay direcciones registradas.</p>';
 }
 
-/* ---------- Historial (PDF por mes) ---------- */
-const configured=()=>!/TU_USUARIO/.test(GH.owner);
-const RAW=p=>`https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/${GH.branch}/${p}`;
-const API=p=>`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${p}`;
-const IDXP=GH.dir+'/index.json',TOK=()=>localStorage.getItem('gh_token')||'';
+/* ---------- Historial PDF (localStorage + iframe) ---------- */
+const LS_KEY='pdf_historial';
+function getHist(){return load(LS_KEY,{pred:{},vym:{}});}
+function setHist(h){store(LS_KEY,h);}
 const mlab=m=>{const[y,mo]=m.split('-');return new Date(+y,mo-1,1).toLocaleDateString('es-CL',{month:'short',year:'numeric'}).replace('.','')};
-let IDX=load('cache:idx',{pred:{},vym:{}}),IDXAT=0,UPAT=0;const sel={pred:null,vym:null},zoom={pred:1,vym:1},RT={pred:0,vym:0};
+const sel={pred:null,vym:null};
 
-async function loadIdx(){
-  if(!configured()||!navigator.onLine)return;
-  try{
-    const r=await fetch(RAW(IDXP)+'?t='+Math.floor(Date.now()/6e4));
-    if(r.status==404)IDX={pred:{},vym:{}};
-    else if(r.ok)IDX=Object.assign({pred:{},vym:{}},await r.json());
-    else return;
-    IDXAT=Date.now();store('cache:idx',IDX);
-  }catch{}
-}
-async function histOpen(s){
-  if(Date.now()-IDXAT>6e4&&Date.now()-UPAT>3.5e5){
-    if(!$('#v-'+s+' .pdf').children.length)$('#v-'+s+' .pdf').innerHTML='<div class="ld">Cargando…</div>';
-    await loadIdx();
+function histOpen(s){
+  const h=getHist();
+  const keys=Object.keys(h[s]||{}).sort().reverse();
+  const mo=$('#mo-'+s),ifr=$('#if-'+s),ld=$('#ld-'+s),ext=$('#ext-'+s);
+
+  if(!keys.length){
+    mo.innerHTML='';
+    ifr.removeAttribute('src');
+    ext.hidden=true;
+    ld.style.display='grid';
+    ld.textContent='Aún no hay programas en el historial. Usa ⚙️ para agregar.';
+    return;
   }
-  histRender(s);
-}
-function histRender(s){
-  const v=$('#v-'+s),mo=v.querySelector('.months'),box=v.querySelector('.pdf'),ext=v.querySelector('.ext');
-  const keys=Object.keys(IDX[s]||{}).sort().reverse(),cur=HOY.slice(0,7);
-  if(!configured()){mo.innerHTML='';ext.hidden=true;box.innerHTML='<div class="ld">Falta configurar el repositorio del historial (GH, en el código de la app).</div>';return;}
-  if(!keys.length){mo.innerHTML='';ext.hidden=true;box.innerHTML='<div class="ld">Aún no hay programas en el historial.</div>';return;}
-  if(!sel[s]||!IDX[s][sel[s]])sel[s]=keys.includes(cur)?cur:(keys.find(k=>k<=cur)||keys[0]);
-  mo.innerHTML=keys.map(k=>`<button data-m="${k}" class="${k==sel[s]?'on':''} ${k==cur?'cur':''}">${esc(mlab(k))}</button>`).join('');
+
+  if(!sel[s]||!h[s][sel[s]]){
+    sel[s]=keys.includes(CUR_MES)?CUR_MES:(keys.find(k=>k<=CUR_MES)||keys[0]);
+  }
+
+  mo.innerHTML=keys.map(k=>`<button data-m="${k}" class="${k===sel[s]?'on':''} ${k===CUR_MES?'cur':''}">${esc(mlab(k))}</button>`).join('');
   mo.querySelector('.on')?.scrollIntoView({inline:'center',block:'nearest'});
-  ext.href=pdfUrl(s,sel[s]);ext.hidden=false;
-  showPdf(s,!keys.includes(cur));
-}
-const pdfUrl=(s,m)=>RAW(`${GH.dir}/${s}/${m}.pdf`)+'?v='+(IDX[s][m]||1);
-let pdfjsP;
-const loadPdfJs=()=>pdfjsP||(pdfjsP=new Promise((ok,no)=>{const e=document.createElement('script');
-  e.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-  e.onload=()=>{pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';ok(pdfjsLib)};
-  e.onerror=()=>{pdfjsP=null;no()};document.head.append(e)}));
-async function showPdf(s,falta){
-  const m=sel[s],box=$('#v-'+s+' .pdf'),tk=++RT[s];
-  box.scrollTop=0;box.innerHTML='<div class="ld">Cargando programa…</div>';
-  try{
-    const lib=await loadPdfJs(),doc=await lib.getDocument({url:pdfUrl(s,m)}).promise;
-    if(tk!=RT[s])return;
-    box.innerHTML=falta?`<div class="note">Aún no se sube el programa de ${esc(mlab(HOY.slice(0,7)))}. Estás viendo ${esc(mlab(m))}.</div>`:'';
-    const cw=box.clientWidth-24,dpr=window.devicePixelRatio||1;
-    for(let i=1;i<=doc.numPages;i++){
-      const pg=await doc.getPage(i);if(tk!=RT[s])return;
-      const w=pg.getViewport({scale:1}).width,vp=pg.getViewport({scale:Math.min(cw*dpr*2,1400)/w});
-      const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;c.style.width=zoom[s]*100+'%';box.append(c);
-      await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
-    }
-    if(tk==RT[s]&&TOK()){const b=document.createElement('button');b.className='btn ghost';b.dataset.del='1';b.textContent='Eliminar este programa';box.append(b);}
-  }catch{ if(tk==RT[s])box.innerHTML='<div class="ld">No se pudo cargar el programa. Revisa tu conexión e inténtalo de nuevo.</div>'; }
-}
-$$('[data-h]').forEach(v=>{const s=v.dataset.h;
-  v.querySelector('.months').onclick=e=>{const b=e.target.closest('[data-m]');if(!b)return;sel[s]=b.dataset.m;histRender(s)};
-  v.querySelector('.bar').onclick=e=>{const z=e.target.closest('[data-z]');if(!z)return;
-    zoom[s]=Math.min(3,Math.max(1,zoom[s]+(z.dataset.z=='+'?.5:-.5)));
-    v.querySelectorAll('.pdf canvas').forEach(c=>c.style.width=zoom[s]*100+'%')};
-  v.querySelector('.pdf').onclick=e=>{if(e.target.closest('[data-del]'))delMes(s)};
-});
-addEventListener('online',()=>{const t=TABS.find(x=>$('#v-'+x).classList.contains('on'));if(SECS[t])histOpen(t)});
 
-/* ---------- Modo administrador (token de GitHub) ---------- */
-const b64=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result.split(',')[1]);r.onerror=no;r.readAsDataURL(f)});
-function gh(method,path,body){
-  return fetch(API(path)+(method=='GET'?'?ref='+GH.branch+'&t='+Date.now():''),{method,
-    headers:{Authorization:'Bearer '+TOK(),Accept:'application/vnd.github+json',...(body?{'Content-Type':'application/json'}:{})},
-    body:body?JSON.stringify(body):undefined});
-}
-async function updateIdx(mut){
-  for(let i=0;i<2;i++){
-    const g=await gh('GET',IDXP);let sha,cur={pred:{},vym:{}};
-    if(g.ok){const j=await g.json();sha=j.sha;cur=Object.assign(cur,JSON.parse(atob(j.content.replace(/\n/g,''))));}
-    else if(g.status!=404)throw new Error('idx');
-    mut(cur);
-    const p=await gh('PUT',IDXP,{message:'Actualizar índice',content:btoa(JSON.stringify(cur,null,1)),branch:GH.branch,sha});
-    if(p.ok){IDX=cur;IDXAT=UPAT=Date.now();store('cache:idx',cur);return;}
-    if(p.status!=409&&p.status!=422)throw new Error('idx');
+  const url=h[s][sel[s]];
+  if(url){
+    ld.style.display='grid';
+    ld.textContent='Cargando programa…';
+    ifr.onload=()=>{ld.style.display='none';};
+    ifr.onerror=()=>{ld.style.display='grid';ld.textContent='No se pudo cargar el PDF. Revisa el enlace.';};
+    ifr.src=url;
+    ext.href=url;
+    ext.hidden=false;
+  }else{
+    ifr.removeAttribute('src');
+    ext.hidden=true;
+    ld.style.display='grid';
+    ld.textContent='No hay enlace para este mes.';
   }
-  throw new Error('idx');
 }
-let ASEC='pred',taps=0,tt;
-function admView(){const t=!!TOK();$('#adm-login').hidden=t;$('#adm-up').hidden=!t;if(t&&!$('#a_mes').value)$('#a_mes').value=HOY.slice(0,7);}
-$('.logo').onclick=()=>{taps++;clearTimeout(tt);tt=setTimeout(()=>taps=0,1500);
-  if(taps>=5){taps=0;if(!configured())toast('Primero configura el repositorio (GH) en el código');else{admView();$('#adm').hidden=false;}}};
-$('#adm-x').onclick=()=>$('#adm').hidden=true;
-$('#adm').onclick=e=>{if(e.target.id=='adm')$('#adm').hidden=true};
-$('#a_sec').onclick=e=>{const v=e.target.dataset.v;if(!v)return;ASEC=v;$$('#a_sec button').forEach(b=>b.classList.toggle('on',b.dataset.v==v))};
-$('#a_ok').onclick=async()=>{
-  const t=$('#a_tok').value.trim();if(!t)return;
-  try{
-    const r=await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}`,{headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json'}});
-    if(!r.ok)return toast('Token inválido o sin acceso al repositorio');
-    const j=await r.json();if(j.permissions&&!j.permissions.push)return toast('El token no tiene permiso para escribir');
-    localStorage.setItem('gh_token',t);$('#a_tok').value='';admView();toast('Modo administrador activado');
-  }catch{toast('No se pudo verificar el token')}
-};
-$('#a_out').onclick=()=>{localStorage.removeItem('gh_token');$('#adm').hidden=true;toast('Sesión de administrador cerrada');TABS.forEach(t=>SECS[t]&&$('#v-'+t).classList.contains('on')&&histRender(t));};
-$('#a_up').onclick=async()=>{
-  const m=$('#a_mes').value,f=$('#a_file').files[0],btn=$('#a_up');
-  if(!m)return toast('Elige el mes');
-  if(!f)return toast('Elige el archivo PDF');
-  if(!/\.pdf$/i.test(f.name)&&f.type!='application/pdf')return toast('El archivo debe ser PDF');
-  if(f.size>25e6)return toast('El PDF es muy pesado (máx. 25 MB)');
-  btn.disabled=true;btn.textContent='Subiendo…';
-  try{
-    const path=`${GH.dir}/${ASEC}/${m}.pdf`,content=await b64(f);
-    const g=await gh('GET',path);if(g.status==401||g.status==403)throw new Error('auth');
-    const sha=g.ok?(await g.json()).sha:undefined;
-    const p=await gh('PUT',path,{message:`Programa ${SECS[ASEC]} ${m}`,content,branch:GH.branch,sha});
-    if(!p.ok)throw new Error(p.status==401||p.status==403?'auth':'put');
-    await updateIdx(c=>{c[ASEC][m]=Date.now()});
-    sel[ASEC]=m;$('#a_file').value='';$('#adm').hidden=true;
-    toast('Programa subido ✓');
-    const t=TABS.find(x=>$('#v-'+x).classList.contains('on'));
-    if(t==ASEC)histRender(ASEC);else tab(ASEC);
-  }catch(err){toast(err.message=='auth'?'El token no tiene permiso. Revisa o vuelve a entrar.':'No se pudo subir. Intenta de nuevo.')}
-  btn.disabled=false;btn.textContent='Subir programa';
-};
-async function delMes(s){
-  const m=sel[s];if(!m||!confirm('¿Eliminar el programa de '+mlab(m)+'?'))return;
-  try{
-    const path=`${GH.dir}/${s}/${m}.pdf`,g=await gh('GET',path);
-    if(g.ok){const d=await gh('DELETE',path,{message:`Eliminar ${SECS[s]} ${m}`,sha:(await g.json()).sha,branch:GH.branch});if(!d.ok)throw 0;}
-    await updateIdx(c=>{delete c[s][m]});sel[s]=null;histRender(s);toast('Programa eliminado');
-  }catch{toast('No se pudo eliminar')}
+
+['pred','vym'].forEach(s=>{
+  $('#mo-'+s).onclick=e=>{
+    const b=e.target.closest('[data-m]');
+    if(!b)return;
+    sel[s]=b.dataset.m;
+    histOpen(s);
+  };
+});
+
+/* ---------- Admin (token + tuerca) ---------- */
+let ASEC='pred';
+let logged=false;
+
+function admView(){
+  $('#adm-login').hidden=logged;
+  $('#adm-up').hidden=!logged;
+  if(logged){
+    if(!$('#a_mes').value)$('#a_mes').value=CUR_MES;
+    renderAdmList();
+  }
 }
+
+function renderAdmList(){
+  const h=getHist();
+  const box=$('#adm-list');
+  const items=[];
+  ['pred','vym'].forEach(s=>{
+    Object.keys(h[s]||{}).sort().reverse().forEach(m=>{
+      items.push(`<div class="list-item"><span><b>${esc(SECS[s])}</b> · ${esc(mlab(m))}</span><button type="button" data-del="${s}|${m}">Eliminar</button></div>`);
+    });
+  });
+  box.innerHTML=items.length?items.join(''):'<p class="empty">No hay programas guardados.</p>';
+}
+
+$('#gear').onclick=()=>{admView();$('#adm').hidden=false;};
+$('#adm-x').onclick=()=>{$('#adm').hidden=true;};
+$('#adm').onclick=e=>{if(e.target.id==='adm')$('#adm').hidden=true;};
+
+$('#a_sec').onclick=e=>{
+  const v=e.target.dataset.v;
+  if(!v)return;
+  ASEC=v;
+  $$('#a_sec button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+};
+
+$('#a_ok').onclick=()=>{
+  const t=$('#a_tok').value.trim();
+  if(!t)return toast('Escribe el token');
+  if(t!==TOKEN)return toast('Token incorrecto');
+  logged=true;
+  $('#a_tok').value='';
+  admView();
+  toast('Acceso concedido');
+};
+
+$('#a_out').onclick=()=>{
+  logged=false;
+  $('#adm').hidden=true;
+  toast('Sesión cerrada');
+};
+
+$('#a_up').onclick=()=>{
+  const m=$('#a_mes').value;
+  const url=$('#a_url').value.trim();
+  if(!m)return toast('Elige el mes y año');
+  if(!url)return toast('Pega la URL del PDF');
+  try{new URL(url)}catch{return toast('La URL no es válida');}
+
+  const h=getHist();
+  if(!h[ASEC])h[ASEC]={};
+  h[ASEC][m]=url;
+  setHist(h);
+  sel[ASEC]=m;
+  $('#a_url').value='';
+  renderAdmList();
+  toast('Programa guardado ✓');
+
+  const t=TABS.find(x=>$('#v-'+x).classList.contains('on'));
+  if(t===ASEC)histOpen(ASEC);
+  else tab(ASEC);
+};
+
+$('#adm-list').onclick=e=>{
+  const b=e.target.closest('[data-del]');
+  if(!b)return;
+  const [s,m]=b.dataset.del.split('|');
+  if(!confirm('¿Eliminar el programa de '+mlab(m)+' ('+SECS[s]+')?'))return;
+  const h=getHist();
+  if(h[s])delete h[s][m];
+  setHist(h);
+  if(sel[s]===m)sel[s]=null;
+  renderAdmList();
+  toast('Programa eliminado');
+  if($('#v-'+s).classList.contains('on'))histOpen(s);
+};
 
 /* ---------- PWA ---------- */
 (function(){
@@ -469,7 +469,6 @@ async function delMes(s){
     const l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify(man)],{type:'application/manifest+json'}));document.head.append(l);
     const a=document.createElement('link');a.rel='apple-touch-icon';a.href=icon(180);document.head.append(a);
   }catch{}
-  // El Service Worker debe ser un archivo propio (sw.js) junto a este HTML
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 
