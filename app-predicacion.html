@@ -6,8 +6,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Predicación">
-<title>Predicación · Congregación</title>
+<meta name="apple-mobile-web-app-title" content="PredicApp">
+<title>PredicApp</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -59,7 +59,7 @@ textarea{resize:vertical;min-height:70px}
 .mini{border:0;background:var(--bad-bg);color:var(--bad);border-radius:10px;width:32px;height:32px;display:grid;place-items:center;cursor:pointer;flex:none}
 .mini .i{width:16px;height:16px}
 .bar{display:flex;gap:8px;align-items:center;padding:calc(10px + env(safe-area-inset-top)) 12px 10px;background:var(--card);box-shadow:0 1px 0 var(--line)}
-.bar .seg{flex:1}.bar a{flex:none;font-size:13px;font-weight:600;color:var(--brand);text-decoration:none;padding:8px}
+.bar .bt{flex:1;font:600 18px var(--serif);padding-left:4px}.bar a{flex:none;font-size:13px;font-weight:600;color:var(--brand);text-decoration:none;padding:8px}
 .frame{flex:1;min-height:0;position:relative}
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
 .frame .ld{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:var(--soft);font-size:14px;pointer-events:none}
@@ -78,17 +78,26 @@ textarea{resize:vertical;min-height:70px}
 .exp{display:flex;gap:8px;flex-wrap:wrap}
 .exp .chip{flex:1;justify-content:center;white-space:nowrap}.exp .chip.wa{background:#25D366;color:#06311a}
 /* nav */
-nav{flex:none;position:relative;display:grid;grid-template-columns:repeat(3,1fr);height:calc(var(--nav) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:saturate(1.8) blur(18px);-webkit-backdrop-filter:saturate(1.8) blur(18px);border-top:1px solid var(--line)}
-nav button{border:0;background:none;color:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:600 11px Inter,sans-serif;cursor:pointer;position:relative;z-index:1;transition:color .2s,transform .15s}
+nav{flex:none;position:relative;display:grid;grid-template-columns:repeat(4,1fr);height:calc(var(--nav) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:saturate(1.8) blur(18px);-webkit-backdrop-filter:saturate(1.8) blur(18px);border-top:1px solid var(--line)}
+nav button{border:0;background:none;color:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:600 10.5px Inter,sans-serif;white-space:nowrap;cursor:pointer;position:relative;z-index:1;transition:color .2s,transform .15s}
 nav button:active{transform:scale(.9)}
 nav button.on{color:var(--brand)}nav button.on .i{animation:pop .45s var(--ease)}
-nav .ind{position:absolute;top:7px;left:0;width:33.333%;height:calc(var(--nav) - 14px);display:grid;place-items:center;transition:transform .35s var(--ease);pointer-events:none}
+nav .ind{position:absolute;top:7px;left:0;width:25%;height:calc(var(--nav) - 14px);display:grid;place-items:center;transition:transform .35s var(--ease);pointer-events:none}
 nav .ind::after{content:'';width:68px;height:100%;border-radius:18px;background:var(--brand-bg)}
 @keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
 #net{display:none;align-items:center;justify-content:center;gap:8px;background:var(--ink);color:var(--bg);font-size:13px;font-weight:600;padding:calc(7px + env(safe-area-inset-top)) 12px 7px}
 body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 .toast{position:fixed;left:50%;bottom:calc(var(--nav) + 20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:.25s;z-index:9;box-shadow:var(--sh)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
+/* logo + no pasar */
+.logo{font:700 38px/1 var(--serif);letter-spacing:-.035em;margin:2px 0 16px;color:var(--ink)}
+.logo span{color:var(--brand);font-style:italic;font-weight:600}
+.np ul{list-style:none;margin:0;padding:0}
+.np li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.np li:last-child{border:0}
+.np li::before{content:'';flex:none;width:9px;height:9px;margin-top:7px;border-radius:50%;background:var(--bad)}
+.np h3{font:600 13px Inter,sans-serif;color:var(--bad);margin:14px 0 2px}
+.np .empty{padding:14px 4px}
 @media(min-width:700px){.app{box-shadow:0 0 0 1px var(--line)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
@@ -112,6 +121,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 
 <!-- ===== 1 · INICIO ===== -->
 <section class="view on" id="v-inicio">
+ <div class="logo" aria-label="PredicApp">Predic<span>App</span></div>
  <span class="status" id="estado">…</span>
  <h1 id="fecha"></h1>
  <p class="sub" id="sem"></p>
@@ -138,46 +148,37 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   </details>
  </div>
 
- <div class="card">
-  <h2>Reportar inasistencia</h2>
-  <form id="frm" autocomplete="off">
-   <div class="seg" id="tipo"><button type="button" class="on" data-v="Hermano">Hermano</button><button type="button" data-v="Capitán">Capitán</button></div>
-   <label for="nom">Nombre</label><input id="nom" required placeholder="Nombre del hermano">
-   <label for="fec">Fecha</label><input id="fec" type="date" required>
-   <label for="mot">Motivo</label>
-   <select id="mot"><option>Salud</option><option>Trabajo</option><option>Familia</option><option>Sin aviso</option><option>Otro</option></select>
-   <label for="nota">Nota (opcional)</label><textarea id="nota" placeholder="Detalles…"></textarea>
-   <button class="btn" type="submit">Registrar inasistencia</button>
-  </form>
+ <div class="card np">
+  <h2>No pasar</h2>
+  <div id="np-hoy"></div>
+  <details><summary>Ver todos los territorios</summary><div id="np-all"></div></details>
  </div>
 </section>
 
-<!-- ===== 2 · PREDICACIÓN ===== -->
+<!-- ===== 2 · PREDICACIÓN (solo historial) ===== -->
 <section class="view full" id="v-pred">
- <div class="bar"><div class="seg" id="psub"><button class="on" data-s="prog">Programa</button><button data-s="ina">Inasistencias</button></div><a id="pext" href="https://benavitrex.github.io/Predicaci-n-Automatica/programa.html" target="_blank" rel="noopener">Abrir ↗</a></div>
- <div class="frame" id="p-prog"><div class="ld">Cargando programa…</div><iframe title="Programa de predicación" data-src="https://benavitrex.github.io/Predicaci-n-Automatica/programa.html" loading="lazy"></iframe></div>
- <div id="p-ina" style="display:none;flex:1;min-height:0;overflow-y:auto;padding:16px 16px 28px">
-  <div class="card" style="padding:14px">
-   <div class="sb"><svg class="i"><use href="#i-search"/></svg><input id="q" type="search" placeholder="Buscar por nombre" aria-label="Buscar por nombre"></div>
-   <div class="fr">
-    <div><label for="fd">Desde</label><input id="fd" type="date"></div>
-    <div><label for="fr">Rol</label><select id="fr"><option value="">Todos</option><option>Hermano</option><option>Capitán</option></select></div>
-   </div>
-  </div>
-  <div id="ina-out"></div>
- </div>
+ <div class="bar"><span class="bt">Historial · Predicación</span><a id="pext" target="_blank" rel="noopener">Abrir ↗</a></div>
+ <div class="frame"><div class="ld">Cargando historial…</div><iframe title="Historial de programas de predicación" data-src=""></iframe></div>
 </section>
 
-<!-- ===== 3 · VIDA Y MINISTERIO ===== -->
+<!-- ===== 3 · VIDA Y MINISTERIO (solo historial) ===== -->
 <section class="view full" id="v-vym">
- <div class="frame"><div class="ld">Cargando…</div><iframe title="Vida y Ministerio" data-src="https://jorgelondres37.github.io/Vida-y-Ministerio/programa.html"></iframe></div>
+ <div class="bar"><span class="bt">Historial · Vida y Ministerio</span><a id="vext" target="_blank" rel="noopener">Abrir ↗</a></div>
+ <div class="frame"><div class="ld">Cargando historial…</div><iframe title="Historial de Vida y Ministerio" data-src=""></iframe></div>
+</section>
+
+<!-- ===== 4 · MAPA ===== -->
+<section class="view full" id="v-mapa">
+ <div class="bar"><span class="bt">Mapa</span><a id="mext" target="_blank" rel="noopener">Abrir ↗</a></div>
+ <div class="frame"><div class="ld">Cargando mapa…</div><iframe title="Mapa de territorios" data-src="" allow="geolocation"></iframe></div>
 </section>
 
 <nav aria-label="Secciones">
  <span class="ind" id="ind"></span>
  <button class="on" data-t="inicio"><svg class="i"><use href="#i-home"/></svg>Inicio</button>
  <button data-t="pred"><svg class="i"><use href="#i-cal"/></svg>Predicación</button>
- <button data-t="vym"><svg class="i"><use href="#i-book"/></svg>Vida y Ministerio</button>
+ <button data-t="vym"><svg class="i"><use href="#i-book"/></svg>Vida y Min.</button>
+ <button data-t="mapa"><svg class="i"><use href="#i-map"/></svg>Mapa</button>
 </nav>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -186,7 +187,22 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const BASE='https://benavitrex.github.io/Predicaci-n-Automatica/';
-const KEY='inasistencias_v1',TABS=['inicio','pred','vym'];
+const TABS=['inicio','pred','vym','mapa'];
+
+/* ====== ENLACES (edítalos aquí) ======
+   Predicación y Vida y Ministerio llevan SOLO al historial de programas,
+   nunca a la página privada del programa actual. */
+const URL_PRED ='https://benavitrex.github.io/Predicaci-n-Automatica/historial.html';
+const URL_VYM  ='https://jorgelondres37.github.io/Vida-y-Ministerio/historial.html';
+const MAPA_VER ='https://www.google.com/maps/d/viewer?mid=1H8j2hSNLHMMxyiIiBI___XOZpPDxobc&femb=1&ll=-33.12711459716915%2C-71.57907845698026&z=15';
+const MAPA_EMB ='https://www.google.com/maps/d/embed?mid=1H8j2hSNLHMMxyiIiBI___XOZpPDxobc&ll=-33.12711459716915%2C-71.57907845698026&z=15';
+
+/* ====== NO PASAR ======
+   Agrega las direcciones por número de territorio. Ejemplo:
+   '12':['Los Aromos 345','Calle Mayo 120, depto 4'],  */
+const NO_PASAR={
+};
+
 const iso=d=>d.toLocaleDateString('sv');
 const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
 const store=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch{toast('No se pudo guardar en este navegador');return false}};
@@ -203,16 +219,13 @@ function tab(t){
   $$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));
   $('#ind').style.transform='translateX('+TABS.indexOf(t)*100+'%)';
   $$('#v-'+t+' iframe').forEach(f=>{ if(!f.src&&f.dataset.src&&navigator.onLine){f.src=f.dataset.src;f.addEventListener('load',()=>f.parentNode.querySelector('.ld')?.remove(),{once:true});} });
-  if(t=='pred')renderInas();
   navigator.vibrate?.(8);
   try{history.replaceState(null,'','#'+t)}catch{}
 }
 $$('nav button').forEach(b=>b.onclick=()=>tab(b.dataset.t));
-$('#psub').onclick=e=>{const s=e.target.dataset.s;if(!s)return;
-  $$('#psub button').forEach(b=>b.classList.toggle('on',b.dataset.s==s));
-  $('#p-prog').style.display=s=='prog'?'':'none';$('#p-ina').style.display=s=='ina'?'block':'none';
-  $('#pext').style.visibility=s=='prog'?'visible':'hidden';
-  if(s=='ina')renderInas();};
+/* enlaces de las pestañas */
+$('#pext').href=URL_PRED;$('#vext').href=URL_VYM;$('#mext').href=MAPA_VER;
+$('#v-pred iframe').dataset.src=URL_PRED;$('#v-vym iframe').dataset.src=URL_VYM;$('#v-mapa iframe').dataset.src=MAPA_EMB;
 
 /* ---------- Inicio ---------- */
 const hoy=new Date(),HOY=iso(hoy),dow=hoy.getDay(),finde=dow==0||dow==6;
@@ -221,7 +234,6 @@ $('#fecha').textContent=hoy.toLocaleDateString('es-CL',{weekday:'long',day:'nume
 $('#sem').textContent=hoy.getFullYear()+' · '+(finde?'Fin de semana':'Entre semana');
 $('#hora').textContent=finde?'10:30 AM':'10:00 AM';
 $('#turno').textContent=finde?'Sáb–Dom':'Lun–Vie';
-$('#fec').value=HOY;
 
 function estado(){
   const n=new Date(),ini=new Date(n.getFullYear(),n.getMonth(),n.getDate(),...SAL),fin=new Date(+ini+DUR*36e5),e=$('#estado');
@@ -240,6 +252,7 @@ function showToday(d,src){
   $('#go').hidden=!lugar;
   $('#gmaps').href='https://www.google.com/maps/dir/?api=1&destination='+q;
   $('#waze').href='https://waze.com/ul?q='+q+'&navigate=yes';
+  renderNoPasar(d.terr);
 }
 const manual=()=>load('hoy:'+HOY,null);
 async function loadToday(){
@@ -266,66 +279,16 @@ $('#m_save').onclick=()=>{
 const m0=manual();if(m0){$('#m_cap').value=m0.cap||'';$('#m_casa').value=m0.casa||'';$('#m_dir').value=m0.dir||'';$('#m_terr').value=m0.terr||'';}
 loadToday();
 
-/* ---------- Reportes ---------- */
-let TIPO='Hermano';
-$('#tipo').onclick=e=>{const v=e.target.dataset.v;if(!v)return;TIPO=v;
-  $$('#tipo button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));
-  $('#nom').placeholder='Nombre del '+(v=='Capitán'?'capitán':'hermano');};
-$('#frm').onsubmit=e=>{
-  e.preventDefault();
-  const nombre=$('#nom').value.trim();if(!nombre)return;
-  const list=load(KEY,[]);
-  list.push({id:Date.now().toString(36),tipo:TIPO,nombre,fecha:$('#fec').value,motivo:$('#mot').value,nota:$('#nota').value.trim(),creado:new Date().toISOString()});
-  if(store(KEY,list)){$('#nom').value='';$('#nota').value='';toast('Inasistencia registrada ✓');}
-};
-
-const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-const fmtD=f=>new Date(f+'T00:00').toLocaleDateString('es-CL',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
-const cnt=(L,f)=>{const o={};L.forEach(x=>{const k=f(x);o[k]=(o[k]||0)+1});return Object.entries(o).sort((a,b)=>b[1]-a[1]);};
-let VIEW=[];
-function filtrar(){
-  const q=norm($('#q').value.trim()),fd=$('#fd').value,fr=$('#fr').value;
-  return load(KEY,[]).filter(x=>(!q||norm(x.nombre).includes(q))&&(!fd||x.fecha>=fd)&&(!fr||x.tipo==fr))
-    .sort((a,b)=>b.fecha.localeCompare(a.fecha)||b.creado.localeCompare(a.creado));
+/* ---------- No pasar ---------- */
+const nk=k=>String(k||'').trim().toLowerCase();
+function npList(L){return '<ul>'+L.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'}
+function renderNoPasar(terr){
+  const k=nk(terr),hit=Object.keys(NO_PASAR).find(x=>nk(x)==k),L=hit?NO_PASAR[hit]:[];
+  $('#np-hoy').innerHTML=!k?'<p class="empty">Cuando haya un territorio asignado para hoy, aquí verás sus direcciones de “No pasar”.</p>'
+    :L.length?npList(L):'<p class="empty">No hay direcciones de “No pasar” registradas para el territorio '+esc(terr)+'.</p>';
+  const keys=Object.keys(NO_PASAR).filter(x=>NO_PASAR[x].length).sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));
+  $('#np-all').innerHTML=keys.length?keys.map(x=>'<h3>Territorio '+esc(x)+'</h3>'+npList(NO_PASAR[x])).join(''):'<p class="empty">Aún no hay direcciones registradas.</p>';
 }
-function renderInas(){
-  const L=VIEW=filtrar(),box=$('#ina-out'),total=load(KEY,[]).length;
-  if(!L.length){box.innerHTML='<div class="empty">'+(total?'Ningún registro coincide con el filtro.':'Aún no hay inasistencias registradas.<br>Repórtalas desde la pestaña Inicio.')+'</div>';return;}
-  const mes=HOY.slice(0,7),nMes=L.filter(x=>x.fecha.startsWith(mes)).length,nCap=L.filter(x=>x.tipo=='Capitán').length;
-  const mot=cnt(L,x=>x.motivo),nom=cnt(L,x=>x.nombre).slice(0,5),mx=mot[0][1];
-  box.innerHTML=`<div class="kp"><div><b>${L.length}</b><span>Total</span></div><div><b>${nMes}</b><span>Este mes</span></div><div><b>${nCap}</b><span>Capitanes</span></div></div>
-  <div class="card"><h2>Exportar</h2><div class="exp">
-   <button class="chip wa" data-x="wa"><svg class="i"><use href="#i-share"/></svg>WhatsApp</button>
-   <button class="chip" data-x="txt"><svg class="i"><use href="#i-copy"/></svg>Copiar texto</button>
-   <button class="chip" data-x="json"><svg class="i"><use href="#i-code"/></svg>JSON</button></div></div>
-  <div class="card"><h2>Por motivo</h2>${mot.map(([k,n])=>`<div class="row"><span>${esc(k)}</span><i><u style="width:${n/mx*100}%"></u></i><span>${n}</span></div>`).join('')}</div>
-  <div class="card"><h2>Más inasistencias</h2>${nom.map(([k,n])=>`<div class="row" style="grid-template-columns:1fr 28px"><span>${esc(k)}</span><span style="text-align:right;font-weight:600">${n}</span></div>`).join('')}</div>
-  <div class="card"><h2>Registro (${L.length})</h2>${L.map(x=>`<div class="item"><div><b>${esc(x.nombre)}</b><span class="tag ${x.tipo=='Capitán'?'c':'h'}">${esc(x.tipo)}</span><small>${fmtD(x.fecha)} · ${esc(x.motivo)}</small>${x.nota?`<small>${esc(x.nota)}</small>`:''}</div><button class="mini" data-del="${x.id}" aria-label="Eliminar"><svg class="i"><use href="#i-trash"/></svg></button></div>`).join('')}</div>
-  <button class="btn ghost" id="clr">Borrar todo el registro</button>`;
-}
-['q','fd','fr'].forEach(id=>$('#'+id).addEventListener('input',renderInas));
-
-/* ---------- Exportar ---------- */
-function resumen(){
-  const L=VIEW,d=x=>x.fecha.split('-').reverse().slice(0,2).join('/');
-  return `📋 *Inasistencias · Predicación*\nTotal: ${L.length}\n\n*Por motivo*\n${cnt(L,x=>x.motivo).map(([k,n])=>`• ${k}: ${n}`).join('\n')}\n\n*Detalle*\n${L.map(x=>`• ${d(x)} · ${x.nombre} (${x.tipo}) · ${x.motivo}${x.nota?' — '+x.nota:''}`).join('\n')}`;
-}
-async function copiar(t){try{await navigator.clipboard.writeText(t);toast('Copiado ✓')}catch{const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove();toast('Copiado ✓')}}
-function exportar(k){
-  if(!VIEW.length)return;
-  if(k=='wa')return window.open('https://wa.me/?text='+encodeURIComponent(resumen()),'_blank');
-  if(k=='txt')return copiar(resumen());
-  const json=JSON.stringify({generado:new Date().toISOString(),total:VIEW.length,porMotivo:Object.fromEntries(cnt(VIEW,x=>x.motivo)),registros:VIEW.map(({id,creado,...r})=>r)},null,2);
-  if(navigator.canShare?.({files:[new File([json],'inasistencias.json',{type:'application/json'})]})){
-    navigator.share({files:[new File([json],'inasistencias.json',{type:'application/json'})]}).catch(()=>{});
-  }else copiar(json).then?.(()=>{});
-}
-$('#ina-out').onclick=e=>{
-  const del=e.target.closest('[data-del]'),x=e.target.closest('[data-x]');
-  if(del){store(KEY,load(KEY,[]).filter(r=>r.id!=del.dataset.del));renderInas();}
-  if(x)exportar(x.dataset.x);
-  if(e.target.id=='clr'&&confirm('¿Borrar todas las inasistencias registradas?')){store(KEY,[]);renderInas();}
-};
 
 /* ---------- PWA ---------- */
 (function(){
@@ -333,7 +296,7 @@ $('#ina-out').onclick=e=>{
     x.fillStyle='#1B6B5B';x.fillRect(0,0,s,s);x.fillStyle='#fff';x.font='600 '+s*.56+'px Georgia,serif';x.textAlign='center';x.textBaseline='middle';x.fillText('P',s/2,s*.54);return c.toDataURL('image/png')};
   try{
     const url=location.href.split('#')[0].split('?')[0],i192=icon(192),i512=icon(512);
-    const man={name:'Predicación · Congregación',short_name:'Predicación',start_url:url,scope:new URL('./',url).href,display:'standalone',orientation:'portrait',background_color:'#1B6B5B',theme_color:'#1B6B5B',lang:'es',
+    const man={name:'PredicApp',short_name:'PredicApp',start_url:url,scope:new URL('./',url).href,display:'standalone',orientation:'portrait',background_color:'#1B6B5B',theme_color:'#1B6B5B',lang:'es',
       icons:[{src:i192,sizes:'192x192',type:'image/png',purpose:'any maskable'},{src:i512,sizes:'512x512',type:'image/png',purpose:'any maskable'}]};
     const l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify(man)],{type:'application/manifest+json'}));document.head.append(l);
     const a=document.createElement('link');a.rel='apple-touch-icon';a.href=icon(180);document.head.append(a);
@@ -342,6 +305,6 @@ $('#ina-out').onclick=e=>{
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 
-const h=location.hash.slice(1);if(['pred','vym'].includes(h))tab(h);
+const h=location.hash.slice(1);if(['pred','vym','mapa'].includes(h))tab(h);
 </script>
 </body></html>
