@@ -157,12 +157,24 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 @media(min-width:700px){.app{box-shadow:0 0 0 1px var(--line)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-.terr-map{margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--fill);position:relative;aspect-ratio:16/11}
+.terr-map{margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--fill);position:relative;height:180px;max-height:40vw}
 .terr-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.terr-map .tm-ld{position:absolute;inset:0;display:grid;place-items:center;color:var(--soft);font-size:13px;pointer-events:none}
-.terr-map-actions{display:flex;gap:8px;margin-top:8px}
-.terr-map-actions a{flex:1;text-align:center;padding:10px;border-radius:12px;background:var(--fill);color:var(--brand-2);font:600 13px var(--sans);text-decoration:none;border:1px solid var(--line);transition:var(--t)}
-.terr-map-actions a:hover{background:var(--brand-bg);transform:translateY(-1px)}
+.terr-map .tm-ld{position:absolute;inset:0;display:grid;place-items:center;color:var(--soft);font-size:13px;pointer-events:none;z-index:0}
+.np-block{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.np-block h3{font:600 13px var(--sans);color:var(--bad);margin:0 0 6px}
+.np-block ul{list-style:none;margin:0;padding:0}
+.np-block li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.np-block li:last-child{border:0}
+.np-block li::before{content:'';flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:var(--bad)}
+.np-block .empty{color:var(--soft);font-size:13px;padding:4px 0}
+
+.casa-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;width:100%}
+.casa-row .casa-info{min-width:0;flex:1}
+.btn-dir{flex:none;border:0;background:var(--brand-2);color:#fff;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;cursor:pointer;text-decoration:none;box-shadow:0 2px 8px rgba(45,90,67,.25);transition:var(--t)}
+.btn-dir:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(45,90,67,.35)}
+.btn-dir:active{transform:scale(.96)}
+.btn-dir svg{width:18px;height:18px}
+.btn-dir[hidden]{display:none}
 </style></head><body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -189,16 +201,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
  <div class="salidas" id="salidas"></div>
  <p class="st" id="src" style="margin-top:0;margin-bottom:14px"></p>
 
- <div class="card">
-  <details><summary>Completar datos de hoy manualmente</summary>
-   <label for="m_cap">Capitán</label><input id="m_cap" placeholder="Nombre">
-   <label for="m_casa">Casa de salida</label><input id="m_casa" placeholder="Familia">
-   <label for="m_dir">Dirección</label><input id="m_dir" placeholder="Calle, número, comuna">
-   <label for="m_terr">Territorio</label><input id="m_terr" placeholder="N.º">
-   <label for="m_hora">Hora (ej. 10:00)</label><input id="m_hora" placeholder="10:00">
-   <button class="btn" id="m_save" type="button" style="margin-top:14px">Guardar datos de hoy</button>
-  </details>
- </div>
+
 
  <div class="card np">
   <h2>No pasar</h2>
@@ -442,30 +445,36 @@ function salidaState(h){
 const nk=k=>String(k||'').trim().toLowerCase();
 function terrMapHtml(terr){
   const k=nk(String(terr||'').replace(/^territorio\s*/i,'').trim());
-  const mid=TERR_MAPS[k]||Object.keys(TERR_MAPS).find(x=>nk(x)===k)&&TERR_MAPS[Object.keys(TERR_MAPS).find(x=>nk(x)===k)];
-  // resolve mid
   let m=TERR_MAPS[String(terr||'').trim()]||TERR_MAPS[k];
   if(!m){
     const hit=Object.keys(TERR_MAPS).find(x=>nk(x)===k);
     if(hit)m=TERR_MAPS[hit];
   }
-  if(!m)return '';
-  const view='https://www.google.com/maps/d/viewer?hl=es&mid='+encodeURIComponent(m);
-  const emb='https://www.google.com/maps/d/embed?mid='+encodeURIComponent(m)+'&hl=es';
-  return `<div class="terr-map"><div class="tm-ld">Cargando mapa del territorio…</div>
-    <iframe title="Mapa territorio ${esc(terr)}" src="${emb}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-  </div>
-  <div class="terr-map-actions"><a href="${view}" target="_blank" rel="noopener">Abrir mapa del territorio ↗</a></div>`;
+  let map='';
+  if(m){
+    const emb='https://www.google.com/maps/d/embed?mid='+encodeURIComponent(m)+'&hl=es';
+    map=`<div class="terr-map"><div class="tm-ld">Cargando mapa…</div>
+      <iframe title="Mapa territorio ${esc(terr)}" src="${emb}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>`;
+  }
+  // No pasar debajo del mapa
+  const hit=Object.keys(NO_PASAR).find(x=>nk(x)===k);
+  const L=hit?NO_PASAR[hit]:[];
+  let np='<div class="np-block"><h3>No pasar</h3>';
+  if(!k) np+='<p class="empty">Sin territorio asignado.</p>';
+  else if(L.length) np+='<ul>'+L.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
+  else np+='<p class="empty">Aún no hay direcciones de “No pasar” para el territorio '+esc(terr)+'.</p>';
+  np+='</div>';
+  return map+np;
 }
-function mapsBtn(lugar){
-  if(!lugar)return '';
+function dirBtn(lugar){
   const q=encodeURIComponent(lugar);
   const url='https://www.google.com/maps/dir/?api=1&destination='+q;
-  return `<a class="btn-maps" href="${url}" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
-    <span>Abrir en Google Maps</span>
+  return `<a class="btn-dir" href="${url}" target="_blank" rel="noopener" title="Cómo llegar" aria-label="Cómo llegar a la casa de salida">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
   </a>`;
 }
+function mapsBtn(lugar){return dirBtn(lugar)}
 
 function renderSalidas(list,src){
   const box=$('#salidas');
@@ -498,11 +507,15 @@ function renderSalidas(list,src){
       <div class="salida-body">
         <div class="dl">
           <div><span class="ic"><svg class="i"><use href="#i-nav"/></svg></span><div><small>Capitán</small><b>${esc(d.cap||'—')}</b></div></div>
-          <div><span class="ic"><svg class="i"><use href="#i-home"/></svg></span><div><small>Casa de salida</small><b>${esc(d.casa||'—')}</b><span class="d">${esc(d.dir||'')}</span></div></div>
+          <div><span class="ic"><svg class="i"><use href="#i-home"/></svg></span>
+            <div class="casa-row">
+              <div class="casa-info"><small>Casa de salida</small><b>${esc(d.casa||'—')}</b><span class="d">${esc(d.dir||'')}</span></div>
+              ${lugar?dirBtn(lugar):''}
+            </div>
+          </div>
           <div><span class="ic"><svg class="i"><use href="#i-map"/></svg></span><div><small>Territorio</small><b>${d.terr?('Territorio '+esc(d.terr)):'—'}</b></div></div>
         </div>
         ${terrMapHtml(d.terr)}
-        ${mapsBtn(lugar)}
       </div>
     </div>`;
   }).join('');
@@ -581,18 +594,6 @@ async function loadToday(){
   }catch{
     if(!m&&!(c?.f==HOY))$('#src').textContent='No se pudo leer el programa. Completa los datos manualmente o míralo en la pestaña Predicación.';
   }
-}
-$('#m_save').onclick=()=>{
-  const d={cap:$('#m_cap').value.trim(),casa:$('#m_casa').value.trim(),dir:$('#m_dir').value.trim(),terr:$('#m_terr').value.trim(),hora:$('#m_hora').value.trim()||'10:00'};
-  if(!d.cap&&!d.casa&&!d.dir&&!d.terr)return toast('Escribe al menos un dato');
-  Object.keys(localStorage).filter(k=>k.startsWith('hoy:')&&k!='hoy:'+HOY).forEach(k=>localStorage.removeItem(k));
-  if(store('hoy:'+HOY,[d])){window.TODAY_ROWS=[d];renderSalidas([d],'Datos ingresados manualmente.');estado();toast('Datos de hoy guardados');}
-};
-const m0=manual();
-if(m0){
-  const d=Array.isArray(m0)?m0[0]:m0;
-  $('#m_cap').value=d.cap||'';$('#m_casa').value=d.casa||'';$('#m_dir').value=d.dir||'';$('#m_terr').value=d.terr||'';
-  if(d.hora)$('#m_hora').value=d.hora;
 }
 loadToday();
 
