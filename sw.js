@@ -1,4 +1,4 @@
-const C='predicacion-v3';
+const C='predicacion-v4';
 const ASSETS=['./','./index.html','./sw.js'];
 
 self.addEventListener('install',e=>{
@@ -20,13 +20,12 @@ self.addEventListener('activate',e=>{
 self.addEventListener('fetch',e=>{
   if(e.request.method!=='GET'||!e.request.url.startsWith('http'))return;
   const u=new URL(e.request.url);
-  // No cachear APIs externas ni PDFs remotos (solo la UI de la app)
-  if(u.hostname==='api.github.com'||u.hostname.includes('googleapis')||u.pathname.endsWith('.pdf'))return;
+  if(u.hostname==='api.github.com'||u.pathname.endsWith('.pdf'))return;
 
   e.respondWith(
     fetch(e.request)
       .then(r=>{
-        if(r.ok&&u.origin===location.origin){
+        if(r.ok&&u.origin===self.location.origin){
           const cp=r.clone();
           caches.open(C).then(c=>c.put(e.request,cp));
         }
