@@ -157,7 +157,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 @media(min-width:700px){.app{box-shadow:0 0 0 1px var(--line)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-.terr-map{margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--fill);position:relative;height:180px;max-height:40vw}
+.terr-map{margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--fill);position:relative;height:120px;max-height:28vw}
 .terr-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .terr-map .tm-ld{position:absolute;inset:0;display:grid;place-items:center;color:var(--soft);font-size:13px;pointer-events:none;z-index:0}
 .np-block{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
@@ -175,6 +175,27 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 .btn-dir:active{transform:scale(.96)}
 .btn-dir svg{width:18px;height:18px}
 .btn-dir[hidden]{display:none}
+
+.bar .mini-link{flex:none;border:0;background:rgba(255,255,255,.18);color:var(--on);font:600 12px var(--sans);padding:7px 12px;border-radius:9999px;cursor:pointer;text-decoration:none;transition:var(--t);white-space:nowrap}
+.bar .mini-link:hover{background:rgba(255,255,255,.28)}
+.g-wrap{padding:16px;padding-bottom:28px}
+.g-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:14px;box-shadow:var(--sh);overflow:hidden}
+.g-head{background:var(--brand);color:var(--on);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.g-head h3{margin:0;font:600 15px var(--sans);letter-spacing:-.01em}
+.g-head .g-count{font-size:11px;font-weight:700;padding:3px 9px;border-radius:9999px;background:rgba(255,255,255,.18)}
+.g-list{padding:4px 0}
+.g-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line);font-size:14px;transition:var(--t)}
+.g-row:last-child{border:0}
+.g-row:hover{background:color-mix(in srgb,var(--fill) 60%,transparent)}
+.g-row .g-name{font-weight:500;min-width:0}
+.g-row .g-name b{font-weight:700}
+.g-tag{flex:none;font-size:11px;font-weight:700;padding:3px 9px;border-radius:9999px;background:var(--fill);color:var(--brand-2);letter-spacing:.02em}
+.g-tag.an{background:#E8F0EB;color:#1B382B}
+.g-tag.pr{background:#E8EEF8;color:#2B4A7A}
+.g-tag.sm{background:#F4E8CC;color:#A87B2E}
+.g-tag.pnb{background:#F9E6E2;color:#B33A2E}
+.g-tag.ptj{background:var(--fill);color:var(--soft)}
+.g-tag.pe{background:#EDE8F5;color:#5B3A8C}
 </style></head><body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -218,6 +239,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 <section class="view full" id="v-pred" data-h="pred">
  <div class="bar">
   <span class="bt">Predicación <span class="badge-sec">Programa</span></span>
+  <button type="button" class="mini-link" id="btn-grupos">Grupos</button>
   <button class="zb" data-z="-" aria-label="Alejar">−</button>
   <button class="zb" data-z="+" aria-label="Acercar">+</button>
   <a class="ext" target="_blank" rel="noopener" hidden>PDF ↗</a>
@@ -240,6 +262,16 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 <section class="view full" id="v-mapa">
  <div class="bar"><span class="bt">Mapa</span><a id="mext" target="_blank" rel="noopener">Abrir ↗</a></div>
  <div class="frame"><div class="ld">Cargando mapa…</div><iframe title="Mapa de territorios" data-src="" allow="geolocation"></iframe></div>
+</section>
+
+
+<!-- ===== GRUPOS ===== -->
+<section class="view" id="v-grupos">
+ <div class="bar" style="background:var(--brand)">
+  <button type="button" id="g-back" class="mini-link" style="margin-right:4px">← Volver</button>
+  <span class="bt">Grupos de servicio</span>
+ </div>
+ <div class="g-wrap" id="g-wrap"></div>
 </section>
 
 <nav aria-label="Secciones">
@@ -371,6 +403,113 @@ const TERR_LINKS={
    Déjalo vacío hasta que tengas el archivo.
 */
 const NO_PASAR_URL='';
+const GRUPOS_DATA=[
+  {nombre:'Grupo 1',super:'Juan Aguilera',miembros:[
+    {n:'Aguilera, Juan',r:'AN/PR'},
+    {n:'Aguilera, Noemí de',r:'PR'},
+    {n:'Avila, Marisol',r:'PTJ'},
+    {n:'Cabezas, Luis',r:'PTJ'},
+    {n:'Cabezas, Rosa de',r:'PTJ'},
+    {n:'Colina, Matías',r:'PTJ'},
+    {n:'Colina, Tomás',r:'PTJ'},
+    {n:'Colina, Stephanie de',r:'PTJ'},
+    {n:'Da Silva, Cristian (Aux)',r:'AN/PR'},
+    {n:'Da Silva, Fabiola de',r:'PR'},
+    {n:'Lima, Beatriz',r:'PTJ'},
+    {n:'Orellana, Ismael',r:'SM/PR'},
+    {n:'Orellana, Andrea de',r:'PR'},
+    {n:'Ortega, David',r:'PTJ'},
+    {n:'Ortega, Elisabete de',r:'PTJ'},
+    {n:'Panes, Rita',r:'PR'},
+    {n:'Robles, Cesar',r:'PTJ'},
+    {n:'Robles, Poulette de',r:'PTJ'},
+    {n:'Robles, Emilia',r:'PNB'},
+    {n:'Rodríguez, Alicia',r:'PTJ'},
+  ]},
+  {nombre:'Grupo 2',super:'Luis López',miembros:[
+    {n:'Aliaga, Mario (Aux)',r:'AN'},
+    {n:'Aliaga, Ana de',r:'PTJ'},
+    {n:'Aliaga, Thiare',r:'PTJ'},
+    {n:'Avilés, Idilia',r:'PTJ'},
+    {n:'Colina, Guillermo',r:'SM'},
+    {n:'Colina, Isabel de',r:'PTJ'},
+    {n:'Cortez, Esther',r:'PTJ'},
+    {n:'Cruz, David',r:'SM/PR'},
+    {n:'Cruz, Valezka de',r:'PR'},
+    {n:'López, Luis',r:'AN'},
+    {n:'López, Angélica de',r:'PTJ'},
+    {n:'López, Bárbara',r:'PTJ'},
+    {n:'Mesa, Elías',r:'PNB'},
+    {n:'Mesa, Paola de',r:'PTJ'},
+    {n:'Navarro, Juan',r:'PTJ'},
+    {n:'Navarro, Olga de',r:'PTJ'},
+    {n:'Ramírez, Andrea de',r:'PTJ'},
+    {n:'Rojo, Carolina de',r:'PR'},
+  ]},
+  {nombre:'Grupo 3',super:'Hernán Coronado',miembros:[
+    {n:'Coronado, Hernán',r:'AN'},
+    {n:'Coronado, Sirlene de',r:'PTJ'},
+    {n:'Coronado, Tomás',r:'PTJ'},
+    {n:'Durán, Matilde',r:'PTJ'},
+    {n:'Benavides, Jorge (Aux)',r:'AN'},
+    {n:'Benavides, Nayade de',r:'PTJ'},
+    {n:'Benavides, Eduardo',r:'PTJ'},
+    {n:'Gutiérrez, Hugo',r:'PTJ'},
+    {n:'López, Fabiola de',r:'PTJ'},
+    {n:'Molina, Rodrigo',r:'PTJ'},
+    {n:'Molina, Lisette de',r:'PTJ'},
+    {n:'Molina, Rodrigo Jr',r:'PNB'},
+    {n:'Pinto, Susan de',r:'PTJ'},
+    {n:'Ruiz, Roxana de',r:'PTJ'},
+    {n:'Silva, Johnny',r:'SM'},
+    {n:'Ugalde, Ricardo',r:'SM'},
+    {n:'Ugalde, Leticia de',r:'PR'},
+    {n:'Ugalde, Gabriel',r:'PTJ'},
+  ]},
+  {nombre:'Grupo 4',super:'Manuel Hernández',miembros:[
+    {n:'Avendaño, Josefina',r:'PNB'},
+    {n:'Cancino, Silvana de',r:'PTJ'},
+    {n:'Escandell, Luis (Aux)',r:'AN'},
+    {n:'Escandell, Erika de',r:'PTJ'},
+    {n:'Escandell, Felipe',r:'PTJ'},
+    {n:'Godoy, Felipe',r:'SM'},
+    {n:'Godoy, Claudia de',r:'PTJ'},
+    {n:'Hernández, Manuel',r:'AN'},
+    {n:'Hernández, Cristhel de',r:'PTJ'},
+    {n:'Hernández, Janis',r:'PTJ'},
+    {n:'Meneses, Miguel',r:'SM'},
+    {n:'Núñez, Andrea de',r:'PTJ'},
+    {n:'Núñez, Enrique',r:'PTJ'},
+    {n:'Silva, Yimmy',r:'SM'},
+    {n:'Silva, Cecilia de',r:'PTJ'},
+    {n:'Valladares, Luis',r:'PTJ'},
+    {n:'Valladares, Viviana de',r:'PTJ'},
+    {n:'Valenzuela, Andrés',r:'PTJ'},
+  ]},
+  {nombre:'Grupo 5',super:'Ronny Pérez',miembros:[
+    {n:'Alvarado, Carlos',r:'PTJ'},
+    {n:'Alvarado, Verónica de',r:'PTJ'},
+    {n:'Alvarado, Leonor',r:'PTJ'},
+    {n:'Alvarado, Carla',r:'PTJ'},
+    {n:'Arias, Lidiana de',r:'PTJ'},
+    {n:'Cerna, Rebecca',r:'PNB'},
+    {n:'Correa, Claudio (Aux)',r:'AN/PE'},
+    {n:'Correa, Ximena de',r:'PE'},
+    {n:'Maturana, John',r:'PTJ'},
+    {n:'Pérez, Ronny',r:'AN/PR'},
+    {n:'Pérez, Gisele de',r:'PR'},
+    {n:'Pizarro, Agustín',r:'PTJ'},
+    {n:'Pizarro, Patricia de',r:'PTJ'},
+    {n:'Riquelme, Kiryat',r:'PTJ'},
+    {n:'Valenzuela, Mauricio',r:'SM'},
+    {n:'Valenzuela, Marcela de',r:'PTJ'},
+    {n:'Valenzuela, Rocío',r:'PTJ'},
+    {n:'Veloz, Ana María de',r:'PTJ'},
+    {n:'Yáñez, Carlos',r:'PTJ'},
+    {n:'Yáñez, Lucía de',r:'PTJ'},
+  ]},
+];
+
 
 
 const iso=d=>d.toLocaleDateString('sv');
@@ -450,22 +589,11 @@ function terrMapHtml(terr){
     const hit=Object.keys(TERR_MAPS).find(x=>nk(x)===k);
     if(hit)m=TERR_MAPS[hit];
   }
-  let map='';
-  if(m){
-    const emb='https://www.google.com/maps/d/embed?mid='+encodeURIComponent(m)+'&hl=es';
-    map=`<div class="terr-map"><div class="tm-ld">Cargando mapa…</div>
-      <iframe title="Mapa territorio ${esc(terr)}" src="${emb}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-    </div>`;
-  }
-  // No pasar debajo del mapa
-  const hit=Object.keys(NO_PASAR).find(x=>nk(x)===k);
-  const L=hit?NO_PASAR[hit]:[];
-  let np='<div class="np-block"><h3>No pasar</h3>';
-  if(!k) np+='<p class="empty">Sin territorio asignado.</p>';
-  else if(L.length) np+='<ul>'+L.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
-  else np+='<p class="empty">Aún no hay direcciones de “No pasar” para el territorio '+esc(terr)+'.</p>';
-  np+='</div>';
-  return map+np;
+  if(!m)return '';
+  const emb='https://www.google.com/maps/d/embed?mid='+encodeURIComponent(m)+'&hl=es';
+  return `<div class="terr-map"><div class="tm-ld">Cargando mapa…</div>
+    <iframe title="Mapa territorio ${esc(terr)}" src="${emb}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+  </div>`;
 }
 function dirBtn(lugar){
   const q=encodeURIComponent(lugar);
@@ -626,6 +754,42 @@ async function loadNoPasarRemote(){
   }catch{}
 }
 loadNoPasarRemote();
+
+function tagClass(r){
+  const u=String(r||'').toUpperCase();
+  if(u.includes('AN'))return 'an';
+  if(u.includes('PE'))return 'pe';
+  if(u==='PR'||u.startsWith('PR'))return 'pr';
+  if(u.includes('SM'))return 'sm';
+  if(u.includes('PNB'))return 'pnb';
+  return 'ptj';
+}
+function renderGrupos(){
+  const box=$('#g-wrap');
+  if(!box)return;
+  box.innerHTML=GRUPOS_DATA.map(g=>{
+    const rows=g.miembros.map(m=>{
+      // bold superintendente name match
+      const isSuper=m.n.toLowerCase().includes(g.super.split(' ')[0].toLowerCase())&&m.r.includes('AN');
+      const name=isSuper?('<b>'+esc(m.n)+'</b>'):esc(m.n);
+      return `<div class="g-row"><span class="g-name">${name}</span><span class="g-tag ${tagClass(m.r)}">${esc(m.r)}</span></div>`;
+    }).join('');
+    return `<div class="g-card">
+      <div class="g-head"><h3>${esc(g.nombre)} · ${esc(g.super)}</h3><span class="g-count">${g.miembros.length}</span></div>
+      <div class="g-list">${rows}</div>
+    </div>`;
+  }).join('');
+}
+function openGrupos(){
+  $$('.view').forEach(v=>v.classList.remove('on'));
+  $('#v-grupos').classList.add('on');
+  $$('nav button').forEach(b=>b.classList.remove('on'));
+  renderGrupos();
+  try{history.replaceState(null,'','#grupos')}catch{}
+}
+$('#btn-grupos')&&($('#btn-grupos').onclick=()=>openGrupos());
+$('#g-back')&&($('#g-back').onclick=()=>tab('pred'));
+
 
 const CFG_KEY='predicapp.cfg';
 function guessRepo(){
@@ -938,6 +1102,6 @@ $('#cfg-sheet').onclick=e=>{if(e.target.id==='cfg-sheet')$('#cfg-sheet').hidden=
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 
-const h=location.hash.slice(1);if(['pred','vym','mapa'].includes(h))tab(h);
+const h=location.hash.slice(1);if(h==='grupos')openGrupos();else if(['pred','vym','mapa'].includes(h))tab(h);
 </script>
 </body></html>
