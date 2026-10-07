@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1B6B5B">
+<title>Predicación · Congregación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F4F0;--card:#FFFEFB;--ink:#1A221E;--soft:#5A645E;--line:#E4E6DF;--fill:#EEF0EA;--brand:#1B6B5B;--brand-bg:#D8EDE6;--on:#fff;--bad:#B33A2E;--bad-bg:#F9E6E2;--gold:#A87B2E;--gold-bg:#F4E8CC;--nav:64px;--serif:'Fraunces',Georgia,serif}
+@media(prefers-color-scheme:dark){:root{--bg:#101412;--card:#181D1A;--ink:#EAEDEA;--soft:#A8B2AB;--line:#2A312C;--fill:#222925;--brand:#4BB89F;--brand-bg:#1C302B;--on:#0A1411;--bad:#E17A6E;--bad-bg:#382320;--gold:#D0A44E;--gold-bg:#372C14}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.app{height:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;position:relative;background:var(--bg)}
+.view{display:none;flex:1;min-height:0;overflow-y:auto;padding:calc(18px + env(safe-area-inset-top)) 16px 24px}
+.view.on{display:block}
+.view.full{padding:0;overflow:hidden;flex-direction:column}.view.full.on{display:flex}
+.eyebrow{font:600 11px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin:0 0 8px}
+h1{font:600 32px/1.1 var(--serif);letter-spacing:-.02em;margin:0 0 4px;text-transform:capitalize}
+h2{font:600 18px/1.25 var(--serif);margin:0 0 10px}
+.sub{color:var(--soft);margin:0 0 18px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 1px 2px rgba(20,30,25,.04)}
+.hora{background:var(--brand);color:var(--on);border:0;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hora small{display:block;font:600 11px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+.hora b{font:600 44px/1 var(--serif);letter-spacing:-.02em}
+.hora .pill{background:rgba(255,255,255,.18);border-radius:99px;padding:5px 12px;font-weight:600;font-size:13px}
+.dl{display:grid;gap:0}
+.dl>div{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--line)}.dl>div:last-child{border:0;padding-bottom:0}.dl>div:first-child{padding-top:0}
+.ic{flex:none;width:34px;height:34px;border-radius:10px;background:var(--brand-bg);display:grid;place-items:center;font-size:16px}
+.dl small{display:block;font:600 10.5px ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.dl b{font-weight:600;font-size:16px}.dl span.d{display:block;color:var(--soft);font-size:13px}
+.st{font-size:12.5px;color:var(--soft);margin:10px 0 0}
+details summary{cursor:pointer;font-weight:600;font-size:13px;color:var(--brand);margin-top:12px}
+label{display:block;font:600 11px ui-monospace,monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--soft);margin:12px 0 5px}
+input,select,textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 12px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-bg)}
+textarea{resize:vertical;min-height:70px}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--fill);border-radius:12px;padding:3px;gap:3px}
+.seg button{border:0;background:transparent;color:var(--soft);font:600 14px Inter,sans-serif;padding:9px 6px;border-radius:10px;cursor:pointer}
+.seg button.on{background:var(--card);color:var(--brand);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.btn{width:100%;margin-top:16px;border:0;border-radius:12px;background:var(--brand);color:var(--on);font:600 15px Inter,sans-serif;padding:14px;cursor:pointer}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--bad);border:1px solid var(--line);margin-top:6px;padding:10px;font-size:13px}
+.mini{border:1px solid var(--line);background:transparent;color:var(--bad);border-radius:8px;padding:4px 9px;font-size:12px;cursor:pointer}
+.bar{display:flex;gap:8px;align-items:center;padding:calc(10px + env(safe-area-inset-top)) 12px 10px;background:var(--card);border-bottom:1px solid var(--line)}
+.bar .seg{flex:1}
+.bar a{flex:none;font-size:12.5px;font-weight:600;color:var(--brand);text-decoration:none;padding:8px}
+.frame{flex:1;min-height:0;position:relative}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+.frame .ld{position:absolute;inset:0;display:grid;place-items:center;color:var(--soft);font-size:14px;pointer-events:none}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.kp div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.kp b{display:block;font:600 26px/1.1 var(--serif);color:var(--bad)}.kp span{font:600 10px ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.row{display:grid;grid-template-columns:96px 1fr 28px;gap:10px;align-items:center;font-size:13px;margin:7px 0}
+.row i{height:9px;border-radius:99px;background:var(--fill);overflow:hidden}.row u{display:block;height:100%;background:var(--bad)}.row span:last-child{text-align:right;font-weight:600}
+.item{padding:12px 0;border-bottom:1px dashed var(--line);display:flex;gap:10px;justify-content:space-between;align-items:flex-start}.item:last-child{border:0}
+.item b{font-weight:600}.item small{display:block;color:var(--soft);font-size:12.5px}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px;margin-left:6px;vertical-align:middle}
+.tag.h{background:var(--gold-bg);color:var(--gold)}.tag.c{background:var(--bad-bg);color:var(--bad)}
+.empty{color:var(--soft);text-align:center;padding:22px 8px;font-size:14px}
+nav{flex:none;display:grid;grid-template-columns:repeat(3,1fr);height:calc(var(--nav) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--card);border-top:1px solid var(--line)}
+nav button{border:0;background:none;color:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:600 11px Inter,sans-serif;cursor:pointer;position:relative}
+nav button .e{font-size:21px;line-height:1;filter:grayscale(1);opacity:.7}
+nav button.on{color:var(--brand)}nav button.on .e{filter:none;opacity:1}
+nav button.on::before{content:'';position:absolute;top:0;width:34px;height:3px;border-radius:0 0 4px 4px;background:var(--brand)}
+.toast{position:fixed;left:50%;bottom:calc(var(--nav) + 20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:.25s;z-index:9}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media(min-width:700px){.app{border-left:1px solid var(--line);border-right:1px solid var(--line)}}
+</style></head><body>
+<div class="app">
+
+<!-- ===== 1 · INICIO ===== -->
+<section class="view on" id="v-inicio">
+ <p class="eyebrow">Hoy · Predicación</p>
+ <h1 id="fecha"></h1>
+ <p class="sub" id="sem"></p>
+
+ <div class="card hora"><div><small>Hora de salida</small><b id="hora"></b></div><span class="pill" id="turno"></span></div>
+
+ <div class="card">
+  <div class="dl">
+   <div><span class="ic">🧭</span><div><small>Capitán</small><b id="cap">—</b></div></div>
+   <div><span class="ic">🏠</span><div><small>Casa de salida</small><b id="casa">—</b><span class="d" id="dir"></span></div></div>
+   <div><span class="ic">🗺️</span><div><small>Territorio</small><b id="terr">—</b></div></div>
+  </div>
+  <p class="st" id="src"></p>
+  <details><summary>Completar datos de hoy manualmente</summary>
+   <label for="m_cap">Capitán</label><input id="m_cap" placeholder="Nombre">
+   <label for="m_casa">Casa de salida</label><input id="m_casa" placeholder="Familia / dirección">
+   <label for="m_terr">Territorio</label><input id="m_terr" placeholder="N.º">
+   <button class="btn" id="m_save" type="button" style="margin-top:12px">Guardar datos de hoy</button>
+  </details>
+ </div>
+
+ <div class="card">
+  <h2>Reportar inasistencia</h2>
+  <form id="frm" autocomplete="off">
+   <div class="seg" id="tipo"><button type="button" class="on" data-v="Hermano">Hermano</button><button type="button" data-v="Capitán">Capitán</button></div>
+   <label for="nom">Nombre</label><input id="nom" required placeholder="Nombre del hermano">
+   <label for="fec">Fecha</label><input id="fec" type="date" required>
+   <label for="mot">Motivo</label>
+   <select id="mot"><option>Salud</option><option>Trabajo</option><option>Familia</option><option>Sin aviso</option><option>Otro</option></select>
+   <label for="nota">Nota (opcional)</label><textarea id="nota" placeholder="Detalles…"></textarea>
+   <button class="btn" type="submit">Registrar inasistencia</button>
+  </form>
+ </div>
+</section>
+
+<!-- ===== 2 · PREDICACIÓN ===== -->
+<section class="view full" id="v-pred">
+ <div class="bar"><div class="seg" id="psub"><button class="on" data-s="prog">Programa</button><button data-s="ina">Inasistencias</button></div><a id="pext" href="https://benavitrex.github.io/Predicaci-n-Automatica/programa.html" target="_blank" rel="noopener">Abrir ↗</a></div>
+ <div class="frame" id="p-prog"><div class="ld">Cargando programa…</div><iframe title="Programa de predicación" data-src="https://benavitrex.github.io/Predicaci-n-Automatica/programa.html" loading="lazy"></iframe></div>
+ <div id="p-ina" style="display:none;flex:1;min-height:0;overflow-y:auto;padding:16px 16px 24px"></div>
+</section>
+
+<!-- ===== 3 · VIDA Y MINISTERIO ===== -->
+<section class="view full" id="v-vym">
+ <div class="frame"><div class="ld">Cargando…</div><iframe title="Vida y Ministerio" data-src="https://jorgelondres37.github.io/Vida-y-Ministerio/programa.html"></iframe></div>
+</section>
+
+<nav aria-label="Secciones">
+ <button class="on" data-t="inicio"><span class="e">🏠</span>Inicio</button>
+ <button data-t="pred"><span class="e">📅</span>Predicación</button>
+ <button data-t="vym"><span class="e">📖</span>Vida y Ministerio</button>
+</nav>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const BASE='https://benavitrex.github.io/Predicaci-n-Automatica/';
+const KEY='inasistencias_v1';
+const iso=d=>d.toLocaleDateString('sv');
+const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const store=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch{toast('No se pudo guardar en este navegador');return false}};
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2400);}
+
+/* ---------- Pestañas ---------- */
+function tab(t){
+  $$('.view').forEach(v=>v.classList.toggle('on',v.id=='v-'+t));
+  $$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));
+  $$('#v-'+t+' iframe').forEach(f=>{ if(!f.src&&f.dataset.src){f.src=f.dataset.src;f.addEventListener('load',()=>f.parentNode.querySelector('.ld')?.remove(),{once:true});} });
+  if(t=='pred')renderInas();
+  try{history.replaceState(null,'','#'+t)}catch{}
+}
+$$('nav button').forEach(b=>b.onclick=()=>tab(b.dataset.t));
+$('#psub').onclick=e=>{const s=e.target.dataset.s;if(!s)return;
+  $$('#psub button').forEach(b=>b.classList.toggle('on',b.dataset.s==s));
+  $('#p-prog').style.display=s=='prog'?'':'none';$('#p-ina').style.display=s=='ina'?'block':'none';
+  $('#pext').style.visibility=s=='prog'?'visible':'hidden';
+  if(s=='ina')renderInas();};
+
+/* ---------- Inicio ---------- */
+const hoy=new Date(),HOY=iso(hoy),dow=hoy.getDay(),finde=dow==0||dow==6;
+$('#fecha').textContent=hoy.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});
+$('#sem').textContent=hoy.getFullYear()+' · '+(finde?'Fin de semana':'Entre semana');
+$('#hora').textContent=finde?'10:30 AM':'10:00 AM';
+$('#turno').textContent=finde?'Sáb–Dom':'Lun–Vie';
+$('#fec').value=HOY;
+
+function showToday(d,src){
+  $('#cap').textContent=d.cap||'—';$('#casa').textContent=d.casa||'—';
+  $('#dir').textContent=d.dir||'';$('#terr').textContent=d.terr?('Territorio '+d.terr):'—';
+  $('#src').textContent=src;
+}
+const manual=()=>load('hoy:'+HOY,null);
+async function loadToday(){
+  const m=manual();
+  if(m)showToday(m,'Datos ingresados manualmente.');
+  else showToday({}, 'Sin datos para hoy todavía. Se intentará leer el programa…');
+  try{
+    const r=await fetch(BASE+'data.json?'+Date.now());if(!r.ok)throw 0;
+    const j=await r.json(),rows=(j.historial?.[HOY.slice(0,7)]?.rows||[]).filter(x=>x.f==HOY).sort((a,b)=>String(a.hora).localeCompare(String(b.hora)));
+    const x=rows[0];
+    if(x&&!m)showToday({cap:x.hn,casa:x.cn,dir:x.dir,terr:x.terr},'Leído del programa de predicación'+(rows.length>1?' · hay '+rows.length+' salidas hoy; se muestra la primera.':'.'));
+    else if(!x&&!m)$('#src').textContent='El programa no tiene salida registrada para hoy. Puedes completarla manualmente.';
+  }catch{ if(!m)$('#src').textContent='No se pudo leer el programa automáticamente. Completa los datos manualmente o míralo en la pestaña Predicación.'; }
+}
+$('#m_save').onclick=()=>{
+  const d={cap:$('#m_cap').value.trim(),casa:$('#m_casa').value.trim(),terr:$('#m_terr').value.trim()};
+  if(!d.cap&&!d.casa&&!d.terr)return toast('Escribe al menos un dato');
+  // limpia datos manuales de días anteriores
+  Object.keys(localStorage).filter(k=>k.startsWith('hoy:')&&k!='hoy:'+HOY).forEach(k=>localStorage.removeItem(k));
+  if(store('hoy:'+HOY,d)){showToday(d,'Datos ingresados manualmente.');toast('Datos de hoy guardados');}
+};
+const m0=manual();if(m0){$('#m_cap').value=m0.cap||'';$('#m_casa').value=m0.casa||'';$('#m_terr').value=m0.terr||'';}
+loadToday();
+
+/* ---------- Reportes ---------- */
+let TIPO='Hermano';
+$('#tipo').onclick=e=>{const v=e.target.dataset.v;if(!v)return;TIPO=v;
+  $$('#tipo button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));
+  $('#nom').placeholder='Nombre del '+(v=='Capitán'?'capitán':'hermano');};
+$('#frm').onsubmit=e=>{
+  e.preventDefault();
+  const nombre=$('#nom').value.trim();if(!nombre)return;
+  const list=load(KEY,[]);
+  list.push({id:Date.now().toString(36),tipo:TIPO,nombre,fecha:$('#fec').value,motivo:$('#mot').value,nota:$('#nota').value.trim(),creado:new Date().toISOString()});
+  if(store(KEY,list)){$('#nom').value='';$('#nota').value='';toast('Inasistencia registrada ✓');}
+};
+function renderInas(){
+  const L=load(KEY,[]).sort((a,b)=>b.fecha.localeCompare(a.fecha)||b.creado.localeCompare(a.creado)),box=$('#p-ina');
+  if(!L.length){box.innerHTML='<div class="empty">Aún no hay inasistencias registradas.<br>Repórtalas desde la pestaña Inicio.</div>';return;}
+  const mes=HOY.slice(0,7),nMes=L.filter(x=>x.fecha.startsWith(mes)).length,nCap=L.filter(x=>x.tipo=='Capitán').length;
+  const cnt=(f)=>{const o={};L.forEach(x=>{const k=f(x);o[k]=(o[k]||0)+1});return Object.entries(o).sort((a,b)=>b[1]-a[1]);};
+  const mot=cnt(x=>x.motivo),nom=cnt(x=>x.nombre).slice(0,5),mx=Math.max(...mot.map(m=>m[1]));
+  box.innerHTML=`<div class="kp"><div><b>${L.length}</b><span>Total</span></div><div><b>${nMes}</b><span>Este mes</span></div><div><b>${nCap}</b><span>Capitanes</span></div></div>
+  <div class="card"><h2>Por motivo</h2>${mot.map(([k,n])=>`<div class="row"><span>${esc(k)}</span><i><u style="width:${n/mx*100}%"></u></i><span>${n}</span></div>`).join('')}</div>
+  <div class="card"><h2>Más inasistencias</h2>${nom.map(([k,n])=>`<div class="row" style="grid-template-columns:1fr 28px"><span>${esc(k)}</span><span style="text-align:right;font-weight:600">${n}</span></div>`).join('')}</div>
+  <div class="card"><h2>Registro</h2>${L.map(x=>`<div class="item"><div><b>${esc(x.nombre)}</b><span class="tag ${x.tipo=='Capitán'?'c':'h'}">${esc(x.tipo)}</span><small>${new Date(x.fecha+'T00:00').toLocaleDateString('es-CL',{weekday:'short',day:'numeric',month:'short',year:'numeric'})} · ${esc(x.motivo)}</small>${x.nota?`<small>${esc(x.nota)}</small>`:''}</div><button class="mini" data-del="${x.id}" aria-label="Eliminar">✕</button></div>`).join('')}</div>
+  <button class="btn ghost" id="clr">Borrar todo el registro</button>`;
+}
+$('#p-ina').onclick=e=>{
+  if(e.target.dataset.del){store(KEY,load(KEY,[]).filter(x=>x.id!=e.target.dataset.del));renderInas();}
+  if(e.target.id=='clr'&&confirm('¿Borrar todas las inasistencias registradas?')){store(KEY,[]);renderInas();}
+};
+
+const h=location.hash.slice(1);if(['pred','vym'].includes(h))tab(h);
+</script>
+</body></html>
