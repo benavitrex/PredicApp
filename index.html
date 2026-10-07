@@ -156,6 +156,13 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 @media(min-width:700px){.app{box-shadow:0 0 0 1px var(--line)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.terr-map{margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--fill);position:relative;aspect-ratio:16/11}
+.terr-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.terr-map .tm-ld{position:absolute;inset:0;display:grid;place-items:center;color:var(--soft);font-size:13px;pointer-events:none}
+.terr-map-actions{display:flex;gap:8px;margin-top:8px}
+.terr-map-actions a{flex:1;text-align:center;padding:10px;border-radius:12px;background:var(--fill);color:var(--brand-2);font:600 13px var(--sans);text-decoration:none;border:1px solid var(--line);transition:var(--t)}
+.terr-map-actions a:hover{background:var(--brand-bg);transform:translateY(-1px)}
 </style></head><body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -305,8 +312,57 @@ const NO_PASAR={
 /* Enlaces por territorio (Google Maps u otros). Ejemplo:
    '12':[{label:'Mapa T-12',url:'https://maps.google.com/?q=...'}]
 */
-const TERR_LINKS={
+const TERR_MAPS={
+  '1':'1CbAUy1wA6D2UViKEIAyZlpr_C340Kus',
+  '2':'1HfgB7_so-ySa1SfgnTuEjTnOI9w9y1g',
+  '3':'1jWPR-NotHXDVcV47QBXSOiZ8GGxIB6g',
+  '4':'1KNE614_ntRYZGLAu8zi9d9ek9Geb_xA',
+  '5':'1mojwPuOg87PM1RXJy3NE6cR6VVrFxDo',
+  '6':'1C_RVZvLa1YoPNCsparHA9ivVE3cN90c',
+  '7':'1qwEoVYguo43eJakoxiSwPzpqzGpLR0I',
+  '8':'1rlv_zy3SbDO2CwfiUkXndd8wL3FldP4',
+  '9':'1DgITPz8iHph58-ue6z9HF2oNEmvARgI',
+  '10':'1FW8NkQY_0aJ16TsspZlKOAtr3iJEVNM',
+  '11':'1jiOcYl1CkVUb9KLFI7A2JtQ38aw6bYc',
+  '12':'1bRA_18dhyVwCWRuMA3_40SSjZ1e1t2Y',
+  '13':'15zQA06GNmMrZuMCpuhxqLJxDHk5f-us',
+  '14':'1PrZN9rp99ZJyO53PbPlHWkm7zOuccn4',
+  '15':'1arOxW1Gy90z9NYdOD9k4Nv_VS1ZQ5Fo',
+  '16':'1g1Yyc4M5lo1XyjwI-fwZQJ_9dO8rvJk',
+  '17':'1DrcGNotS6r8n0JAEvSqrOYS_pte4g2E',
+  '18':'11UFD9I2XQDhxFrmCVMjK2P_ST-pHOu8',
+  '19':'1uo8OFTYiT47qaLJ95dbbDESSXZpJ73w',
+  '20':'1IoFsB8Zy25NsJdd5_kdZG_3R2Je9JXs',
+  '21':'1Fhw4apIqbcyrRP_o9zKHpzoR1r_M_2E',
+  '22':'1AAYfPY6hCGbaY6_GYh4dcZClHGNktEM',
+  '23':'1LNSQFD2F9OLEmg04F3B5RsmHuvlHxsM'
 };
+const TERR_LINKS={
+  '1':[{label:'Mapa territorio 1',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1CbAUy1wA6D2UViKEIAyZlpr_C340Kus'}],
+  '2':[{label:'Mapa territorio 2',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1HfgB7_so-ySa1SfgnTuEjTnOI9w9y1g'}],
+  '3':[{label:'Mapa territorio 3',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1jWPR-NotHXDVcV47QBXSOiZ8GGxIB6g'}],
+  '4':[{label:'Mapa territorio 4',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1KNE614_ntRYZGLAu8zi9d9ek9Geb_xA'}],
+  '5':[{label:'Mapa territorio 5',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1mojwPuOg87PM1RXJy3NE6cR6VVrFxDo'}],
+  '6':[{label:'Mapa territorio 6',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1C_RVZvLa1YoPNCsparHA9ivVE3cN90c'}],
+  '7':[{label:'Mapa territorio 7',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1qwEoVYguo43eJakoxiSwPzpqzGpLR0I'}],
+  '8':[{label:'Mapa territorio 8',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1rlv_zy3SbDO2CwfiUkXndd8wL3FldP4'}],
+  '9':[{label:'Mapa territorio 9',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1DgITPz8iHph58-ue6z9HF2oNEmvARgI'}],
+  '10':[{label:'Mapa territorio 10',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1FW8NkQY_0aJ16TsspZlKOAtr3iJEVNM'}],
+  '11':[{label:'Mapa territorio 11',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1jiOcYl1CkVUb9KLFI7A2JtQ38aw6bYc'}],
+  '12':[{label:'Mapa territorio 12',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1bRA_18dhyVwCWRuMA3_40SSjZ1e1t2Y'}],
+  '13':[{label:'Mapa territorio 13',url:'https://www.google.com/maps/d/viewer?hl=es&mid=15zQA06GNmMrZuMCpuhxqLJxDHk5f-us'}],
+  '14':[{label:'Mapa territorio 14',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1PrZN9rp99ZJyO53PbPlHWkm7zOuccn4'}],
+  '15':[{label:'Mapa territorio 15',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1arOxW1Gy90z9NYdOD9k4Nv_VS1ZQ5Fo'}],
+  '16':[{label:'Mapa territorio 16',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1g1Yyc4M5lo1XyjwI-fwZQJ_9dO8rvJk'}],
+  '17':[{label:'Mapa territorio 17',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1DrcGNotS6r8n0JAEvSqrOYS_pte4g2E'}],
+  '18':[{label:'Mapa territorio 18',url:'https://www.google.com/maps/d/viewer?hl=es&mid=11UFD9I2XQDhxFrmCVMjK2P_ST-pHOu8'}],
+  '19':[{label:'Mapa territorio 19',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1uo8OFTYiT47qaLJ95dbbDESSXZpJ73w'}],
+  '20':[{label:'Mapa territorio 20',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1IoFsB8Zy25NsJdd5_kdZG_3R2Je9JXs'}],
+  '21':[{label:'Mapa territorio 21',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1Fhw4apIqbcyrRP_o9zKHpzoR1r_M_2E'}],
+  '22':[{label:'Mapa territorio 22',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1AAYfPY6hCGbaY6_GYh4dcZClHGNktEM'}],
+  '23':[{label:'Mapa territorio 23',url:'https://www.google.com/maps/d/viewer?hl=es&mid=1LNSQFD2F9OLEmg04F3B5RsmHuvlHxsM'}]
+};
+;
 /* URL opcional de un JSON externo para cargar No pasar automáticamente:
    Formato: { "12": ["dir1","dir2"], "15": ["dir3"] }
    Déjalo vacío hasta que tengas el archivo.
@@ -383,6 +439,24 @@ function salidaState(h){
   return 'past';
 }
 
+const nk=k=>String(k||'').trim().toLowerCase();
+function terrMapHtml(terr){
+  const k=nk(String(terr||'').replace(/^territorio\s*/i,'').trim());
+  const mid=TERR_MAPS[k]||Object.keys(TERR_MAPS).find(x=>nk(x)===k)&&TERR_MAPS[Object.keys(TERR_MAPS).find(x=>nk(x)===k)];
+  // resolve mid
+  let m=TERR_MAPS[String(terr||'').trim()]||TERR_MAPS[k];
+  if(!m){
+    const hit=Object.keys(TERR_MAPS).find(x=>nk(x)===k);
+    if(hit)m=TERR_MAPS[hit];
+  }
+  if(!m)return '';
+  const view='https://www.google.com/maps/d/viewer?hl=es&mid='+encodeURIComponent(m);
+  const emb='https://www.google.com/maps/d/embed?mid='+encodeURIComponent(m)+'&hl=es';
+  return `<div class="terr-map"><div class="tm-ld">Cargando mapa del territorio…</div>
+    <iframe title="Mapa territorio ${esc(terr)}" src="${emb}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+  </div>
+  <div class="terr-map-actions"><a href="${view}" target="_blank" rel="noopener">Abrir mapa del territorio ↗</a></div>`;
+}
 function mapsBtn(lugar){
   if(!lugar)return '';
   const q=encodeURIComponent(lugar);
@@ -427,6 +501,7 @@ function renderSalidas(list,src){
           <div><span class="ic"><svg class="i"><use href="#i-home"/></svg></span><div><small>Casa de salida</small><b>${esc(d.casa||'—')}</b><span class="d">${esc(d.dir||'')}</span></div></div>
           <div><span class="ic"><svg class="i"><use href="#i-map"/></svg></span><div><small>Territorio</small><b>${d.terr?('Territorio '+esc(d.terr)):'—'}</b></div></div>
         </div>
+        ${terrMapHtml(d.terr)}
         ${mapsBtn(lugar)}
       </div>
     </div>`;
@@ -521,7 +596,6 @@ if(m0){
 }
 loadToday();
 
-const nk=k=>String(k||'').trim().toLowerCase();
 function npList(L){return '<ul>'+L.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'}
 function renderNoPasar(terr){
   const k=nk(terr),hit=Object.keys(NO_PASAR).find(x=>nk(x)==k),L=hit?NO_PASAR[hit]:[];
@@ -772,23 +846,48 @@ $('#a_up').onclick=async()=>{
   if(!f)return toast('Elige el archivo PDF');
   if(!/\.pdf$/i.test(f.name)&&f.type!=='application/pdf')return toast('El archivo debe ser PDF');
   if(f.size>25e6)return toast('El PDF es muy pesado (máx. 25 MB)');
+  if(!configured())return toast('Conecta el token de GitHub primero');
   btn.disabled=true;btn.textContent='Subiendo…';
   try{
-    const path=`${DIR}/${ASEC}/${m}.pdf`,content=await b64(f);
+    const path=`${DIR}/${ASEC}/${m}.pdf`;
+    const content=await b64(f);
+    // GET actual sha (si existe) para poder reemplazar
+    let sha;
     const g=await gh('GET',path);
     if(g.status===401||g.status===403)throw new Error('auth');
-    const sha=g.ok?(await g.json()).sha:undefined;
-    const p=await gh('PUT',path,{message:`Programa ${SECS[ASEC]} ${m}`,content,branch:getCfg().branch,sha});
-    if(!p.ok)throw new Error(p.status===401||p.status===403?'auth':'put');
-    await updateIdx(c=>{c[ASEC][m]=Date.now()});
+    if(g.ok){sha=(await g.json()).sha;}
+    else if(g.status!==404){
+      const t=await g.text().catch(()=>'' );
+      throw new Error('get:'+g.status);
+    }
+    const p=await gh('PUT',path,{message:`Programa ${SECS[ASEC]} ${m}`,content,branch:getCfg().branch,...(sha?{sha}:{})});
+    if(!p.ok){
+      const errBody=await p.text().catch(()=>'');
+      console.error('PUT pdf',p.status,errBody);
+      if(p.status===401||p.status===403)throw new Error('auth');
+      if(p.status===409||p.status===422){
+        // conflicto de sha: reintentar una vez
+        const g2=await gh('GET',path);const sha2=g2.ok?(await g2.json()).sha:undefined;
+        const p2=await gh('PUT',path,{message:`Programa ${SECS[ASEC]} ${m}`,content,branch:getCfg().branch,...(sha2?{sha:sha2}:{})});
+        if(!p2.ok)throw new Error('put');
+      }else throw new Error('put');
+    }
+    await updateIdx(c=>{if(!c[ASEC])c[ASEC]={};c[ASEC][m]=Date.now()});
+    // forzar recarga del índice y del visor
+    IDXAT=0;UPAT=Date.now();
+    await loadIdx();
     sel[ASEC]=m;$('#a_file').value='';
     renderAdmList();
-    toast('Programa subido ✓');
+    toast('Programa subido ✓ · se actualiza en unos segundos');
     $('#cfg-sheet').hidden=true;
-    const t=TABS.find(x=>$('#v-'+x).classList.contains('on'));
-    if(t===ASEC)histRender(ASEC);else tab(ASEC);
+    tab(ASEC);
+    histOpen(ASEC);
   }catch(err){
-    toast(err.message==='auth'?'El token no tiene permiso. Revisa o vuelve a conectar.':'No se pudo subir. Intenta de nuevo.');
+    console.error(err);
+    const msg=err&&err.message;
+    toast(msg==='auth'?'El token no tiene permiso de escritura. Revisa Contents: Read and write.':
+          msg==='put'?'No se pudo subir el PDF. ¿El repo es el correcto?':
+          'No se pudo subir. Revisa token, repo y conexión.');
   }
   btn.disabled=false;btn.textContent='Subir programa';
 };
