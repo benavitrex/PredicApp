@@ -157,7 +157,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 @media(min-width:700px){.app{box-shadow:0 0 0 1px var(--line)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-.terr-map{margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--fill);position:relative;height:120px;max-height:28vw}
+.terr-map{margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--fill);position:relative;height:220px;min-height:200px}
 .terr-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .terr-map .tm-ld{position:absolute;inset:0;display:grid;place-items:center;color:var(--soft);font-size:13px;pointer-events:none;z-index:0}
 .np-block{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
@@ -196,6 +196,17 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 .g-tag.pnb{background:#F9E6E2;color:#B33A2E}
 .g-tag.ptj{background:var(--fill);color:var(--soft)}
 .g-tag.pe{background:#EDE8F5;color:#5B3A8C}
+
+.g-menu{display:flex;flex-direction:column;gap:10px}
+.g-menu-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);cursor:pointer;transition:var(--t);text-align:left;width:100%;font:inherit;color:inherit}
+.g-menu-item:hover{transform:translateY(-2px);box-shadow:var(--sh-hover);border-color:var(--brand-2)}
+.g-menu-item:active{transform:scale(.98)}
+.g-menu-item .g-mi-left{min-width:0}
+.g-menu-item .g-mi-title{font:600 16px var(--sans);color:var(--ink);margin:0 0 2px}
+.g-menu-item .g-mi-sub{font-size:13px;color:var(--soft);margin:0}
+.g-menu-item .g-mi-right{flex:none;display:flex;align-items:center;gap:8px;color:var(--soft)}
+.g-menu-item .g-mi-right .g-count{font-size:12px;font-weight:700;padding:4px 10px;border-radius:9999px;background:var(--fill);color:var(--brand-2)}
+.g-menu-item .g-chev{font-size:18px;opacity:.5}
 </style></head><body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -764,23 +775,44 @@ function tagClass(r){
   if(u.includes('PNB'))return 'pnb';
   return 'ptj';
 }
+let G_VIEW=null;
 function renderGrupos(){
   const box=$('#g-wrap');
   if(!box)return;
-  box.innerHTML=GRUPOS_DATA.map(g=>{
+  const titleEl=$('#v-grupos .bt');
+  if(G_VIEW==null){
+    if(titleEl)titleEl.textContent='Grupos de servicio';
+    box.innerHTML='<div class="g-menu">'+GRUPOS_DATA.map((g,i)=>`
+      <button type="button" class="g-menu-item" data-gi="${i}">
+        <div class="g-mi-left">
+          <p class="g-mi-title">${esc(g.nombre)}</p>
+          <p class="g-mi-sub">${esc(g.super)}</p>
+        </div>
+        <div class="g-mi-right">
+          <span class="g-count">${g.miembros.length}</span>
+          <span class="g-chev">›</span>
+        </div>
+      </button>`).join('')+'</div>';
+    box.querySelectorAll('[data-gi]').forEach(b=>{
+      b.onclick=()=>{G_VIEW=+b.dataset.gi;renderGrupos();};
+    });
+  }else{
+    const g=GRUPOS_DATA[G_VIEW];
+    if(!g){G_VIEW=null;return renderGrupos();}
+    if(titleEl)titleEl.textContent=g.nombre;
     const rows=g.miembros.map(m=>{
-      // bold superintendente name match
-      const isSuper=m.n.toLowerCase().includes(g.super.split(' ')[0].toLowerCase())&&m.r.includes('AN');
+      const isSuper=m.n.toLowerCase().includes(g.super.split(' ')[0].toLowerCase())&&String(m.r).includes('AN');
       const name=isSuper?('<b>'+esc(m.n)+'</b>'):esc(m.n);
       return `<div class="g-row"><span class="g-name">${name}</span><span class="g-tag ${tagClass(m.r)}">${esc(m.r)}</span></div>`;
     }).join('');
-    return `<div class="g-card">
+    box.innerHTML=`<div class="g-card">
       <div class="g-head"><h3>${esc(g.nombre)} · ${esc(g.super)}</h3><span class="g-count">${g.miembros.length}</span></div>
       <div class="g-list">${rows}</div>
     </div>`;
-  }).join('');
+  }
 }
 function openGrupos(){
+  G_VIEW=null;
   $$('.view').forEach(v=>v.classList.remove('on'));
   $('#v-grupos').classList.add('on');
   $$('nav button').forEach(b=>b.classList.remove('on'));
@@ -788,7 +820,11 @@ function openGrupos(){
   try{history.replaceState(null,'','#grupos')}catch{}
 }
 $('#btn-grupos')&&($('#btn-grupos').onclick=()=>openGrupos());
-$('#g-back')&&($('#g-back').onclick=()=>tab('pred'));
+$('#g-back')&&($('#g-back').onclick=()=>{
+  if(G_VIEW!=null){G_VIEW=null;renderGrupos();}
+  else tab('pred');
+});
+
 
 
 const CFG_KEY='predicapp.cfg';

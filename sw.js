@@ -1,4 +1,4 @@
-const C='predicacion-v8';
+const C='predicacion-v9';
 const ASSETS=['./','./index.html','./sw.js'];
 
 self.addEventListener('install',e=>{
