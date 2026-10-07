@@ -87,6 +87,14 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand);b
 .list-item button{border:0;background:var(--bad-bg);color:var(--bad);border-radius:8px;padding:4px 10px;font:600 12px Inter,sans-serif;cursor:pointer}
 .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:99px;background:var(--fill);color:var(--soft);margin-bottom:10px}
 .badge.ok{background:var(--brand-bg);color:var(--ok)}
+.foot{display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 0 4px;margin-top:6px}
+.foot .sep{color:var(--soft);font-size:13px;opacity:.5}
+.cfg-btn{border:0;background:var(--fill);color:var(--soft);font:600 13px Inter,sans-serif;padding:8px 14px;border-radius:99px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:transform .15s,background .15s}
+.cfg-btn:active{transform:scale(.96)}
+.cfg-btn.on{background:var(--brand-bg);color:var(--brand)}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:flex;align-items:flex-end;justify-content:center}.sheet[hidden]{display:none}
+.panel{background:var(--card);width:100%;max-width:640px;border-radius:24px 24px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));max-height:90%;overflow:auto;animation:in .25s ease-out}
+.mini{border:0;background:var(--fill);color:var(--ink);border-radius:10px;width:32px;height:32px;display:grid;place-items:center;cursor:pointer;flex:none;font-size:16px}
 nav{flex:none;position:relative;display:grid;grid-template-columns:repeat(4,1fr);height:calc(var(--nav) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:saturate(1.8) blur(18px);-webkit-backdrop-filter:saturate(1.8) blur(18px);border-top:1px solid var(--line)}
 nav button{border:0;background:none;color:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:600 10.5px Inter,sans-serif;white-space:nowrap;cursor:pointer;position:relative;z-index:1;transition:color .2s,transform .15s}
 nav button:active{transform:scale(.9)}
@@ -148,48 +156,8 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   <details><summary>Ver todos los territorios</summary><div id="np-all"></div></details>
  </div>
 
- <div class="card" id="cfg-card">
-  <h2>Ajustes de guardado</h2>
-  <p class="sub" style="margin-bottom:10px">Para subir programas PDF de forma permanente necesitas un token de GitHub con permiso de escritura. Se guarda solo en este dispositivo.</p>
-
-  <div id="cfg-status" class="badge">Sin conectar</div>
-
-  <div id="cfg-form">
-   <ol class="cfg-steps">
-    <li>En GitHub: <b>Settings → Developer settings → Personal access tokens</b> (fine-grained).</li>
-    <li>Permiso del repositorio: <b>Contents → Read and write</b>.</li>
-    <li>Pega el token abajo. Usuario y repo se autocompletan en GitHub Pages.</li>
-   </ol>
-   <label for="c_token">Token de GitHub</label>
-   <input id="c_token" type="password" autocomplete="off" placeholder="github_pat_…">
-   <div class="fr">
-    <div><label for="c_owner">Usuario</label><input id="c_owner" placeholder="tu-usuario"></div>
-    <div><label for="c_repo">Repositorio</label><input id="c_repo" placeholder="nombre-del-repo"></div>
-   </div>
-   <label for="c_branch">Rama</label>
-   <input id="c_branch" value="main" placeholder="main">
-   <button class="btn" id="c_save" type="button">Conectar y activar modo edición</button>
-  </div>
-
-  <div id="cfg-edit" hidden>
-   <p class="st" style="margin-top:0">Modo edición activo. Los PDFs se suben a tu repositorio.</p>
-   <label>Tipo de programa</label>
-   <div class="seg" id="a_sec">
-    <button type="button" class="on" data-v="pred">Predicación</button>
-    <button type="button" data-v="vym">Vida y Ministerio</button>
-   </div>
-   <label for="a_mes">Mes del programa</label>
-   <input id="a_mes" type="month">
-   <label for="a_file">Archivo PDF</label>
-   <input id="a_file" type="file" accept="application/pdf,.pdf">
-   <p class="st">Si ese mes ya existe, se reemplaza.</p>
-   <button class="btn" id="a_up" type="button">Subir programa</button>
-
-   <h2 style="margin-top:22px;font-size:16px">Programas en el historial</h2>
-   <div id="adm-list"></div>
-
-   <button class="btn ghost" id="c_out" type="button">Desconectar</button>
-  </div>
+ <div class="foot">
+  <button class="cfg-btn" id="cfg-btn" type="button" title="Ajustes de guardado">⚙️ Ajustes de guardado</button>
  </div>
 </section>
 
@@ -228,6 +196,50 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
  <button data-t="mapa"><svg class="i"><use href="#i-map"/></svg>Mapa</button>
 </nav>
 </div>
+
+
+<div class="sheet" id="cfg-sheet" hidden><div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0">Ajustes de guardado</h2><button class="mini" id="cfg-x" type="button" aria-label="Cerrar">✕</button></div>
+ <p class="sub" style="margin-top:10px">Para subir programas PDF de forma permanente necesitas un token de GitHub con permiso de escritura. Se guarda solo en este dispositivo.</p>
+ <div id="cfg-status" class="badge">Sin conectar</div>
+
+ <div id="cfg-form">
+  <ol class="cfg-steps">
+   <li>En GitHub: <b>Settings → Developer settings → Personal access tokens</b> (fine-grained).</li>
+   <li>Permiso del repositorio: <b>Contents → Read and write</b>.</li>
+   <li>Pega el token abajo. Usuario y repo se autocompletan en GitHub Pages.</li>
+  </ol>
+  <label for="c_token">Token de GitHub</label>
+  <input id="c_token" type="password" autocomplete="off" placeholder="github_pat_…">
+  <div class="fr">
+   <div><label for="c_owner">Usuario</label><input id="c_owner" placeholder="tu-usuario"></div>
+   <div><label for="c_repo">Repositorio</label><input id="c_repo" placeholder="nombre-del-repo"></div>
+  </div>
+  <label for="c_branch">Rama</label>
+  <input id="c_branch" value="main" placeholder="main">
+  <button class="btn" id="c_save" type="button">Conectar y activar modo edición</button>
+ </div>
+
+ <div id="cfg-edit" hidden>
+  <p class="st" style="margin-top:0">Modo edición activo. Los PDFs se suben a tu repositorio.</p>
+  <label>Tipo de programa</label>
+  <div class="seg" id="a_sec">
+   <button type="button" class="on" data-v="pred">Predicación</button>
+   <button type="button" data-v="vym">Vida y Ministerio</button>
+  </div>
+  <label for="a_mes">Mes del programa</label>
+  <input id="a_mes" type="month">
+  <label for="a_file">Archivo PDF</label>
+  <input id="a_file" type="file" accept="application/pdf,.pdf">
+  <p class="st">Si ese mes ya existe, se reemplaza.</p>
+  <button class="btn" id="a_up" type="button">Subir programa</button>
+
+  <h2 style="margin-top:22px;font-size:16px">Programas en el historial</h2>
+  <div id="adm-list"></div>
+
+  <button class="btn ghost" id="c_out" type="button">Desconectar</button>
+ </div>
+</div></div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -476,6 +488,8 @@ function cfgUI(){
     if(!$('#a_mes').value)$('#a_mes').value=CUR_MES;
     renderAdmList();
   }
+  const btn=$('#cfg-btn');
+  if(btn)btn.classList.toggle('on',ok);
 }
 
 function renderAdmList(){
@@ -557,6 +571,7 @@ $('#a_up').onclick=async()=>{
     sel[ASEC]=m;$('#a_file').value='';
     renderAdmList();
     toast('Programa subido ✓');
+    $('#cfg-sheet').hidden=true;
     const t=TABS.find(x=>$('#v-'+x).classList.contains('on'));
     if(t===ASEC)histRender(ASEC);else tab(ASEC);
   }catch(err){
@@ -591,6 +606,11 @@ async function delMes(s){
 
 cfgUI();
 loadIdx();
+
+$('#cfg-btn').onclick=()=>{cfgUI();$('#cfg-sheet').hidden=false;};
+$('#cfg-x').onclick=()=>{$('#cfg-sheet').hidden=true;};
+$('#cfg-sheet').onclick=e=>{if(e.target.id==='cfg-sheet')$('#cfg-sheet').hidden=true;};
+
 
 (function(){
   const icon=s=>{const c=document.createElement('canvas');c.width=c.height=s;const x=c.getContext('2d');
