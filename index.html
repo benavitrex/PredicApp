@@ -213,6 +213,51 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 .g-menu-item .g-mi-right{flex:none;display:flex;align-items:center;gap:8px;color:var(--soft)}
 .g-menu-item .g-mi-right .g-count{font-size:12px;font-weight:700;padding:4px 10px;border-radius:9999px;background:var(--fill);color:var(--brand-2)}
 .g-menu-item .g-chev{font-size:18px;opacity:.5}
+
+/* ===== Semanas · edición · mañana (aditivo) ===== */
+.modes{flex:none;padding:10px 12px 0;background:var(--card)}
+.modes .seg button{font-size:13px;padding:8px 6px}
+.view.mode-sem .zb,.view.mode-sem a.ext{display:none!important}
+.dia{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px 6px;margin-bottom:12px;box-shadow:var(--sh)}
+.dia.hoy{border-color:var(--brand-2);box-shadow:0 0 0 3px var(--brand-bg),var(--sh)}
+.dia-h{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.dia-h b{flex:1;min-width:120px;font:700 16px var(--serif);text-transform:capitalize}
+.dia-h .tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 9px;border-radius:9999px;background:var(--fill);color:var(--soft)}
+.dia-h .tag.hoy{background:var(--brand-bg);color:var(--ok)}.dia-h .tag.ed{background:var(--gold-bg);color:var(--gold)}
+.dia-h .chip{padding:5px 11px;font-size:12px}
+.dia-vacio{color:var(--soft);font-size:13px;margin:2px 0 10px}
+.ss{padding:10px 0;border-top:1px solid var(--line)}
+.ss-top{display:flex;align-items:baseline;gap:8px;margin-bottom:2px}
+.ss-hora{font:700 19px var(--serif)}.ss-j{font-size:12px;color:var(--soft);font-weight:600}
+.ss p{display:grid;grid-template-columns:76px 1fr;gap:8px;margin:4px 0;font-size:14px;align-items:start}
+.ss .k{color:var(--soft);font-size:12.5px;padding-top:1px}
+.ss .d{display:block;color:var(--soft);font-size:12.5px}
+.ss .btn-dir{width:34px;height:34px;border-radius:10px}
+#man .man-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:2px}
+#man h2{margin:0}.man-d{font-size:13px;color:var(--soft);text-transform:capitalize}
+#man .ss:first-of-type{border-top:0}
+.vw-head{background:var(--brand);color:var(--on);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh)}
+.vw-r{font:700 12px var(--sans);letter-spacing:.05em;text-transform:uppercase;opacity:.85}
+.vw-l{font:700 22px/1.2 var(--serif);margin-top:2px}
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;box-shadow:var(--sh);overflow:hidden}
+.vsec{padding:9px 16px;color:#fff;font:700 12px var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.vsec.t{background:var(--brand-2)}.vsec.m{background:var(--gold)}.vsec.v{background:var(--bad)}
+.vrow{display:flex;gap:12px;align-items:flex-start;padding:11px 16px;border-top:1px solid var(--line)}
+.vcard>.vrow:first-child{border-top:0}
+.vrow.edit{cursor:pointer}.vrow.edit:active{background:var(--fill)}
+.vn{flex:none;width:26px;height:26px;border-radius:50%;background:var(--fill);color:var(--brand-2);font:700 12px var(--sans);display:grid;place-items:center;margin-top:1px}
+.vb{flex:1;min-width:0}.vt{font-weight:600;font-size:14.5px}.vt small{font-weight:500;color:var(--soft)}
+.vd{font-size:13px;color:var(--soft);margin-top:2px}
+.va{flex:none;max-width:42%;text-align:right;font-size:13px;font-weight:600;color:var(--brand-2);word-break:break-word}
+.va.vacio{color:var(--soft);font-weight:500;font-style:italic}
+.pdf>.btn{margin-top:8px}
+.g-right{display:flex;align-items:center;gap:8px;flex:none}
+.g-ed{flex:none;border:0;background:var(--fill);color:var(--soft);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:13px}
+.g-head .g-ed{background:rgba(255,255,255,.18);color:var(--on)}
+.ent{border:1px solid var(--line);border-radius:14px;padding:2px 12px 10px;margin-top:12px}
+.ent label:first-child{margin-top:12px}
+#ed-body textarea{resize:vertical;min-height:150px}
+#ed-body .btn.add{background:var(--fill);color:var(--brand-2)}
 </style></head><body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -248,6 +293,8 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   <details><summary>Ver todos los territorios</summary><div id="np-all"></div></details>
  </div>
 
+ <div class="card" id="man"></div>
+
  <div class="foot">
   <button class="cfg-btn" id="cfg-btn" type="button" title="Ajustes de guardado">⚙️ Ajustes de guardado</button>
  </div>
@@ -261,6 +308,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   <button class="zb" data-z="+" aria-label="Acercar">+</button>
   <a class="ext" target="_blank" rel="noopener" hidden>PDF ↗</a>
  </div>
+ <div class="modes"><div class="seg"><button type="button" data-md="sem" class="on">Por semana</button><button type="button" data-md="pdf">PDF del mes</button></div></div>
  <div class="months"></div>
  <div class="pdf"></div>
 </section>
@@ -272,6 +320,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   <button class="zb" data-z="+" aria-label="Acercar">+</button>
   <a class="ext" target="_blank" rel="noopener" hidden>PDF ↗</a>
  </div>
+ <div class="modes"><div class="seg"><button type="button" data-md="sem" class="on">Por semana</button><button type="button" data-md="pdf">PDF del mes</button></div></div>
  <div class="months"></div>
  <div class="pdf"></div>
 </section>
@@ -343,6 +392,15 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   <button class="btn ghost" id="c_out" type="button">Desconectar</button>
  </div>
 </div></div>
+
+<div class="sheet" id="ed-sheet" hidden><div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center"><h2 id="ed-title" style="margin:0">Editar</h2><button class="mini" id="ed-x" type="button" aria-label="Cerrar">✕</button></div>
+ <div id="ed-body"></div>
+ <button class="btn" id="ed-save" type="button">Guardar</button>
+ <button class="btn ghost" id="ed-del" type="button" hidden>Eliminar</button>
+</div></div>
+<datalist id="dl-herm"></datalist>
+<datalist id="dl-roles"><option value="AN"><option value="SM"><option value="PR"><option value="PE"><option value="PTJ"><option value="PNB"><option value="AN/PR"><option value="SM/PR"><option value="AN/PE"></datalist>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -704,6 +762,23 @@ function estado(){
 }
 setInterval(estado,3e4);
 
+/* ---- Estado compartido: grupos, semanas VyM y cambios de predicación (se leen del repo y se cachean) ---- */
+const SHF={grupos:'grupos',vym:'vym-semanas',pred:'pred-cambios'};
+const SH={grupos:load('cache:sh:grupos',null),vym:load('cache:sh:vym',{weeks:{}}),pred:load('cache:sh:pred',{})};
+if(!SH.vym||typeof SH.vym!=='object')SH.vym={weeks:{}};if(!SH.vym.weeks)SH.vym.weeks={};
+if(!SH.pred||typeof SH.pred!=='object')SH.pred={};
+let PJ=load('cache:pj',{}),SHAT=0;
+const addDays=(d,n)=>{const t=new Date(d+'T12:00:00');t.setDate(t.getDate()+n);return iso(t)};
+const monday=d=>{const t=new Date(d+'T12:00:00');t.setDate(t.getDate()-((t.getDay()+6)%7));return iso(t)};
+const MAN=addDays(HOY,1),CUR_W=monday(HOY);
+const ovFor=d=>{const o=SH.pred[d];return Array.isArray(o)?o:null};
+function pjRows(d){
+  const ov=ovFor(d);if(ov)return ov;
+  return ((PJ[d.slice(0,7)]&&PJ[d.slice(0,7)].rows)||[]).filter(x=>x.f===d)
+    .sort((a,b)=>String(a.hora||a.h||'').localeCompare(String(b.hora||b.h||'')))
+    .map(x=>({cap:x.hn,casa:x.cn,dir:x.dir,terr:x.terr,hora:x.hora||x.h||''}));
+}
+
 const manual=()=>load('hoy:'+HOY,null);
 async function loadToday(){
   const m=manual(),c=load('cache:hoy',null);
@@ -711,6 +786,11 @@ async function loadToday(){
     const list=Array.isArray(m)?m:[m];
     window.TODAY_ROWS=list;
     renderSalidas(list,'Datos ingresados manualmente.');
+    estado();
+  }else if(ovFor(HOY)){
+    const list=ovFor(HOY);
+    window.TODAY_ROWS=list;
+    renderSalidas(list,'Programa editado por el administrador.');
     estado();
   }else if(c?.f==HOY&&c.list){
     window.TODAY_ROWS=c.list;
@@ -721,6 +801,7 @@ async function loadToday(){
     renderSalidas([],'Sin datos para hoy todavía.');
     estado();
   }
+  if(ovFor(HOY))return; // ya mostrado: cambios del administrador
   if(!navigator.onLine)return;
   try{
     const r=await fetch(BASE+'data.json?'+Date.now());if(!r.ok)throw 0;
@@ -785,10 +866,10 @@ let G_VIEW=null;
 function renderGrupos(){
   const box=$('#g-wrap');
   if(!box)return;
-  const titleEl=$('#v-grupos .bt');
+  const G=GRUPOS(),ed=EDIT(),titleEl=$('#v-grupos .bt');
   if(G_VIEW==null){
     if(titleEl)titleEl.textContent='Grupos de servicio';
-    box.innerHTML='<div class="g-menu">'+GRUPOS_DATA.map((g,i)=>`
+    box.innerHTML='<div class="g-menu">'+G.map((g,i)=>`
       <button type="button" class="g-menu-item" data-gi="${i}">
         <div class="g-mi-left">
           <p class="g-mi-title">${esc(g.nombre)}</p>
@@ -798,23 +879,23 @@ function renderGrupos(){
           <span class="g-count">${g.miembros.length}</span>
           <span class="g-chev">›</span>
         </div>
-      </button>`).join('')+'</div>';
+      </button>`).join('')+'</div>'+(ed?'<button class="btn" type="button" data-g="newgrp">+ Nuevo grupo</button>':'');
     box.querySelectorAll('[data-gi]').forEach(b=>{
       b.onclick=()=>{G_VIEW=+b.dataset.gi;renderGrupos();};
     });
   }else{
-    const g=GRUPOS_DATA[G_VIEW];
+    const g=G[G_VIEW];
     if(!g){G_VIEW=null;return renderGrupos();}
     if(titleEl)titleEl.textContent=g.nombre;
-    const rows=g.miembros.map(m=>{
-      const isSuper=m.n.toLowerCase().includes(g.super.split(' ')[0].toLowerCase())&&String(m.r).includes('AN');
+    const rows=g.miembros.map((m,mi)=>{
+      const isSuper=g.super&&m.n.toLowerCase().includes(g.super.split(' ')[0].toLowerCase())&&String(m.r).includes('AN');
       const name=isSuper?('<b>'+esc(m.n)+'</b>'):esc(m.n);
-      return `<div class="g-row"><span class="g-name">${name}</span><span class="g-tag ${tagClass(m.r)}">${esc(m.r)}</span></div>`;
+      return `<div class="g-row"><span class="g-name">${name}</span><span class="g-right"><span class="g-tag ${tagClass(m.r)}">${esc(m.r)}</span>${ed?`<button class="g-ed" type="button" data-g="editm" data-mi="${mi}" aria-label="Editar">✎</button>`:''}</span></div>`;
     }).join('');
     box.innerHTML=`<div class="g-card">
-      <div class="g-head"><h3>${esc(g.nombre)} · ${esc(g.super)}</h3><span class="g-count">${g.miembros.length}</span></div>
+      <div class="g-head"><h3>${esc(g.nombre)} · ${esc(g.super)}</h3>${ed?'<button class="g-ed" type="button" data-g="editgrp" aria-label="Editar grupo">✎</button>':''}<span class="g-count">${g.miembros.length}</span></div>
       <div class="g-list">${rows}</div>
-    </div>`;
+    </div>`+(ed?'<button class="btn" type="button" data-g="addm">+ Agregar hermano</button>':'');
   }
 }
 function openGrupos(){
@@ -890,6 +971,7 @@ async function loadIdx(){
 }
 
 async function histOpen(s){
+  if(applyMode(s)==='sem'){semOpen(s);return;}
   if(Date.now()-IDXAT>6e4&&Date.now()-UPAT>3.5e5){
     if(!$('#v-'+s+' .pdf').children.length)$('#v-'+s+' .pdf').innerHTML='<div class="ld">Cargando…</div>';
     await loadIdx();
@@ -898,6 +980,8 @@ async function histOpen(s){
 }
 
 function histRender(s){
+  if(applyMode(s)==='sem'){semRender(s);return;}
+  $('#v-'+s+' .pdf').dataset.w='';
   const v=$('#v-'+s),mo=v.querySelector('.months'),box=v.querySelector('.pdf'),ext=v.querySelector('.ext');
   const keys=Object.keys(IDX[s]||{}).sort().reverse();
   const c=getCfg();
@@ -1083,7 +1167,7 @@ $('#a_up').onclick=async()=>{
     // forzar recarga del índice y del visor
     IDXAT=0;UPAT=Date.now();
     await loadIdx();
-    sel[ASEC]=m;$('#a_file').value='';
+    sel[ASEC]=m;$('#a_file').value='';MODE[ASEC]='pdf';try{localStorage.setItem('predicapp.mode.'+ASEC,'pdf')}catch{}
     renderAdmList();
     toast('Programa subido ✓ · se actualiza en unos segundos');
     $('#cfg-sheet').hidden=true;
@@ -1123,12 +1207,380 @@ async function delMes(s){
   }catch{toast('No se pudo eliminar')}
 }
 
+/* ======================================================================
+   SEMANAS · GRUPOS EDITABLES · MAÑANA   (bloque aditivo)
+   Edita solo quien tiene el token de GitHub conectado (EDIT()).
+   Archivos en el repo: historial/grupos.json · vym-semanas.json · pred-cambios.json
+   ====================================================================== */
+const EDIT=()=>configured();
+const clone=o=>JSON.parse(JSON.stringify(o));
+const GRUPOS=()=>Array.isArray(SH.grupos)&&SH.grupos.length?SH.grupos:GRUPOS_DATA;
+const dec=b=>new TextDecoder().decode(Uint8Array.from(atob(String(b).replace(/\n/g,'')),c=>c.charCodeAt(0)));
+const enc=t=>{let r='';new TextEncoder().encode(t).forEach(x=>r+=String.fromCharCode(x));return btoa(r)};
+const nat=n=>{n=String(n||'').replace(/\s*\(aux\)\s*/i,' ').trim();const m=n.match(/^([^,]+),\s*(.+)$/);if(!m)return n;const nom=m[2].trim(),ap=m[1].trim();return /\sde$/i.test(nom)?nom.replace(/\sde$/i,'')+' de '+ap:nom+' '+ap};
+function refreshDatalist(){const q=new Set();GRUPOS().forEach(g=>g.miembros.forEach(m=>q.add(nat(m.n))));$('#dl-herm').innerHTML=[...q].sort((a,b)=>a.localeCompare(b,'es')).map(x=>`<option value="${esc(x)}">`).join('')}
+
+/* ---- Carga / guardado de los JSON compartidos ---- */
+async function pjLoad(){
+  if(!navigator.onLine)return;
+  try{
+    const r=await fetch(BASE+'data.json?'+Date.now());if(!r.ok)throw 0;
+    const j=await r.json(),h=j.historial||{};PJ=h;const c={};
+    Object.keys(h).sort().slice(-4).forEach(k=>{c[k]={rows:(h[k].rows||[]).map(x=>({f:x.f,hn:x.hn,cn:x.cn,dir:x.dir,terr:x.terr,hora:x.hora||x.h||''}))}});
+    store('cache:pj',c);
+  }catch{}
+}
+async function shLoad(k){
+  const c=getCfg();if(!navigator.onLine||!c.owner||!c.repo)return;
+  try{
+    const r=await fetch(RAW(DIR+'/'+SHF[k]+'.json')+'?t='+Math.floor(Date.now()/6e4));
+    if(!r.ok)return;
+    const j=await r.json();
+    if(k==='grupos'){if(Array.isArray(j))SH.grupos=j;}
+    else if(j&&typeof j==='object'){SH[k]=j;if(k==='vym'&&!SH.vym.weeks)SH.vym.weeks={};}
+    store('cache:sh:'+k,SH[k]);
+  }catch{}
+}
+async function shSave(k,def,mut){
+  const path=DIR+'/'+SHF[k]+'.json';
+  for(let i=0;i<3;i++){
+    const g=await gh('GET',path);let sha,cur=def();
+    if(g.status===401||g.status===403)throw new Error('auth');
+    if(g.ok){const j=await g.json();sha=j.sha;cur=JSON.parse(dec(j.content));}
+    else if(g.status!==404)throw new Error('sh');
+    cur=mut(cur)||cur;
+    const p=await gh('PUT',path,{message:'Actualizar '+SHF[k],content:enc(JSON.stringify(cur,null,1)),branch:getCfg().branch,...(sha?{sha}:{})});
+    if(p.ok){SH[k]=cur;store('cache:sh:'+k,cur);return cur;}
+    if(p.status===401||p.status===403)throw new Error('auth');
+    if(p.status!==409&&p.status!==422)throw new Error('sh');
+  }
+  throw new Error('sh');
+}
+async function loadShared(){
+  SHAT=Date.now();
+  await Promise.all([pjLoad(),shLoad('pred'),shLoad('vym'),shLoad('grupos')]);
+  renderManana();loadToday();refreshActive();
+}
+function refreshActive(){
+  refreshDatalist();
+  TABS.forEach(t=>{if(SECS[t]&&$('#v-'+t).classList.contains('on')&&modeOf(t)==='sem')semRender(t)});
+  if($('#v-grupos').classList.contains('on'))renderGrupos();
+  renderManana();
+}
+
+/* ---- Modo de vista (Por semana / PDF del mes) ---- */
+const MODE={pred:null,vym:null},SW={pred:null,vym:null};
+const savedMode=s=>{try{return localStorage.getItem('predicapp.mode.'+s)}catch{return null}};
+function modeOf(s){return MODE[s]||savedMode(s)||(s==='pred'?'sem':(Object.keys(SH.vym.weeks).length?'sem':'pdf'))}
+function applyMode(s){const v=$('#v-'+s),m=modeOf(s);v.classList.toggle('mode-sem',m==='sem');v.querySelectorAll('.modes [data-md]').forEach(b=>b.classList.toggle('on',b.dataset.md===m));return m}
+function setMode(s,m){MODE[s]=m;try{localStorage.setItem('predicapp.mode.'+s,m)}catch{}histOpen(s)}
+function semOpen(s){semRender(s);if(Date.now()-SHAT>6e4)loadShared()}
+
+function wlab(w){
+  const a=new Date(w+'T12:00:00'),b=new Date(addDays(w,6)+'T12:00:00');
+  const f=(d,full)=>d.toLocaleDateString('es-CL',full?{day:'numeric',month:'short'}:{day:'numeric'}).replace('.','');
+  return a.getMonth()===b.getMonth()?f(a)+'–'+f(b,1):f(a,1)+' – '+f(b,1);
+}
+function semWeeks(s){
+  const set=new Set([CUR_W]);
+  if(s==='pred'){
+    Object.values(PJ).forEach(m=>((m&&m.rows)||[]).forEach(r=>{if(r.f)set.add(monday(r.f))}));
+    Object.keys(SH.pred).forEach(d=>set.add(monday(d)));
+  }else Object.keys(SH.vym.weeks).forEach(w=>set.add(w));
+  return [...set].sort();
+}
+function semRender(s){
+  RT[s]++;
+  const v=$('#v-'+s),mo=v.querySelector('.months'),box=v.querySelector('.pdf');
+  applyMode(s);
+  const wk=semWeeks(s);
+  if(!SW[s]||!wk.includes(SW[s]))SW[s]=CUR_W;
+  const same=box.dataset.w===s+SW[s],keep=box.scrollTop;
+  mo.innerHTML=wk.map(k=>`<button data-w="${k}" class="${k===SW[s]?'on':''} ${k===CUR_W?'cur':''}">${esc(wlab(k))}</button>`).join('');
+  mo.querySelector('.on')?.scrollIntoView({inline:'center',block:'nearest'});
+  box.innerHTML=s==='pred'?predWeekHtml(SW[s]):vymWeekHtml(SW[s]);
+  box.dataset.w=s+SW[s];box.scrollTop=same?keep:0;
+}
+
+/* ---- Predicación por semana ---- */
+function ssHtml(r,lbl){
+  const lugar=String(r.dir||r.casa||'').trim();
+  return `<div class="ss"><div class="ss-top"><span class="ss-hora">${esc(fmtHora(r.hora))}</span><span class="ss-j">${esc(jornadaLabel(r.hora))}</span></div>
+  <p><span class="k">${lbl||'Capitán'}</span><b>${esc(r.cap||'—')}</b></p>
+  <p><span class="k">Casa</span><span class="casa-row"><span class="casa-info">${esc(r.casa||'—')}${r.dir?`<span class="d">${esc(r.dir)}</span>`:''}</span>${lugar?dirBtn(lugar):''}</span></p>
+  <p><span class="k">Territorio</span><span>${r.terr?'Territorio '+esc(r.terr):'—'}</span></p></div>`;
+}
+function predWeekHtml(w){
+  const ed=EDIT();let h='';
+  for(let i=0;i<7;i++){
+    const d=addDays(w,i),rows=pjRows(d),ov=Array.isArray(SH.pred[d]);
+    const lab=new Date(d+'T12:00:00').toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'short'}).replace('.','');
+    h+=`<div class="dia${d===HOY?' hoy':''}"><div class="dia-h"><b>${esc(lab)}</b>${d===HOY?'<span class="tag hoy">Hoy</span>':d===MAN?'<span class="tag">Mañana</span>':''}${ov?'<span class="tag ed">Editado</span>':''}${ed?`<button class="chip" type="button" data-act="pe" data-d="${d}">Editar</button>`:''}</div>`
+      +(rows.length?rows.map(r=>ssHtml(r)).join(''):'<p class="dia-vacio">Sin salida registrada</p>')+'</div>';
+  }
+  return h;
+}
+
+/* ---- Vida y Ministerio por semana ---- */
+function vymWeekHtml(w){
+  const W=SH.vym.weeks[w],ed=EDIT();
+  if(!W)return `<div class="ld">Aún no se carga el programa de esta semana (${esc(wlab(w))}).</div>`
+    +`<div style="text-align:center"><button class="chip" type="button" data-act="topdf">Ver el PDF del mes</button></div>`
+    +(ed?'<button class="btn" type="button" data-act="vload">Cargar programa (pegar texto)</button>':'');
+  const as=a=>a?`<div class="va">${esc(a)}</div>`:(ed?'<div class="va vacio">＋ Asignar</div>':'');
+  const cards=[{c:'',t:'',rows:[]}];
+  cards[0].rows.push(`<div class="vrow${ed?' edit':''}"${ed?' data-act="vpres"':''}><div class="vn">★</div><div class="vb"><div class="vt">Presidente</div></div>${as(W.pres)}</div>`);
+  W.items.forEach((it,i)=>{
+    if(it.t==='h'){cards.push({c:it.c||'',t:it.txt,rows:[]});return;}
+    const cc=cards[cards.length-1],can=it.t==='p'||(it.t==='c'&&/oraci[oó]n/i.test(it.txt));
+    const cls='vrow'+(ed&&can?' edit':''),at=ed&&can?` data-act="vp" data-i="${i}"`:'';
+    if(it.t==='p')cc.rows.push(`<div class="${cls}"${at}><div class="vn">${esc(it.n)}</div><div class="vb"><div class="vt">${esc(it.titulo)}${it.min?` <small>(${esc(it.min)} min.)</small>`:''}</div>${it.detalle?`<div class="vd">${esc(it.detalle).replace(/\n/g,'<br>')}</div>`:''}</div>${as(it.asig)}</div>`);
+    else if(it.t==='c')cc.rows.push(`<div class="${cls}"${at}><div class="vn">♪</div><div class="vb"><div class="vt">${esc(it.txt)}</div></div>${can?as(it.asig):''}</div>`);
+    else cc.rows.push(`<div class="vrow"><div class="vn">•</div><div class="vb"><div class="vt">${esc(it.txt)}</div></div></div>`);
+  });
+  return `<div class="vw-head"><div class="vw-r">${esc(W.rango||wlab(w))}</div><div class="vw-l">${esc(W.lectura||'')}</div></div>`
+    +cards.map(c=>`<div class="vcard">${c.t?`<div class="vsec ${esc(c.c)}">${esc(c.t)}</div>`:''}${c.rows.join('')}</div>`).join('')
+    +(ed?'<button class="btn add" type="button" data-act="vload" style="background:var(--fill);color:var(--brand-2)">Cargar / actualizar programa</button><button class="btn ghost" type="button" data-act="vdel">Eliminar esta semana</button>':'');
+}
+
+/* ---- Inicio: Mañana (se recalcula solo; mañana pasa a ser “hoy”) ---- */
+function renderManana(){
+  const box=$('#man');if(!box)return;
+  const mn=load('hoy:'+MAN,null),rows=mn?(Array.isArray(mn)?mn:[mn]):pjRows(MAN);
+  const lab=new Date(MAN+'T12:00:00').toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});
+  box.innerHTML=`<div class="man-h"><h2>Mañana</h2><span class="man-d">${esc(lab)}</span></div>`
+    +(rows.length?rows.map(r=>ssHtml(r,'Lo saca')).join(''):'<p class="dia-vacio" style="margin:10px 0 4px">Aún no hay salida registrada para mañana.</p>');
+}
+
+/* ---- Hoja de edición genérica ---- */
+let ED=null;
+const fld=(id,label,val,extra)=>`<label for="${id}">${label}</label><input id="${id}" value="${esc(val||'')}" ${extra||''}>`;
+const toHHMM=h=>{const p=parseHora(h);return p?String(p[0]).padStart(2,'0')+':'+String(p[1]).padStart(2,'0'):''};
+function edOpen(o){ED=o;$('#ed-title').textContent=o.title;$('#ed-body').innerHTML=o.html;$('#ed-save').textContent=o.save||'Guardar';$('#ed-del').textContent=o.delTxt||'Eliminar';$('#ed-del').hidden=!o.onDelete;$('#ed-sheet').hidden=false}
+const edClose=()=>{$('#ed-sheet').hidden=true;ED=null};
+const edErr=e=>typeof e==='string'?e:(e&&e.message==='auth'?'El token no tiene permiso de escritura (Contents: Read and write).':'No se pudo guardar. Revisa token y conexión.');
+$('#ed-x').onclick=edClose;
+$('#ed-sheet').onclick=e=>{if(e.target.id==='ed-sheet')edClose()};
+$('#ed-save').onclick=async()=>{
+  const o=ED;if(!o)return;const b=$('#ed-save'),t=b.textContent;b.disabled=true;b.textContent='Guardando…';
+  try{await o.onSave($('#ed-body'));edClose();refreshActive();toast('Guardado ✓')}catch(e){console.error(e);toast(edErr(e))}
+  b.disabled=false;b.textContent=t;
+};
+$('#ed-del').onclick=async()=>{
+  const o=ED;if(!o||!o.onDelete)return;if(o.confirmDel&&!confirm(o.confirmDel))return;
+  try{await o.onDelete();edClose();refreshActive();toast('Listo ✓')}catch(e){console.error(e);toast(edErr(e))}
+};
+const PROMPT_VYM=`Transcribe sin resumir ni traducir el PDF adjunto (Guía de actividades de Vida y Ministerio Cristianos). Entrégame solo texto plano, sin nombres de hermanos, sin tablas, encabezados ni pies de página. Una semana tras otra, separadas por una línea en blanco, con esta estructura exacta:
+1) DÍA DE MES A DÍA DE MES | LIBRO CAPÍTULOS (ej.: 28 DE SEPTIEMBRE A 4 DE OCTUBRE | JEREMÍAS 38, 39)
+2) Canción N y oración
+3) Palabras de introducción (1 min.)
+4) TESOROS DE LA BIBLIA y sus 3 puntos, cada uno como "N. Título (X min.)" con el detalle en la línea siguiente
+5) SEAMOS MEJORES MAESTROS y todos sus puntos con el mismo formato (incluye la referencia entre paréntesis)
+6) Canción N
+7) NUESTRA VIDA CRISTIANA y sus puntos con el mismo formato
+8) Palabras de conclusión (3 mins.)
+9) Canción N y oración
+No agregues explicaciones antes ni después.`;
+$('#ed-body').addEventListener('click',e=>{
+  const b=e.target.closest('[data-ed]');if(!b)return;
+  if(b.dataset.ed==='add')$('#ent-list').insertAdjacentHTML('beforeend',entHtml());
+  else if(b.dataset.ed==='rm')b.closest('.ent').remove();
+  else if(b.dataset.ed==='cp'){(navigator.clipboard?navigator.clipboard.writeText(PROMPT_VYM):Promise.reject()).then(()=>toast('Prompt copiado ✓')).catch(()=>toast('No se pudo copiar'))}
+});
+
+/* ---- Editar un día de predicación ---- */
+const entHtml=(r={})=>`<div class="ent"><div class="fr" style="margin-top:12px"><div><label>Hora</label><input type="time" data-k="hora" value="${esc(toHHMM(r.hora))}"></div><div><label>Territorio</label><input data-k="terr" value="${esc(r.terr||'')}" placeholder="Nº"></div></div>
+<label>Capitán</label><input data-k="cap" list="dl-herm" value="${esc(r.cap||'')}">
+<label>Casa de salida</label><input data-k="casa" value="${esc(r.casa||'')}">
+<label>Dirección</label><input data-k="dir" value="${esc(r.dir||'')}">
+<button class="btn ghost" type="button" data-ed="rm">Quitar esta salida</button></div>`;
+function editPredDay(d){
+  const rows=pjRows(d);
+  edOpen({
+    title:'Salidas · '+new Date(d+'T12:00:00').toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'}),
+    html:`<div id="ent-list">${rows.map(r=>entHtml(r)).join('')}</div><button class="btn add" type="button" data-ed="add">+ Agregar salida</button><p class="st">Estos cambios reemplazan al programa original solo para este día. Si lo dejas sin salidas, el día queda como “sin salida”.</p>`,
+    onSave:async b=>{
+      const list=[...b.querySelectorAll('.ent')].map(e=>{const g=k=>e.querySelector('[data-k='+k+']').value.trim();return{hora:g('hora'),cap:g('cap'),casa:g('casa'),dir:g('dir'),terr:g('terr')}}).filter(r=>r.hora||r.cap||r.casa||r.dir||r.terr);
+      await shSave('pred',()=>({}),c=>{c[d]=list;return c});
+    },
+    onDelete:Array.isArray(SH.pred[d])?async()=>{await shSave('pred',()=>({}),c=>{delete c[d];return c})}:null,
+    delTxt:'Volver al programa original',confirmDel:'¿Quitar los cambios de este día?'
+  });
+}
+
+/* ---- Vida y Ministerio: pegar programa, editar partes ---- */
+const MESN={enero:1,febrero:2,marzo:3,abril:4,mayo:5,junio:6,julio:7,agosto:8,septiembre:9,setiembre:9,octubre:10,noviembre:11,diciembre:12};
+function parseVym(txt,year){
+  const lines=String(txt).replace(/\r/g,'').split('\n').map(l=>l.trim()).filter(Boolean);
+  const hdr=/^(\d{1,2})(?:\s+de\s+([a-záéíóúñ]+))?\s*(?:a|al|-|–|—)\s*(\d{1,2})\s+de\s+([a-záéíóúñ]+)\s*[|｜]\s*(.+)$/i;
+  const secRe=/^(tesoros de la biblia|seamos mejores maestros|nuestra vida cristiana)\s*:?\s*$/i;
+  const nm=x=>MESN[String(x||'').toLowerCase()];
+  const out={};let cur=null,yr=+year,prev='';
+  for(const L of lines){
+    const h=L.match(hdr);
+    if(h){
+      const d1=+h[1],em=nm(h[4]);let sm=h[2]?nm(h[2]):em;
+      if(!em||!sm)throw 'No entendí el mes en: '+L;
+      if(!h[2]&&d1>+h[3])sm=em-1||12;
+      let st=yr+'-'+String(sm).padStart(2,'0')+'-'+String(d1).padStart(2,'0');
+      if(prev&&st<prev){yr++;st=yr+st.slice(4)}
+      prev=st;
+      cur=out[monday(st)]={rango:L.split(/[|｜]/)[0].trim().toUpperCase(),lectura:h[5].trim(),pres:'',items:[]};
+      continue;
+    }
+    if(!cur)continue;
+    const it=cur.items,last=it[it.length-1];let m;
+    if(secRe.test(L)){const t=L.replace(/:\s*$/,'').toUpperCase();it.push({t:'h',c:/TESOROS/.test(t)?'t':/MAESTROS/.test(t)?'m':'v',txt:t});continue;}
+    if(/^canci[oó]n\s+\d+/i.test(L)){it.push({t:'c',txt:L,asig:''});continue;}
+    if(/^palabras de (introducci|conclusi)/i.test(L)){it.push({t:'x',txt:L});continue;}
+    if((m=L.match(/^(\d{1,2})\.\s+(.+)$/))){
+      let ti=m[2],min='';const mm=ti.match(/\s*\((\d+)\s*mins?\.?\)\s*$/i);
+      if(mm){min=mm[1];ti=ti.slice(0,mm.index).trim()}
+      it.push({t:'p',n:+m[1],titulo:ti,min,detalle:'',asig:''});continue;
+    }
+    if(last&&last.t==='p')last.detalle+=(last.detalle?'\n':'')+L;
+    else it.push({t:'x',txt:L});
+  }
+  if(!Object.keys(out).length)throw 'No encontré semanas. Cada una debe empezar con una línea como: 28 DE SEPTIEMBRE A 4 DE OCTUBRE | JEREMÍAS 38, 39';
+  return out;
+}
+function editVymLoad(){
+  const y=hoy.getFullYear();
+  edOpen({
+    title:'Cargar programa Vida y Ministerio',save:'Leer y guardar',
+    html:`<p class="st" style="margin-top:6px">Pega el texto del mes (una semana tras otra). Si una semana ya existe se reemplaza, conservando las asignaciones por número de parte.</p>
+    <label for="e_y">Año del primer día</label><select id="e_y">${[y-1,y,y+1].map(v=>`<option${v===y?' selected':''}>${v}</option>`).join('')}</select>
+    <label for="e_tx">Texto del programa</label><textarea id="e_tx" placeholder="28 DE SEPTIEMBRE A 4 DE OCTUBRE | JEREMÍAS 38, 39&#10;Canción 12 y oración&#10;Palabras de introducción (1 min.)&#10;TESOROS DE LA BIBLIA&#10;1. …"></textarea>
+    <details><summary>¿Cómo obtengo este texto del PDF?</summary><p class="st">Descarga la Guía de actividades del mes, adjúntala a Claude (u otra IA) junto con este prompt y pega aquí la respuesta.</p><button class="chip" type="button" data-ed="cp">Copiar prompt</button></details>`,
+    onSave:async()=>{
+      const tx=$('#e_tx').value;if(!tx.trim())throw 'Pega el texto del programa';
+      const parsed=parseVym(tx,$('#e_y').value);
+      await shSave('vym',()=>({weeks:{}}),c=>{
+        c.weeks=c.weeks||{};
+        for(const k in parsed){
+          const o=c.weeks[k],n=parsed[k];
+          if(o){n.pres=o.pres||'';const mp={};(o.items||[]).forEach(x=>{if(x.t==='p'&&x.asig)mp[x.n]=x.asig});n.items.forEach(x=>{if(x.t==='p'&&mp[x.n])x.asig=mp[x.n]})}
+          c.weeks[k]=n;
+        }
+        return c;
+      });
+      const k=Object.keys(parsed).sort()[0];SW.vym=k;
+    }
+  });
+}
+function editVymItem(w,i){
+  const W=SH.vym.weeks[w],it=W&&W.items[i];if(!it)return;const p=it.t==='p';
+  edOpen({
+    title:p?('Parte '+it.n):'Asignación',
+    html:fld('e_as','Asignado a',it.asig,'list="dl-herm" placeholder="Nombre (o Titular / Ayudante)"')+(p?fld('e_ti','Título',it.titulo)+`<label for="e_de">Detalle</label><textarea id="e_de">${esc(it.detalle||'')}</textarea>`:`<p class="st">${esc(it.txt)}</p>`),
+    onSave:async()=>{
+      const as=$('#e_as').value.trim(),ti=p?$('#e_ti').value.trim():'',de=p?$('#e_de').value.trim():'';
+      await shSave('vym',()=>({weeks:{}}),c=>{
+        const x=c.weeks&&c.weeks[w]&&c.weeks[w].items[i];if(!x)throw 'Esa semana cambió. Recarga e inténtalo de nuevo.';
+        x.asig=as;if(p){if(ti)x.titulo=ti;x.detalle=de}return c;
+      });
+    }
+  });
+}
+function editVymPres(w){
+  const W=SH.vym.weeks[w];if(!W)return;
+  edOpen({title:'Presidente',html:fld('e_as','Presidente de la reunión',W.pres,'list="dl-herm"'),
+    onSave:async()=>{const v=$('#e_as').value.trim();await shSave('vym',()=>({weeks:{}}),c=>{if(!c.weeks||!c.weeks[w])throw 'Esa semana cambió. Recarga.';c.weeks[w].pres=v;return c})}});
+}
+async function delVymWeek(w){
+  if(!confirm('¿Eliminar el programa de la semana '+wlab(w)+'?'))return;
+  try{await shSave('vym',()=>({weeks:{}}),c=>{if(c.weeks)delete c.weeks[w];return c});refreshActive();toast('Semana eliminada')}catch(e){toast(edErr(e))}
+}
+
+/* ---- Grupos: editar ---- */
+function editGrupo(gi){
+  const G=GRUPOS(),g=gi==null?{nombre:'Grupo '+(G.length+1),super:''}:G[gi];if(!g)return;const on=g.nombre;
+  edOpen({
+    title:gi==null?'Nuevo grupo':'Editar grupo',
+    html:fld('e_gn','Nombre del grupo',g.nombre)+fld('e_gs','Superintendente',g.super,'list="dl-herm"'),
+    onSave:async()=>{
+      const n=$('#e_gn').value.trim(),sp=$('#e_gs').value.trim();if(!n)throw 'Falta el nombre del grupo';
+      await shSave('grupos',()=>clone(GRUPOS()),c=>{
+        if(gi==null)c.push({nombre:n,super:sp,miembros:[]});
+        else{const x=c.find(z=>z.nombre===on);if(!x)throw 'El grupo cambió. Recarga e inténtalo de nuevo.';x.nombre=n;x.super=sp}
+        return c;
+      });
+    },
+    onDelete:gi==null?null:async()=>{
+      await shSave('grupos',()=>clone(GRUPOS()),c=>{
+        const k=c.findIndex(z=>z.nombre===on);if(k<0)throw 'El grupo cambió. Recarga.';
+        if(c[k].miembros.length)throw 'Primero mueve o quita a los hermanos del grupo.';
+        c.splice(k,1);return c;
+      });G_VIEW=null;
+    },delTxt:'Eliminar grupo',confirmDel:'¿Eliminar este grupo?'
+  });
+}
+function editMiembro(gi,mi){
+  const G=GRUPOS(),g=G[gi];if(!g)return;
+  const m=mi==null?{n:'',r:'PTJ'}:g.miembros[mi];if(!m)return;const on=m.n,gn=g.nombre;
+  edOpen({
+    title:mi==null?'Agregar hermano':'Editar hermano',
+    html:fld('e_mn','Nombre (Apellido, Nombre)',m.n,'placeholder="Pérez, Juan"')+fld('e_mr','Rol / etiqueta',m.r,'list="dl-roles" placeholder="PTJ"')
+      +`<label for="e_mg">Grupo</label><select id="e_mg">${G.map(x=>`<option value="${esc(x.nombre)}"${x.nombre===gn?' selected':''}>${esc(x.nombre)}</option>`).join('')}</select>`,
+    onSave:async()=>{
+      const n=$('#e_mn').value.trim(),r=$('#e_mr').value.trim()||'PTJ',tg=$('#e_mg').value;if(!n)throw 'Falta el nombre';
+      await shSave('grupos',()=>clone(GRUPOS()),c=>{
+        const a=c.find(z=>z.nombre===gn),t=c.find(z=>z.nombre===tg);if(!a||!t)throw 'El grupo cambió. Recarga.';
+        if(mi==null)t.miembros.push({n,r});
+        else{const k=a.miembros.findIndex(z=>z.n===on);if(k<0)throw 'El hermano cambió. Recarga.';
+          if(t===a)a.miembros[k]={n,r};else{a.miembros.splice(k,1);t.miembros.push({n,r})}}
+        return c;
+      });
+    },
+    onDelete:mi==null?null:async()=>{
+      await shSave('grupos',()=>clone(GRUPOS()),c=>{
+        const a=c.find(z=>z.nombre===gn);if(!a)throw 'El grupo cambió. Recarga.';
+        const k=a.miembros.findIndex(z=>z.n===on);if(k<0)throw 'El hermano cambió. Recarga.';
+        a.miembros.splice(k,1);return c;
+      });
+    },delTxt:'Quitar del grupo',confirmDel:'¿Quitar a este hermano del grupo?'
+  });
+}
+$('#g-wrap').addEventListener('click',e=>{
+  const b=e.target.closest('[data-g]');if(!b||!EDIT())return;const a=b.dataset.g;
+  if(a==='newgrp')editGrupo(null);
+  else if(a==='editgrp')editGrupo(G_VIEW);
+  else if(a==='addm')editMiembro(G_VIEW,null);
+  else if(a==='editm')editMiembro(G_VIEW,+b.dataset.mi);
+});
+
+/* ---- Cableado de las vistas Predicación / Vida y Ministerio ---- */
+$$('[data-h]').forEach(v=>{
+  const s=v.dataset.h;
+  v.querySelector('.modes').addEventListener('click',e=>{const b=e.target.closest('[data-md]');if(b)setMode(s,b.dataset.md)});
+  v.querySelector('.months').addEventListener('click',e=>{const b=e.target.closest('[data-w]');if(!b)return;SW[s]=b.dataset.w;semRender(s)});
+  v.querySelector('.pdf').addEventListener('click',e=>{
+    const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act;
+    if(a==='topdf'){setMode(s,'pdf');return}
+    if(!EDIT())return;
+    if(a==='pe')editPredDay(b.dataset.d);
+    else if(a==='vp')editVymItem(SW.vym,+b.dataset.i);
+    else if(a==='vpres')editVymPres(SW.vym);
+    else if(a==='vload')editVymLoad();
+    else if(a==='vdel')delVymWeek(SW.vym);
+  });
+});
+
+/* ---- “Mañana” pasa a ser “hoy” solo: al abrir/volver a la app, si cambió el día se recarga ---- */
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden)return;
+  if(iso(new Date())!==HOY){location.reload();return}
+  if(Date.now()-SHAT>6e4)loadShared();
+});
+addEventListener('online',()=>loadShared());
+refreshDatalist();renderManana();loadShared();
+
 cfgUI();
 loadIdx();
 
 $('#cfg-btn').onclick=()=>{cfgUI();$('#cfg-sheet').hidden=false;};
-$('#cfg-x').onclick=()=>{$('#cfg-sheet').hidden=true;};
-$('#cfg-sheet').onclick=e=>{if(e.target.id==='cfg-sheet')$('#cfg-sheet').hidden=true;};
+$('#cfg-x').onclick=()=>{$('#cfg-sheet').hidden=true;refreshActive();};
+$('#cfg-sheet').onclick=e=>{if(e.target.id==='cfg-sheet'){$('#cfg-sheet').hidden=true;refreshActive();}};
 
 
 (function(){
