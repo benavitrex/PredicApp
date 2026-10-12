@@ -47,6 +47,22 @@ h1{font:700 30px/1.15 var(--serif);letter-spacing:-.02em;margin:12px 0 4px;text-
 h2{font:600 18px/1.3 var(--serif);margin:0 0 10px;color:var(--ink)}
 .sub{color:var(--soft);margin:0 0 18px;font-size:14px}
 .card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:14px;border:1px solid var(--line);box-shadow:var(--sh);transition:var(--t)}
+.reu-card{padding:0;overflow:hidden}
+.reu-head{display:flex;align-items:center;gap:10px;padding:16px 18px 12px}
+.reu-head h2{margin:0}
+.reu{position:relative;display:flex;align-items:center;gap:14px;padding:14px 18px;border-top:1px solid var(--line)}
+.reu-dia{flex:none;width:58px;padding:8px 0;border-radius:14px;background:var(--brand-bg);color:var(--brand-2);text-align:center;font:700 11px var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.reu-dia b{display:block;font:700 22px/1.1 var(--serif);letter-spacing:-.02em;text-transform:none;margin-bottom:1px}
+.reu-info{flex:1;min-width:0}
+.reu-hora{font:700 26px/1.1 var(--serif);letter-spacing:-.02em;color:var(--ink)}
+.reu-tipo{font-size:13px;color:var(--soft);margin-top:2px}
+.reu .tag{flex:none;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:4px 10px;border-radius:9999px;background:var(--brand-bg);color:var(--ok)}
+.reu.hoy{background:linear-gradient(90deg,var(--brand-bg),transparent 75%)}
+.reu.hoy .reu-dia{background:var(--brand-2);color:#fff}
+.btn-texto{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin:0 0 6px;padding:13px 16px;border-radius:14px;background:var(--brand);color:var(--on);font:600 15px var(--sans);text-decoration:none;box-shadow:var(--sh);transition:var(--t)}
+.btn-texto:hover{transform:translateY(-1px);box-shadow:var(--sh-hover)}
+.btn-texto:active{transform:scale(.98)}
+.btn-texto .bt-go{opacity:.7;font-size:13px}
 .top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
 .theme-btn{border:0;background:var(--fill);color:var(--ink);width:40px;height:40px;border-radius:12px;display:grid;place-items:center;cursor:pointer;font-size:18px;transition:var(--t);flex:none}
 .theme-btn:hover{transform:translateY(-1px);box-shadow:var(--sh)}
@@ -148,13 +164,20 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand-2)
 .sheet{position:fixed;inset:0;background:rgba(13,25,18,.45);z-index:20;display:flex;align-items:flex-end;justify-content:center}.sheet[hidden]{display:none}
 .panel{background:var(--card);width:100%;max-width:640px;border-radius:20px 20px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));max-height:90%;overflow:auto;animation:in .25s var(--ease);border:1px solid var(--line);border-bottom:0}
 .mini{border:0;background:var(--fill);color:var(--ink);border-radius:10px;width:32px;height:32px;display:grid;place-items:center;cursor:pointer;flex:none;font-size:16px;transition:var(--t)}
-nav{flex:none;position:relative;display:grid;grid-template-columns:repeat(4,1fr);height:calc(var(--nav) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);border-top:1px solid var(--line)}
+nav{flex:none;position:relative;display:grid;grid-template-columns:repeat(5,1fr);height:calc(var(--nav) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);border-top:1px solid var(--line)}
 nav button{border:0;background:none;color:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:600 10.5px var(--sans);white-space:nowrap;cursor:pointer;position:relative;z-index:1;transition:color .2s var(--ease),transform .15s var(--ease)}
 nav button:active{transform:scale(.9)}
 nav button.on{color:var(--brand-2)}
 nav button.on .i{animation:pop .45s cubic-bezier(.3,1.4,.5,1)}
-nav .ind{position:absolute;top:7px;left:0;width:25%;height:calc(var(--nav) - 14px);display:grid;place-items:center;transition:transform .35s cubic-bezier(.3,1.4,.5,1);pointer-events:none}
+nav .ind{position:absolute;top:7px;left:0;width:20%;height:calc(var(--nav) - 14px);display:grid;place-items:center;transition:transform .35s cubic-bezier(.3,1.4,.5,1);pointer-events:none}
 nav .ind::after{content:'';width:68px;height:100%;border-radius:14px;background:var(--brand-bg)}
+nav .ind{transition:transform .35s cubic-bezier(.3,1.4,.5,1),opacity .2s}
+nav button.fab{justify-content:flex-start;gap:2px;padding-top:0}
+nav button.fab .fab-c{width:56px;height:56px;margin-top:-24px;border-radius:50%;background:var(--brand-2);color:#fff;display:grid;place-items:center;border:4px solid var(--card);box-shadow:0 6px 16px rgba(27,56,43,.35);transition:var(--t)}
+nav button.fab .fab-c svg{width:25px;height:25px;stroke:#fff}
+nav button.fab.on .fab-c{box-shadow:0 0 0 3px var(--brand-bg),0 6px 16px rgba(27,56,43,.35)}
+nav button.fab:active .fab-c{transform:scale(.94)}
+[data-theme="dark"] nav button.fab .fab-c{background:var(--brand-2)}
 @keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
 #net{display:none;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:var(--on);font-size:13px;font-weight:600;padding:calc(7px + env(safe-area-inset-top)) 12px 7px}
 body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
@@ -266,6 +289,8 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 016.5 2H20v15H6.5A2.5 2.5 0 004 19.5z"/><path d="M4 19.5A2.5 2.5 0 006.5 22H20v-5"/></symbol>
 <symbol id="i-nav" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z"/></symbol>
 <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 4 5.8 4 9s-1.4 6.3-4 9c-2.6-2.7-4-5.8-4-9s1.4-6.3 4-9z"/></symbol>
 <symbol id="i-off" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 20h.01M3 3l18 18"/></symbol>
 </defs></svg>
 
@@ -273,6 +298,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 <div id="net" role="status"><svg class="i"><use href="#i-off"/></svg>Sin conexión · mostrando datos guardados</div>
 
 <section class="view on" id="v-inicio">
+ <a class="btn-texto" href="https://wol.jw.org/es/wol/h/r4/lp-s" target="_blank" rel="noopener"><svg class="i"><use href="#i-book"/></svg><span>Texto diario</span><span class="bt-go">↗</span></a>
  <div class="top-row">
   <div class="logo" aria-label="PrediApp">Predi<span>App</span></div>
   <button class="theme-btn" id="theme-btn" type="button" aria-label="Cambiar tema" title="Cambiar tema">◐</button>
@@ -308,7 +334,6 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   <button class="zb" data-z="+" aria-label="Acercar">+</button>
   <a class="ext" target="_blank" rel="noopener" hidden>PDF ↗</a>
  </div>
- <div class="modes"><div class="seg"><button type="button" data-md="sem" class="on">Por semana</button><button type="button" data-md="pdf">PDF del mes</button></div></div>
  <div class="months"></div>
  <div class="pdf"></div>
 </section>
@@ -320,7 +345,6 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   <button class="zb" data-z="+" aria-label="Acercar">+</button>
   <a class="ext" target="_blank" rel="noopener" hidden>PDF ↗</a>
  </div>
- <div class="modes"><div class="seg"><button type="button" data-md="sem" class="on">Por semana</button><button type="button" data-md="pdf">PDF del mes</button></div></div>
  <div class="months"></div>
  <div class="pdf"></div>
 </section>
@@ -330,6 +354,32 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
  <div class="frame"><div class="ld">Cargando mapa…</div><iframe title="Mapa de territorios" data-src="" allow="geolocation"></iframe></div>
 </section>
 
+
+<section class="view" id="v-perfil">
+ <h1>Perfil</h1>
+ <p class="sub">Reuniones, apariencia y guardado de la app.</p>
+ <div class="card reu-card">
+  <div class="reu-head"><span class="ic"><svg class="i"><use href="#i-cal"/></svg></span><h2>Reuniones</h2></div>
+  <div class="reu" data-dow="4">
+   <div class="reu-dia"><b>Jue</b>Jueves</div>
+   <div class="reu-info"><div class="reu-hora">19:30</div><div class="reu-tipo">Reunión de entre semana</div></div>
+  </div>
+  <div class="reu" data-dow="0">
+   <div class="reu-dia"><b>Dom</b>Domingo</div>
+   <div class="reu-info"><div class="reu-hora">18:00</div><div class="reu-tipo">Reunión de fin de semana</div></div>
+  </div>
+ </div>
+ <a class="btn-texto" href="https://www.jw.org/es/" target="_blank" rel="noopener" style="margin:0 0 14px"><svg class="i"><use href="#i-globe"/></svg><span>Ir a jw.org</span><span class="bt-go">↗</span></a>
+ <div class="card">
+  <h2>Apariencia</h2>
+  <button class="cfg-btn" id="perfil-tema" type="button">◐ Cambiar tema claro / oscuro</button>
+ </div>
+ <div class="card">
+  <h2>Guardado</h2>
+  <p class="st" style="margin:0 0 12px" id="perfil-st">Sin conectar</p>
+  <button class="cfg-btn" id="perfil-cfg" type="button">⚙️ Ajustes de guardado</button>
+ </div>
+</section>
 
 <!-- ===== GRUPOS ===== -->
 <section class="view" id="v-grupos">
@@ -344,8 +394,9 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
  <span class="ind" id="ind"></span>
  <button class="on" data-t="inicio"><svg class="i"><use href="#i-home"/></svg>Inicio</button>
  <button data-t="pred"><svg class="i"><use href="#i-cal"/></svg>Predicación</button>
+ <button class="fab" data-t="mapa" aria-label="Mapa"><span class="fab-c"><svg class="i"><use href="#i-map"/></svg></span>Mapa</button>
  <button data-t="vym"><svg class="i"><use href="#i-book"/></svg>Vida y Min.</button>
- <button data-t="mapa"><svg class="i"><use href="#i-map"/></svg>Mapa</button>
+ <button data-t="perfil"><svg class="i"><use href="#i-user"/></svg>Perfil</button>
 </nav>
 </div>
 
@@ -408,7 +459,7 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const BASE='https://benavitrex.github.io/Predicaci-n-Automatica/';
-const TABS=['inicio','pred','vym','mapa'];
+const TABS=['inicio','pred','mapa','vym','perfil'];
 const SECS={pred:'Predicación',vym:'Vida y Ministerio'};
 const DIR='historial';
 const MAPA_VER ='https://www.google.com/maps/d/viewer?mid=1H8j2hSNLHMMxyiIiBI___XOZpPDxobc&femb=1&ll=-33.12711459716915%2C-71.57907845698026&z=15';
@@ -600,7 +651,7 @@ net();
 function tab(t){
   $$('.view').forEach(v=>v.classList.toggle('on',v.id=='v-'+t));
   $$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));
-  $('#ind').style.transform='translateX('+TABS.indexOf(t)*100+'%)';
+  $('#ind').style.transform='translateX('+TABS.indexOf(t)*100+'%)';$('#ind').style.opacity=t==='mapa'?0:1;
   $$('#v-'+t+' iframe').forEach(f=>{ if(!f.src&&f.dataset.src&&navigator.onLine){f.src=f.dataset.src;f.addEventListener('load',()=>f.parentNode.querySelector('.ld')?.remove(),{once:true});} });
   if(SECS[t])histOpen(t);
   navigator.vibrate?.(8);
@@ -657,7 +708,9 @@ function salidaState(h){
 }
 
 const nk=k=>String(k||'').trim().toLowerCase();
-function terrMapHtml(terr){
+function terrToks(t){return String(t||'').split(/\s*(?:,|\/|&|\by\b|\be\b)\s*/i).map(x=>x.replace(/^territorios?\s*/i,'').trim()).filter(Boolean)}
+function terrTxt(t){const n=terrToks(t).length;return t?((n>1?'Territorios ':'Territorio ')+t):'—'}
+function terrMapOne(terr){
   const k=nk(String(terr||'').replace(/^territorio\s*/i,'').trim());
   let m=TERR_MAPS[String(terr||'').trim()]||TERR_MAPS[k];
   if(!m){
@@ -669,6 +722,11 @@ function terrMapHtml(terr){
   return `<div class="terr-map"><div class="tm-ld">Cargando mapa…</div>
     <iframe title="Mapa territorio ${esc(terr)}" src="${emb}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
   </div>`;
+}
+function terrMapHtml(terr){
+  const T=terrToks(terr);
+  if(T.length<=1)return terrMapOne(T[0]||terr);
+  return T.map(t=>{const h=terrMapOne(t);return h?`<p class="st" style="margin:12px 0 0"><b>Territorio ${esc(t)}</b></p>`+h:''}).join('');
 }
 function dirBtn(lugar){
   const q=encodeURIComponent(lugar);
@@ -709,14 +767,14 @@ function renderSalidas(list,src){
       </div>
       <div class="salida-body">
         <div class="dl">
-          <div><span class="ic"><svg class="i"><use href="#i-nav"/></svg></span><div><small>Capitán</small><b>${esc(d.cap||'—')}</b></div></div>
+          <div><span class="ic"><svg class="i"><use href="#i-nav"/></svg></span><div><small>Capitán</small><b>${esc(d.cap||'—')}</b>${d.grp?`<span class="d">${esc(d.grp)}</span>`:''}</div></div>
           <div><span class="ic"><svg class="i"><use href="#i-home"/></svg></span>
             <div class="casa-row">
               <div class="casa-info"><small>Casa de salida</small><b>${esc(d.casa||'—')}</b><span class="d">${esc(d.dir||'')}</span></div>
               ${lugar?dirBtn(lugar):''}
             </div>
           </div>
-          <div><span class="ic"><svg class="i"><use href="#i-map"/></svg></span><div><small>Territorio</small><b>${d.terr?('Territorio '+esc(d.terr)):'—'}</b></div></div>
+          <div><span class="ic"><svg class="i"><use href="#i-map"/></svg></span><div><small>Territorio</small><b>${esc(terrTxt(d.terr))}</b></div></div>
         </div>
         ${terrMapHtml(d.terr)}
       </div>
@@ -763,15 +821,23 @@ function estado(){
 setInterval(estado,3e4);
 
 /* ---- Estado compartido: grupos, semanas VyM y cambios de predicación (se leen del repo y se cachean) ---- */
-const SHF={grupos:'grupos',vym:'vym-semanas',pred:'pred-cambios'};
-const SH={grupos:load('cache:sh:grupos',null),vym:load('cache:sh:vym',{weeks:{}}),pred:load('cache:sh:pred',{})};
-if(!SH.vym||typeof SH.vym!=='object')SH.vym={weeks:{}};if(!SH.vym.weeks)SH.vym.weeks={};
+const SHF={grupos:'grupos',pred:'pred-cambios',prog:'pred-programa'};
+const SH={grupos:load('cache:sh:grupos',null),pred:load('cache:sh:pred',{}),prog:load('cache:sh:prog',{})};
 if(!SH.pred||typeof SH.pred!=='object')SH.pred={};
-let PJ=load('cache:pj',{}),SHAT=0;
+if(!SH.prog||typeof SH.prog!=='object'||Array.isArray(SH.prog))SH.prog={};
+let PJ=load('cache:pj',{}),SHAT=0,INGB=false;
 const addDays=(d,n)=>{const t=new Date(d+'T12:00:00');t.setDate(t.getDate()+n);return iso(t)};
-const monday=d=>{const t=new Date(d+'T12:00:00');t.setDate(t.getDate()-((t.getDay()+6)%7));return iso(t)};
-const MAN=addDays(HOY,1),CUR_W=monday(HOY);
-const ovFor=d=>{const o=SH.pred[d];return Array.isArray(o)?o:null};
+const MAN=addDays(HOY,1);
+/* Salidas leídas del PDF de predicación. Prioridad: lo guardado por el administrador > lo leído en este equipo > programa incluido (4–18 oct 2026) */
+const PROG_SEED={"2026-10-05":[{"hora":"10:00","cap":"Luis Cabeza","casa":"Fam. Da Silva","dir":"Las Granadas 1713","terr":"19"}],"2026-10-06":[{"hora":"10:00","cap":"Cristian Da Silva","casa":"Fam. Cabezas","dir":"Los Narcisos 1171","terr":"13"}],"2026-10-07":[{"hora":"10:00","cap":"Felipe González","casa":"Rita Panes","dir":"Las Laurentinas 869","terr":"16"},{"hora":"18:00","cap":"Hernán Coronado","casa":"Fam. Meneses","dir":"José Gil de Castro Sur 41","terr":"2"}],"2026-10-08":[{"hora":"10:00","cap":"David Cruz","casa":"Fam. Cruz","dir":"José Gil de Castro Sur 63","terr":"4"}],"2026-10-09":[{"hora":"10:00","cap":"Claudio Correa","casa":"Fam. Alvarado","dir":"Los Magnolios 370","terr":"7, 8"},{"hora":"18:00","cap":"Jhony Silva","casa":"Fam. Valladares","dir":"Las Melias 1431","terr":"6"}],"2026-10-10":[{"hora":"10:30","cap":"Luis Lopez","casa":"Fam. Coronado","dir":"Pasaje Canelo 43","terr":"15","grp":"Grupo 1-2-3"},{"hora":"10:30","cap":"Manuel Hernández","casa":"Fam. Hernández","dir":"Las Valerianas","terr":"15","grp":"Grupo 4-5"}],"2026-10-11":[{"hora":"10:30","cap":"David Ortega","casa":"Fam. Nuñez","dir":"Los Maitenes 127","terr":"10"}],"2026-10-12":[{"hora":"10:00","cap":"Ismael Orellana","casa":"Fam. Orellana","dir":"Lomas de la Luz 1263","terr":"14"}],"2026-10-13":[{"hora":"10:00","cap":"Ronny Perez","casa":"Fam. Cabezas","dir":"Los Narcisos 1171","terr":"12"}],"2026-10-14":[{"hora":"10:00","cap":"Alejandro Oliva","casa":"Fam. Colina","dir":"Los Abetos 142","terr":"23"},{"hora":"16:00","cap":"Alejandro Oliva","casa":"Fam. Meneses","dir":"José Gil de Castro Sur 41","terr":"3"}],"2026-10-15":[{"hora":"10:00","cap":"Alejandro Oliva","casa":"Fam. Coronado","dir":"Pasaje Canelo 43","terr":"20"}],"2026-10-16":[{"hora":"10:00","cap":"Alejandro Oliva","casa":"Fam. Robles","dir":"Los Ulmos 742","terr":"22"},{"hora":"16:00","cap":"Alejandro Oliva","casa":"Rita Panes","dir":"Las Laurentinas 869","terr":"17"}],"2026-10-17":[{"hora":"10:30","cap":"Alejandro Oliva","casa":"Fam. Orellana","dir":"Lomas de la Luz 1263","terr":"21"}],"2026-10-18":[{"hora":"10:30","cap":"Alejandro Oliva","casa":"Fam. Hernández","dir":"Las Valerianas","terr":"4"}]};
+let LPROG=load('cache:lprog',{st:{},rows:{}});
+if(!LPROG||typeof LPROG!=='object'||!LPROG.rows||!LPROG.st)LPROG={st:{},rows:{}};
+const PROG=d=>{
+  const a=SH.prog[d];if(Array.isArray(a)&&a.length)return a;
+  const b=LPROG.rows[d];if(Array.isArray(b)&&b.length)return b;
+  const c=PROG_SEED[d];return Array.isArray(c)&&c.length?c:null;
+};
+const ovFor=d=>{const p=PROG(d);if(p)return p;const o=SH.pred[d];return Array.isArray(o)?o:null};
 function pjRows(d){
   const ov=ovFor(d);if(ov)return ov;
   return ((PJ[d.slice(0,7)]&&PJ[d.slice(0,7)].rows)||[]).filter(x=>x.f===d)
@@ -790,7 +856,7 @@ async function loadToday(){
   }else if(ovFor(HOY)){
     const list=ovFor(HOY);
     window.TODAY_ROWS=list;
-    renderSalidas(list,'Programa editado por el administrador.');
+    renderSalidas(list,PROG(HOY)?'Leído del programa de predicación (PDF).':'Programa editado por el administrador.');
     estado();
   }else if(c?.f==HOY&&c.list){
     window.TODAY_ROWS=c.list;
@@ -825,7 +891,7 @@ loadToday();
 
 function npList(L){return '<ul>'+L.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'}
 function renderNoPasar(terr){
-  const k=nk(terr),hit=Object.keys(NO_PASAR).find(x=>nk(x)==k),L=hit?NO_PASAR[hit]:[];
+  const k=nk(terr),L=terrToks(terr).flatMap(t=>{const h=Object.keys(NO_PASAR).find(x=>nk(x)==nk(t));return h?NO_PASAR[h]:[]});
   $('#np-hoy').innerHTML=!k?'<p class="empty">Cuando haya un territorio asignado para hoy, aquí verás sus direcciones de “No pasar”.</p>'
     :L.length?npList(L):'<p class="empty">No hay direcciones de “No pasar” registradas para el territorio '+esc(terr)+'.</p>';
   const keys=Object.keys(NO_PASAR).filter(x=>NO_PASAR[x]?.length).sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));
@@ -833,8 +899,8 @@ function renderNoPasar(terr){
 }
 function renderTerrLinks(terr){
   const box=$('#terr-links');
-  const k=nk(terr),hit=Object.keys(TERR_LINKS).find(x=>nk(x)==k),L=hit?TERR_LINKS[hit]:[];
-  if(!L||!L.length){box.hidden=true;box.innerHTML='';return;}
+  const L=terrToks(terr).flatMap(t=>{const h=Object.keys(TERR_LINKS).find(x=>nk(x)==nk(t));return h?TERR_LINKS[h]:[]});
+  if(!L.length){box.hidden=true;box.innerHTML='';return;}
   box.hidden=false;
   box.innerHTML=L.map(x=>`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.label||'Enlace')}</a>`).join('');
 }
@@ -966,12 +1032,11 @@ async function loadIdx(){
     if(r.status===404)IDX={pred:{},vym:{}};
     else if(r.ok)IDX=Object.assign({pred:{},vym:{}},await r.json());
     else return;
-    IDXAT=Date.now();store('cache:idx',IDX);
+    IDXAT=Date.now();store('cache:idx',IDX);ingestPred();
   }catch{}
 }
 
 async function histOpen(s){
-  if(applyMode(s)==='sem'){semOpen(s);return;}
   if(Date.now()-IDXAT>6e4&&Date.now()-UPAT>3.5e5){
     if(!$('#v-'+s+' .pdf').children.length)$('#v-'+s+' .pdf').innerHTML='<div class="ld">Cargando…</div>';
     await loadIdx();
@@ -980,8 +1045,6 @@ async function histOpen(s){
 }
 
 function histRender(s){
-  if(applyMode(s)==='sem'){semRender(s);return;}
-  $('#v-'+s+' .pdf').dataset.w='';
   const v=$('#v-'+s),mo=v.querySelector('.months'),box=v.querySelector('.pdf'),ext=v.querySelector('.ext');
   const keys=Object.keys(IDX[s]||{}).sort().reverse();
   const c=getCfg();
@@ -1068,6 +1131,7 @@ function cfgUI(){
   }
   const btn=$('#cfg-btn');
   if(btn)btn.classList.toggle('on',ok);
+  const ps=$('#perfil-st');if(ps)ps.textContent=ok?'Conectado · '+c.owner+'/'+c.repo:'Sin conectar';
 }
 
 function renderAdmList(){
@@ -1140,6 +1204,13 @@ $('#a_up').onclick=async()=>{
   if(!configured())return toast('Conecta el token de GitHub primero');
   btn.disabled=true;btn.textContent='Subiendo…';
   try{
+    let parsed=null,pErr='';
+    if(ASEC==='pred'){
+      btn.textContent='Leyendo programa…';
+      try{const lib=await loadPdfJs(),doc=await lib.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise;parsed=await parsePredPdf(doc,m)}
+      catch(e){console.error(e);pErr=typeof e==='string'?e:'No pude leer las salidas del PDF'}
+      btn.textContent='Subiendo…';
+    }
     const path=`${DIR}/${ASEC}/${m}.pdf`;
     const content=await b64(f);
     // GET actual sha (si existe) para poder reemplazar
@@ -1167,9 +1238,17 @@ $('#a_up').onclick=async()=>{
     // forzar recarga del índice y del visor
     IDXAT=0;UPAT=Date.now();
     await loadIdx();
-    sel[ASEC]=m;$('#a_file').value='';MODE[ASEC]='pdf';try{localStorage.setItem('predicapp.mode.'+ASEC,'pdf')}catch{}
-    renderAdmList();
-    toast('Programa subido ✓ · se actualiza en unos segundos');
+    let saved=0;
+    if(parsed){
+      try{
+        await shSave('prog',()=>({}),c=>{const ks=Object.keys(parsed.rows).sort(),a=ks[0],z=ks[ks.length-1];Object.keys(c).forEach(d=>{if(d>=a&&d<=z)delete c[d]});Object.assign(c,parsed.rows);return c});
+        saved=parsed.n;
+        Object.keys(parsed.rows).forEach(d=>{delete LPROG.rows[d]});store('cache:lprog',LPROG);
+      }catch{pErr='El PDF se subió, pero no se pudo guardar la lectura de las salidas'}
+    }
+    sel[ASEC]=m;$('#a_file').value='';
+    renderAdmList();renderManana();loadToday();
+    toast(pErr?(saved?'Programa subido ✓':pErr):(saved?'Programa subido ✓ · '+saved+' salidas leídas':'Programa subido ✓ · se actualiza en unos segundos'));
     $('#cfg-sheet').hidden=true;
     tab(ASEC);
     histOpen(ASEC);
@@ -1191,6 +1270,7 @@ $('#adm-list').onclick=async e=>{
     const path=`${DIR}/${s}/${m}.pdf`,g=await gh('GET',path);
     if(g.ok){const d=await gh('DELETE',path,{message:`Eliminar ${SECS[s]} ${m}`,sha:(await g.json()).sha,branch:getCfg().branch});if(!d.ok)throw 0;}
     await updateIdx(c=>{delete c[s][m]});
+    if(s==='pred')await dropProg(m);
     if(sel[s]===m)sel[s]=null;
     renderAdmList();
     toast('Programa eliminado');
@@ -1203,7 +1283,7 @@ async function delMes(s){
   try{
     const path=`${DIR}/${s}/${m}.pdf`,g=await gh('GET',path);
     if(g.ok){const d=await gh('DELETE',path,{message:`Eliminar ${SECS[s]} ${m}`,sha:(await g.json()).sha,branch:getCfg().branch});if(!d.ok)throw 0;}
-    await updateIdx(c=>{delete c[s][m]});sel[s]=null;histRender(s);toast('Programa eliminado');
+    await updateIdx(c=>{delete c[s][m]});if(s==='pred')await dropProg(m);sel[s]=null;histRender(s);toast('Programa eliminado');
   }catch{toast('No se pudo eliminar')}
 }
 
@@ -1237,7 +1317,7 @@ async function shLoad(k){
     if(!r.ok)return;
     const j=await r.json();
     if(k==='grupos'){if(Array.isArray(j))SH.grupos=j;}
-    else if(j&&typeof j==='object'){SH[k]=j;if(k==='vym'&&!SH.vym.weeks)SH.vym.weeks={};}
+    else if(j&&typeof j==='object'){SH[k]=j;}
     store('cache:sh:'+k,SH[k]);
   }catch{}
 }
@@ -1258,91 +1338,131 @@ async function shSave(k,def,mut){
 }
 async function loadShared(){
   SHAT=Date.now();
-  await Promise.all([pjLoad(),shLoad('pred'),shLoad('vym'),shLoad('grupos')]);
-  renderManana();loadToday();refreshActive();
+  await Promise.all([pjLoad(),shLoad('pred'),shLoad('prog'),shLoad('grupos')]);
+  renderManana();loadToday();refreshActive();ingestPred();
 }
 function refreshActive(){
   refreshDatalist();
-  TABS.forEach(t=>{if(SECS[t]&&$('#v-'+t).classList.contains('on')&&modeOf(t)==='sem')semRender(t)});
   if($('#v-grupos').classList.contains('on'))renderGrupos();
   renderManana();
 }
 
-/* ---- Modo de vista (Por semana / PDF del mes) ---- */
-const MODE={pred:null,vym:null},SW={pred:null,vym:null};
-const savedMode=s=>{try{return localStorage.getItem('predicapp.mode.'+s)}catch{return null}};
-function modeOf(s){return MODE[s]||savedMode(s)||(s==='pred'?'sem':(Object.keys(SH.vym.weeks).length?'sem':'pdf'))}
-function applyMode(s){const v=$('#v-'+s),m=modeOf(s);v.classList.toggle('mode-sem',m==='sem');v.querySelectorAll('.modes [data-md]').forEach(b=>b.classList.toggle('on',b.dataset.md===m));return m}
-function setMode(s,m){MODE[s]=m;try{localStorage.setItem('predicapp.mode.'+s,m)}catch{}histOpen(s)}
-function semOpen(s){semRender(s);if(Date.now()-SHAT>6e4)loadShared()}
+/*PARSER-START*/
+const MESN={enero:1,febrero:2,marzo:3,abril:4,mayo:5,junio:6,julio:7,agosto:8,septiembre:9,setiembre:9,octubre:10,noviembre:11,diciembre:12};
+const _na=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/\s+/g,' ').trim();
+const _tc=s=>String(s||'').toLowerCase().replace(/(^|[\s\-.(\/])([a-záéíóúñü])/g,(m,a,b)=>a+b.toUpperCase()).replace(/\s+/g,' ').trim();
+const _WD=['DOMINGO','LUNES','MARTES','MIERCOLES','JUEVES','VIERNES','SABADO'];
+/* Lee el PDF de predicación (tabla: Fecha · Hora · Encargado · Lugar de encuentro · Territorios) y devuelve {rows:{'AAAA-MM-DD':[salidas]},n} */
+async function parsePredPdf(doc,fbYM){
+  const it=[];
+  for(let p=1;p<=doc.numPages;p++){
+    const tc=await (await doc.getPage(p)).getTextContent();
+    tc.items.forEach(o=>{const s=String(o.str||'').trim();if(s)it.push({s,x:o.transform[4],e:o.transform[4]+(o.width||0),y:o.transform[5]-(p-1)*1e4})});
+  }
+  const cell=a=>{
+    const s=a.slice().sort((p,q)=>q.y-p.y||p.x-q.x),L=[];
+    s.forEach(o=>{const l=L[L.length-1];if(l&&Math.abs(l.y-o.y)<2.5)l.a.push(o);else L.push({y:o.y,a:[o]})});
+    return L.map(l=>l.a.sort((p,q)=>p.x-q.x).map(o=>o.s).join(' ').trim()).filter(Boolean);
+  };
+  /* columnas a partir del encabezado */
+  const fh=it.find(o=>_na(o.s)==='FECHA');
+  if(!fh)throw 'No encontré la tabla del programa (falta el encabezado FECHA · HORA · ENCARGADO…).';
+  const hline=it.filter(o=>Math.abs(o.y-fh.y)<3).sort((a,b)=>a.x-b.x),cells=[];
+  hline.forEach(o=>{const c=cells[cells.length-1];if(c&&o.x-c.e<=12){c.t+=' '+o.s;c.e=o.e}else cells.push({t:o.s,x:o.x,e:o.e})});
+  const cols={};
+  cells.forEach(c=>{const t=_na(c.t),k=t.startsWith('FECHA')?'f':t.startsWith('HORA')?'h':t.startsWith('ENCARGADO')?'e':t.startsWith('LUGAR')?'l':t.startsWith('TERRIT')?'t':null;if(k)cols[k]=(c.x+c.e)/2});
+  if(['f','h','e','l','t'].some(k=>cols[k]==null))throw 'No pude identificar las columnas del programa.';
+  const HDR=new Set(hline.map(o=>_na(o.s)).concat(cells.map(c=>_na(c.t))));
+  const colOf=o=>{const cx=(o.x+o.e)/2;let b='f',d=1e9;for(const k in cols){const v=Math.abs(cx-cols[k]);if(v<d){d=v;b=k}}return b};
+  /* mes y año desde el título (“04 AL 18 DE OCTUBRE · 2026”) */
+  const top=_na(cell(it.filter(o=>o.y>fh.y+1)).join(' '));
+  let yr,sm;
+  const hm=top.match(/(\d{1,2})\s*(?:DE\s+([A-Z]+))?\s*AL\s*(\d{1,2})\s*DE\s*([A-Z]+)\D{0,12}(\d{4})/);
+  if(hm&&MESN[hm[4].toLowerCase()]&&(!hm[2]||MESN[hm[2].toLowerCase()])){
+    const em=MESN[hm[4].toLowerCase()];yr=+hm[5];
+    sm=hm[2]?MESN[hm[2].toLowerCase()]:(+hm[1]>+hm[3]?em-1:em);
+    if(sm<1){sm=12;yr--}
+  }else{
+    const f=/^\d{4}-\d{2}$/.test(fbYM||'')?fbYM:new Date().toISOString().slice(0,7);
+    yr=+f.slice(0,4);sm=+f.slice(5,7);
+  }
+  /* filas = una por cada encargado (la hora puede venir en blanco cuando se repite) */
+  const body=it.filter(o=>o.y<fh.y-1&&!HDR.has(_na(o.s)));
+  const rows=[];
+  const eit=body.filter(o=>colOf(o)==='e').sort((a,b)=>b.y-a.y);
+  eit.forEach(o=>{const l=rows[rows.length-1];if(l&&Math.abs(l.y-o.y)<2.5)l.n.push(o);else rows.push({y:o.y,n:[o]})});
+  if(!rows.length)throw 'No encontré salidas en el PDF.';
+  const df=[];for(let i=1;i<rows.length;i++){const d=rows[i-1].y-rows[i].y;if(d>0&&d<5e3)df.push(d)}
+  df.sort((a,b)=>a-b);
+  const tol=Math.max(8,(df.length?df[df.length>>1]:20)*.6);
+  rows.forEach(r=>{r.c={f:[],h:[],e:r.n,l:[],t:[]}});
+  body.forEach(o=>{
+    const k=colOf(o);if(k==='e')return;
+    let b=null,d=1e9;rows.forEach(r=>{const v=Math.abs(r.y-o.y);if(v<d){d=v;b=r}});
+    if(b&&d<=tol)b.c[k].push(o);
+  });
+  const out={};let n=0,cur=null,prev='',lastH='';
+  for(const r of rows){
+    const m=_na(cell(r.c.f).join(' ')).match(/(LUNES|MARTES|MIERCOLES|JUEVES|VIERNES|SABADO|DOMINGO)\s*(\d{1,2})/);
+    if(m){
+      const wd=_WD.indexOf(m[1]),day=+m[2];let found=null,first=null;
+      for(let k=0;k<3&&!found;k++){
+        let mo=sm-1+k,yy=yr+Math.floor(mo/12);mo=((mo%12)+12)%12;
+        const d=new Date(yy,mo,day,12);if(d.getDate()!==day)continue;
+        const s=yy+'-'+String(mo+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+        if(!first)first=s;
+        if(d.getDay()===wd&&(!prev||s>=prev))found=s;
+      }
+      cur=found||first||cur;
+    }
+    if(!cur)continue;
+    prev=cur;
+    const hm2=cell(r.c.h).join(' ').match(/(\d{1,2})\s*[:.]\s*(\d{2})/);
+    if(hm2)lastH=String(+hm2[1]).padStart(2,'0')+':'+hm2[2];
+    const hora=lastH;if(!hora)continue;
+    const cap=cell(r.c.e).join(' ');
+    const L=cell(r.c.l),gi=L.findIndex(x=>/^GRUPOS?\b/.test(_na(x)));
+    const grp=gi>=0?L.splice(gi,1)[0].replace(/[:\s]+$/,''):'';
+    const j=L.join(' '),dm=j.match(/\(([^)]*)\)/),dir=dm?dm[1].trim():'',casa=j.replace(/\([^)]*\)/,'').trim();
+    const terr=cell(r.c.t).join(' ').replace(/territorios?/ig,'').replace(/\s*,\s*/g,', ').replace(/\s+/g,' ').trim();
+    if(!(cap||casa||dir||terr))continue;
+    const row={hora,cap:_tc(cap),casa:_tc(casa),dir:/[a-záéíóúñ]/.test(dir)?dir:_tc(dir),terr};
+    if(grp)row.grp=_tc(grp);
+    (out[cur]=out[cur]||[]).push(row);n++;
+  }
+  if(!n)throw 'No pude leer ninguna salida del PDF.';
+  return {rows:out,n};
+}
+/*PARSER-END*/
 
-function wlab(w){
-  const a=new Date(w+'T12:00:00'),b=new Date(addDays(w,6)+'T12:00:00');
-  const f=(d,full)=>d.toLocaleDateString('es-CL',full?{day:'numeric',month:'short'}:{day:'numeric'}).replace('.','');
-  return a.getMonth()===b.getMonth()?f(a)+'–'+f(b,1):f(a,1)+' – '+f(b,1);
+/* Lee automáticamente el PDF de predicación del mes actual que está en el repositorio (si el administrador aún no guardó sus salidas) */
+async function ingestPred(){
+  const m=CUR_MES,stamp=IDX.pred&&IDX.pred[m];
+  if(INGB||!stamp||!navigator.onLine)return;
+  if(Object.keys(SH.prog).some(d=>d.startsWith(m)))return;
+  if(LPROG.st[m]===stamp)return;
+  INGB=true;
+  try{
+    const lib=await loadPdfJs(),doc=await lib.getDocument({url:pdfUrl('pred',m)}).promise,r=await parsePredPdf(doc,m);
+    Object.assign(LPROG.rows,r.rows);LPROG.st[m]=stamp;store('cache:lprog',LPROG);
+    renderManana();loadToday();
+  }catch(e){console.warn('ingestPred',e)}
+  INGB=false;
 }
-function semWeeks(s){
-  const set=new Set([CUR_W]);
-  if(s==='pred'){
-    Object.values(PJ).forEach(m=>((m&&m.rows)||[]).forEach(r=>{if(r.f)set.add(monday(r.f))}));
-    Object.keys(SH.pred).forEach(d=>set.add(monday(d)));
-  }else Object.keys(SH.vym.weeks).forEach(w=>set.add(w));
-  return [...set].sort();
-}
-function semRender(s){
-  RT[s]++;
-  const v=$('#v-'+s),mo=v.querySelector('.months'),box=v.querySelector('.pdf');
-  applyMode(s);
-  const wk=semWeeks(s);
-  if(!SW[s]||!wk.includes(SW[s]))SW[s]=CUR_W;
-  const same=box.dataset.w===s+SW[s],keep=box.scrollTop;
-  mo.innerHTML=wk.map(k=>`<button data-w="${k}" class="${k===SW[s]?'on':''} ${k===CUR_W?'cur':''}">${esc(wlab(k))}</button>`).join('');
-  mo.querySelector('.on')?.scrollIntoView({inline:'center',block:'nearest'});
-  box.innerHTML=s==='pred'?predWeekHtml(SW[s]):vymWeekHtml(SW[s]);
-  box.dataset.w=s+SW[s];box.scrollTop=same?keep:0;
+async function dropProg(m){
+  try{await shSave('prog',()=>({}),c=>{Object.keys(c).forEach(d=>{if(d.startsWith(m))delete c[d]});return c})}catch{}
+  delete LPROG.st[m];Object.keys(LPROG.rows).forEach(d=>{if(d.startsWith(m))delete LPROG.rows[d]});store('cache:lprog',LPROG);
+  renderManana();loadToday();
 }
 
-/* ---- Predicación por semana ---- */
+/* ---- Predicación: salida (usada en “Mañana”) ---- */
 function ssHtml(r,lbl){
   const lugar=String(r.dir||r.casa||'').trim();
   return `<div class="ss"><div class="ss-top"><span class="ss-hora">${esc(fmtHora(r.hora))}</span><span class="ss-j">${esc(jornadaLabel(r.hora))}</span></div>
-  <p><span class="k">${lbl||'Capitán'}</span><b>${esc(r.cap||'—')}</b></p>
+  <p><span class="k">${lbl||'Capitán'}</span><span><b>${esc(r.cap||'—')}</b>${r.grp?`<span class="d">${esc(r.grp)}</span>`:''}</span></p>
   <p><span class="k">Casa</span><span class="casa-row"><span class="casa-info">${esc(r.casa||'—')}${r.dir?`<span class="d">${esc(r.dir)}</span>`:''}</span>${lugar?dirBtn(lugar):''}</span></p>
-  <p><span class="k">Territorio</span><span>${r.terr?'Territorio '+esc(r.terr):'—'}</span></p></div>`;
+  <p><span class="k">Territorio</span><span>${esc(terrTxt(r.terr))}</span></p></div>`;
 }
-function predWeekHtml(w){
-  const ed=EDIT();let h='';
-  for(let i=0;i<7;i++){
-    const d=addDays(w,i),rows=pjRows(d),ov=Array.isArray(SH.pred[d]);
-    const lab=new Date(d+'T12:00:00').toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'short'}).replace('.','');
-    h+=`<div class="dia${d===HOY?' hoy':''}"><div class="dia-h"><b>${esc(lab)}</b>${d===HOY?'<span class="tag hoy">Hoy</span>':d===MAN?'<span class="tag">Mañana</span>':''}${ov?'<span class="tag ed">Editado</span>':''}${ed?`<button class="chip" type="button" data-act="pe" data-d="${d}">Editar</button>`:''}</div>`
-      +(rows.length?rows.map(r=>ssHtml(r)).join(''):'<p class="dia-vacio">Sin salida registrada</p>')+'</div>';
-  }
-  return h;
-}
-
-/* ---- Vida y Ministerio por semana ---- */
-function vymWeekHtml(w){
-  const W=SH.vym.weeks[w],ed=EDIT();
-  if(!W)return `<div class="ld">Aún no se carga el programa de esta semana (${esc(wlab(w))}).</div>`
-    +`<div style="text-align:center"><button class="chip" type="button" data-act="topdf">Ver el PDF del mes</button></div>`
-    +(ed?'<button class="btn" type="button" data-act="vload">Cargar programa (pegar texto)</button>':'');
-  const as=a=>a?`<div class="va">${esc(a)}</div>`:(ed?'<div class="va vacio">＋ Asignar</div>':'');
-  const cards=[{c:'',t:'',rows:[]}];
-  cards[0].rows.push(`<div class="vrow${ed?' edit':''}"${ed?' data-act="vpres"':''}><div class="vn">★</div><div class="vb"><div class="vt">Presidente</div></div>${as(W.pres)}</div>`);
-  W.items.forEach((it,i)=>{
-    if(it.t==='h'){cards.push({c:it.c||'',t:it.txt,rows:[]});return;}
-    const cc=cards[cards.length-1],can=it.t==='p'||(it.t==='c'&&/oraci[oó]n/i.test(it.txt));
-    const cls='vrow'+(ed&&can?' edit':''),at=ed&&can?` data-act="vp" data-i="${i}"`:'';
-    if(it.t==='p')cc.rows.push(`<div class="${cls}"${at}><div class="vn">${esc(it.n)}</div><div class="vb"><div class="vt">${esc(it.titulo)}${it.min?` <small>(${esc(it.min)} min.)</small>`:''}</div>${it.detalle?`<div class="vd">${esc(it.detalle).replace(/\n/g,'<br>')}</div>`:''}</div>${as(it.asig)}</div>`);
-    else if(it.t==='c')cc.rows.push(`<div class="${cls}"${at}><div class="vn">♪</div><div class="vb"><div class="vt">${esc(it.txt)}</div></div>${can?as(it.asig):''}</div>`);
-    else cc.rows.push(`<div class="vrow"><div class="vn">•</div><div class="vb"><div class="vt">${esc(it.txt)}</div></div></div>`);
-  });
-  return `<div class="vw-head"><div class="vw-r">${esc(W.rango||wlab(w))}</div><div class="vw-l">${esc(W.lectura||'')}</div></div>`
-    +cards.map(c=>`<div class="vcard">${c.t?`<div class="vsec ${esc(c.c)}">${esc(c.t)}</div>`:''}${c.rows.join('')}</div>`).join('')
-    +(ed?'<button class="btn add" type="button" data-act="vload" style="background:var(--fill);color:var(--brand-2)">Cargar / actualizar programa</button><button class="btn ghost" type="button" data-act="vdel">Eliminar esta semana</button>':'');
-}
-
 /* ---- Inicio: Mañana (se recalcula solo; mañana pasa a ser “hoy”) ---- */
 function renderManana(){
   const box=$('#man');if(!box)return;
@@ -1355,7 +1475,6 @@ function renderManana(){
 /* ---- Hoja de edición genérica ---- */
 let ED=null;
 const fld=(id,label,val,extra)=>`<label for="${id}">${label}</label><input id="${id}" value="${esc(val||'')}" ${extra||''}>`;
-const toHHMM=h=>{const p=parseHora(h);return p?String(p[0]).padStart(2,'0')+':'+String(p[1]).padStart(2,'0'):''};
 function edOpen(o){ED=o;$('#ed-title').textContent=o.title;$('#ed-body').innerHTML=o.html;$('#ed-save').textContent=o.save||'Guardar';$('#ed-del').textContent=o.delTxt||'Eliminar';$('#ed-del').hidden=!o.onDelete;$('#ed-sheet').hidden=false}
 const edClose=()=>{$('#ed-sheet').hidden=true;ED=null};
 const edErr=e=>typeof e==='string'?e:(e&&e.message==='auth'?'El token no tiene permiso de escritura (Contents: Read and write).':'No se pudo guardar. Revisa token y conexión.');
@@ -1370,128 +1489,6 @@ $('#ed-del').onclick=async()=>{
   const o=ED;if(!o||!o.onDelete)return;if(o.confirmDel&&!confirm(o.confirmDel))return;
   try{await o.onDelete();edClose();refreshActive();toast('Listo ✓')}catch(e){console.error(e);toast(edErr(e))}
 };
-const PROMPT_VYM=`Transcribe sin resumir ni traducir el PDF adjunto (Guía de actividades de Vida y Ministerio Cristianos). Entrégame solo texto plano, sin nombres de hermanos, sin tablas, encabezados ni pies de página. Una semana tras otra, separadas por una línea en blanco, con esta estructura exacta:
-1) DÍA DE MES A DÍA DE MES | LIBRO CAPÍTULOS (ej.: 28 DE SEPTIEMBRE A 4 DE OCTUBRE | JEREMÍAS 38, 39)
-2) Canción N y oración
-3) Palabras de introducción (1 min.)
-4) TESOROS DE LA BIBLIA y sus 3 puntos, cada uno como "N. Título (X min.)" con el detalle en la línea siguiente
-5) SEAMOS MEJORES MAESTROS y todos sus puntos con el mismo formato (incluye la referencia entre paréntesis)
-6) Canción N
-7) NUESTRA VIDA CRISTIANA y sus puntos con el mismo formato
-8) Palabras de conclusión (3 mins.)
-9) Canción N y oración
-No agregues explicaciones antes ni después.`;
-$('#ed-body').addEventListener('click',e=>{
-  const b=e.target.closest('[data-ed]');if(!b)return;
-  if(b.dataset.ed==='add')$('#ent-list').insertAdjacentHTML('beforeend',entHtml());
-  else if(b.dataset.ed==='rm')b.closest('.ent').remove();
-  else if(b.dataset.ed==='cp'){(navigator.clipboard?navigator.clipboard.writeText(PROMPT_VYM):Promise.reject()).then(()=>toast('Prompt copiado ✓')).catch(()=>toast('No se pudo copiar'))}
-});
-
-/* ---- Editar un día de predicación ---- */
-const entHtml=(r={})=>`<div class="ent"><div class="fr" style="margin-top:12px"><div><label>Hora</label><input type="time" data-k="hora" value="${esc(toHHMM(r.hora))}"></div><div><label>Territorio</label><input data-k="terr" value="${esc(r.terr||'')}" placeholder="Nº"></div></div>
-<label>Capitán</label><input data-k="cap" list="dl-herm" value="${esc(r.cap||'')}">
-<label>Casa de salida</label><input data-k="casa" value="${esc(r.casa||'')}">
-<label>Dirección</label><input data-k="dir" value="${esc(r.dir||'')}">
-<button class="btn ghost" type="button" data-ed="rm">Quitar esta salida</button></div>`;
-function editPredDay(d){
-  const rows=pjRows(d);
-  edOpen({
-    title:'Salidas · '+new Date(d+'T12:00:00').toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'}),
-    html:`<div id="ent-list">${rows.map(r=>entHtml(r)).join('')}</div><button class="btn add" type="button" data-ed="add">+ Agregar salida</button><p class="st">Estos cambios reemplazan al programa original solo para este día. Si lo dejas sin salidas, el día queda como “sin salida”.</p>`,
-    onSave:async b=>{
-      const list=[...b.querySelectorAll('.ent')].map(e=>{const g=k=>e.querySelector('[data-k='+k+']').value.trim();return{hora:g('hora'),cap:g('cap'),casa:g('casa'),dir:g('dir'),terr:g('terr')}}).filter(r=>r.hora||r.cap||r.casa||r.dir||r.terr);
-      await shSave('pred',()=>({}),c=>{c[d]=list;return c});
-    },
-    onDelete:Array.isArray(SH.pred[d])?async()=>{await shSave('pred',()=>({}),c=>{delete c[d];return c})}:null,
-    delTxt:'Volver al programa original',confirmDel:'¿Quitar los cambios de este día?'
-  });
-}
-
-/* ---- Vida y Ministerio: pegar programa, editar partes ---- */
-const MESN={enero:1,febrero:2,marzo:3,abril:4,mayo:5,junio:6,julio:7,agosto:8,septiembre:9,setiembre:9,octubre:10,noviembre:11,diciembre:12};
-function parseVym(txt,year){
-  const lines=String(txt).replace(/\r/g,'').split('\n').map(l=>l.trim()).filter(Boolean);
-  const hdr=/^(\d{1,2})(?:\s+de\s+([a-záéíóúñ]+))?\s*(?:a|al|-|–|—)\s*(\d{1,2})\s+de\s+([a-záéíóúñ]+)\s*[|｜]\s*(.+)$/i;
-  const secRe=/^(tesoros de la biblia|seamos mejores maestros|nuestra vida cristiana)\s*:?\s*$/i;
-  const nm=x=>MESN[String(x||'').toLowerCase()];
-  const out={};let cur=null,yr=+year,prev='';
-  for(const L of lines){
-    const h=L.match(hdr);
-    if(h){
-      const d1=+h[1],em=nm(h[4]);let sm=h[2]?nm(h[2]):em;
-      if(!em||!sm)throw 'No entendí el mes en: '+L;
-      if(!h[2]&&d1>+h[3])sm=em-1||12;
-      let st=yr+'-'+String(sm).padStart(2,'0')+'-'+String(d1).padStart(2,'0');
-      if(prev&&st<prev){yr++;st=yr+st.slice(4)}
-      prev=st;
-      cur=out[monday(st)]={rango:L.split(/[|｜]/)[0].trim().toUpperCase(),lectura:h[5].trim(),pres:'',items:[]};
-      continue;
-    }
-    if(!cur)continue;
-    const it=cur.items,last=it[it.length-1];let m;
-    if(secRe.test(L)){const t=L.replace(/:\s*$/,'').toUpperCase();it.push({t:'h',c:/TESOROS/.test(t)?'t':/MAESTROS/.test(t)?'m':'v',txt:t});continue;}
-    if(/^canci[oó]n\s+\d+/i.test(L)){it.push({t:'c',txt:L,asig:''});continue;}
-    if(/^palabras de (introducci|conclusi)/i.test(L)){it.push({t:'x',txt:L});continue;}
-    if((m=L.match(/^(\d{1,2})\.\s+(.+)$/))){
-      let ti=m[2],min='';const mm=ti.match(/\s*\((\d+)\s*mins?\.?\)\s*$/i);
-      if(mm){min=mm[1];ti=ti.slice(0,mm.index).trim()}
-      it.push({t:'p',n:+m[1],titulo:ti,min,detalle:'',asig:''});continue;
-    }
-    if(last&&last.t==='p')last.detalle+=(last.detalle?'\n':'')+L;
-    else it.push({t:'x',txt:L});
-  }
-  if(!Object.keys(out).length)throw 'No encontré semanas. Cada una debe empezar con una línea como: 28 DE SEPTIEMBRE A 4 DE OCTUBRE | JEREMÍAS 38, 39';
-  return out;
-}
-function editVymLoad(){
-  const y=hoy.getFullYear();
-  edOpen({
-    title:'Cargar programa Vida y Ministerio',save:'Leer y guardar',
-    html:`<p class="st" style="margin-top:6px">Pega el texto del mes (una semana tras otra). Si una semana ya existe se reemplaza, conservando las asignaciones por número de parte.</p>
-    <label for="e_y">Año del primer día</label><select id="e_y">${[y-1,y,y+1].map(v=>`<option${v===y?' selected':''}>${v}</option>`).join('')}</select>
-    <label for="e_tx">Texto del programa</label><textarea id="e_tx" placeholder="28 DE SEPTIEMBRE A 4 DE OCTUBRE | JEREMÍAS 38, 39&#10;Canción 12 y oración&#10;Palabras de introducción (1 min.)&#10;TESOROS DE LA BIBLIA&#10;1. …"></textarea>
-    <details><summary>¿Cómo obtengo este texto del PDF?</summary><p class="st">Descarga la Guía de actividades del mes, adjúntala a Claude (u otra IA) junto con este prompt y pega aquí la respuesta.</p><button class="chip" type="button" data-ed="cp">Copiar prompt</button></details>`,
-    onSave:async()=>{
-      const tx=$('#e_tx').value;if(!tx.trim())throw 'Pega el texto del programa';
-      const parsed=parseVym(tx,$('#e_y').value);
-      await shSave('vym',()=>({weeks:{}}),c=>{
-        c.weeks=c.weeks||{};
-        for(const k in parsed){
-          const o=c.weeks[k],n=parsed[k];
-          if(o){n.pres=o.pres||'';const mp={};(o.items||[]).forEach(x=>{if(x.t==='p'&&x.asig)mp[x.n]=x.asig});n.items.forEach(x=>{if(x.t==='p'&&mp[x.n])x.asig=mp[x.n]})}
-          c.weeks[k]=n;
-        }
-        return c;
-      });
-      const k=Object.keys(parsed).sort()[0];SW.vym=k;
-    }
-  });
-}
-function editVymItem(w,i){
-  const W=SH.vym.weeks[w],it=W&&W.items[i];if(!it)return;const p=it.t==='p';
-  edOpen({
-    title:p?('Parte '+it.n):'Asignación',
-    html:fld('e_as','Asignado a',it.asig,'list="dl-herm" placeholder="Nombre (o Titular / Ayudante)"')+(p?fld('e_ti','Título',it.titulo)+`<label for="e_de">Detalle</label><textarea id="e_de">${esc(it.detalle||'')}</textarea>`:`<p class="st">${esc(it.txt)}</p>`),
-    onSave:async()=>{
-      const as=$('#e_as').value.trim(),ti=p?$('#e_ti').value.trim():'',de=p?$('#e_de').value.trim():'';
-      await shSave('vym',()=>({weeks:{}}),c=>{
-        const x=c.weeks&&c.weeks[w]&&c.weeks[w].items[i];if(!x)throw 'Esa semana cambió. Recarga e inténtalo de nuevo.';
-        x.asig=as;if(p){if(ti)x.titulo=ti;x.detalle=de}return c;
-      });
-    }
-  });
-}
-function editVymPres(w){
-  const W=SH.vym.weeks[w];if(!W)return;
-  edOpen({title:'Presidente',html:fld('e_as','Presidente de la reunión',W.pres,'list="dl-herm"'),
-    onSave:async()=>{const v=$('#e_as').value.trim();await shSave('vym',()=>({weeks:{}}),c=>{if(!c.weeks||!c.weeks[w])throw 'Esa semana cambió. Recarga.';c.weeks[w].pres=v;return c})}});
-}
-async function delVymWeek(w){
-  if(!confirm('¿Eliminar el programa de la semana '+wlab(w)+'?'))return;
-  try{await shSave('vym',()=>({weeks:{}}),c=>{if(c.weeks)delete c.weeks[w];return c});refreshActive();toast('Semana eliminada')}catch(e){toast(edErr(e))}
-}
-
 /* ---- Grupos: editar ---- */
 function editGrupo(gi){
   const G=GRUPOS(),g=gi==null?{nombre:'Grupo '+(G.length+1),super:''}:G[gi];if(!g)return;const on=g.nombre;
@@ -1549,23 +1546,6 @@ $('#g-wrap').addEventListener('click',e=>{
   else if(a==='editm')editMiembro(G_VIEW,+b.dataset.mi);
 });
 
-/* ---- Cableado de las vistas Predicación / Vida y Ministerio ---- */
-$$('[data-h]').forEach(v=>{
-  const s=v.dataset.h;
-  v.querySelector('.modes').addEventListener('click',e=>{const b=e.target.closest('[data-md]');if(b)setMode(s,b.dataset.md)});
-  v.querySelector('.months').addEventListener('click',e=>{const b=e.target.closest('[data-w]');if(!b)return;SW[s]=b.dataset.w;semRender(s)});
-  v.querySelector('.pdf').addEventListener('click',e=>{
-    const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act;
-    if(a==='topdf'){setMode(s,'pdf');return}
-    if(!EDIT())return;
-    if(a==='pe')editPredDay(b.dataset.d);
-    else if(a==='vp')editVymItem(SW.vym,+b.dataset.i);
-    else if(a==='vpres')editVymPres(SW.vym);
-    else if(a==='vload')editVymLoad();
-    else if(a==='vdel')delVymWeek(SW.vym);
-  });
-});
-
 /* ---- “Mañana” pasa a ser “hoy” solo: al abrir/volver a la app, si cambió el día se recarga ---- */
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden)return;
@@ -1579,6 +1559,9 @@ cfgUI();
 loadIdx();
 
 $('#cfg-btn').onclick=()=>{cfgUI();$('#cfg-sheet').hidden=false;};
+$$('.reu[data-dow]').forEach(e=>{if(+e.dataset.dow===dow){e.classList.add('hoy');e.insertAdjacentHTML('beforeend','<span class="tag">Hoy</span>')}});
+$('#perfil-cfg').onclick=()=>$('#cfg-btn').click();
+$('#perfil-tema').onclick=()=>$('#theme-btn').click();
 $('#cfg-x').onclick=()=>{$('#cfg-sheet').hidden=true;refreshActive();};
 $('#cfg-sheet').onclick=e=>{if(e.target.id==='cfg-sheet'){$('#cfg-sheet').hidden=true;refreshActive();}};
 
@@ -1587,6 +1570,6 @@ $('#cfg-sheet').onclick=e=>{if(e.target.id==='cfg-sheet'){$('#cfg-sheet').hidden
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 
-const h=location.hash.slice(1);if(h==='grupos')openGrupos();else if(['pred','vym','mapa'].includes(h))tab(h);
+const h=location.hash.slice(1);if(h==='grupos')openGrupos();else if(['pred','vym','mapa','perfil'].includes(h))tab(h);
 </script>
 </body></html>
