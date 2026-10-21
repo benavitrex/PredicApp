@@ -281,6 +281,29 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 .ent label:first-child{margin-top:12px}
 #ed-body textarea{resize:vertical;min-height:150px}
 #ed-body .btn.add{background:var(--fill);color:var(--brand-2)}
+
+/* ===== Temas, clima, No pasar (aditivo) ===== */
+[data-skin="oceano"]{--bg:#F2F5F9;--fill:#E6EEF6;--line:#D9E3EE;--ink:#172A3D;--soft:#566B80;--brand:#1B3A5C;--brand-2:#2F6A9E;--brand-bg:#E6EEF6}
+[data-theme="dark"][data-skin="oceano"]{--bg:#101B28;--card:#192738;--ink:#E6EEF6;--soft:#92A6BA;--line:#28405A;--fill:#22384F;--brand:#0C141E;--brand-2:#4A86B8;--brand-bg:#22384F}
+[data-skin="atardecer"]{--bg:#F8F4F1;--fill:#F3E8E2;--line:#E8DAD2;--ink:#2E1D17;--soft:#7A5E52;--brand:#4A2418;--brand-2:#B5532F;--brand-bg:#F3E8E2}
+[data-theme="dark"][data-skin="atardecer"]{--bg:#1E1411;--card:#2A1D18;--ink:#F3E8E2;--soft:#B49A8E;--line:#47302A;--fill:#3A2822;--brand:#140C09;--brand-2:#D17A55;--brand-bg:#3A2822}
+[data-skin="lavanda"]{--bg:#F6F4F9;--fill:#EEE9F6;--line:#E0D9EC;--ink:#251C38;--soft:#6B6182;--brand:#34274F;--brand-2:#6A4FA3;--brand-bg:#EEE9F6}
+[data-theme="dark"][data-skin="lavanda"]{--bg:#17121F;--card:#221B2E;--ink:#EEE9F6;--soft:#A89CBF;--line:#3A2F52;--fill:#2E2542;--brand:#0F0B15;--brand-2:#8E73C7;--brand-bg:#2E2542}
+[data-skin="grafito"]{--bg:#F4F5F6;--fill:#E9EBED;--line:#DDE0E3;--ink:#1E2125;--soft:#636B73;--brand:#26292E;--brand-2:#4B5563;--brand-bg:#E9EBED}
+[data-theme="dark"][data-skin="grafito"]{--bg:#121315;--card:#1C1E21;--ink:#E9EBED;--soft:#9AA1A8;--line:#2D3135;--fill:#272A2E;--brand:#0B0C0D;--brand-2:#7A8591;--brand-bg:#272A2E}
+#skins{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+#skins button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:5px;font:600 11px var(--sans);color:var(--soft);cursor:pointer}
+#skins i{width:38px;height:38px;border-radius:50%;background:var(--c);border:3px solid var(--card);box-shadow:0 0 0 1.5px var(--line);transition:var(--t)}
+#skins button.on i{box-shadow:0 0 0 3px var(--c)}#skins button.on{color:var(--ink)}
+.wx.card{padding:14px 18px 8px}.wx h2{margin-bottom:6px;font-size:16px}
+.wx-r{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px solid var(--line)}.wx h2+.wx-r{border-top:0}
+.wx-e{font-size:28px;line-height:1}.wx-i b{display:block;font-size:15px}.wx-i .d{display:block;color:var(--soft);font-size:13px}
+#np-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+#np-grid button{position:relative;border:1px solid var(--line);background:var(--card);color:var(--ink);font:700 16px var(--serif);padding:12px 0;border-radius:12px;cursor:pointer;box-shadow:var(--sh);transition:var(--t)}
+#np-grid button.on{background:var(--brand-2);color:#fff;border-color:var(--brand-2)}
+#np-grid small{position:absolute;top:3px;right:6px;font:700 9px var(--sans);color:var(--bad)}#np-grid button.on small{color:#fff}
+#np-det .np li .g-ed{margin-left:auto}
+#reu-hoy .reu .chip{flex:none}
 </style></head><body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -307,8 +330,10 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
  <h1 id="fecha"></h1>
  <p class="sub" id="sem"></p>
 
+ <div id="wx"></div>
  <div class="salidas" id="salidas"></div>
  <p class="st" id="src" style="margin-top:0;margin-bottom:14px"></p>
+ <div id="reu-hoy"></div>
 
 
 
@@ -370,8 +395,14 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   </div>
  </div>
  <a class="btn-texto" href="https://www.jw.org/es/" target="_blank" rel="noopener" style="margin:0 0 14px"><svg class="i"><use href="#i-globe"/></svg><span>Ir a jw.org</span><span class="bt-go">↗</span></a>
+ <div class="card" id="yo-card"><h2>Mi perfil</h2><p class="st" style="margin:0" id="yo-st"></p><label for="yo-sel">¿Quién eres?</label><select id="yo-sel"></select><button class="cfg-btn" id="yo-notif" type="button" style="margin-top:12px"></button></div>
+ <div class="g-menu" style="margin-bottom:14px">
+  <button type="button" class="g-menu-item" id="pf-grupos"><div class="g-mi-left"><p class="g-mi-title">Grupos de servicio</p><p class="g-mi-sub">Integrantes y descarga en PDF</p></div><div class="g-mi-right"><span class="g-chev">›</span></div></button>
+  <button type="button" class="g-menu-item" id="pf-np"><div class="g-mi-left"><p class="g-mi-title">No pasar</p><p class="g-mi-sub">Direcciones por territorio</p></div><div class="g-mi-right"><span class="g-chev">›</span></div></button>
+ </div>
  <div class="card">
   <h2>Apariencia</h2>
+  <p class="st" style="margin:0 0 10px">Tema de color</p><div id="skins"></div>
   <button class="cfg-btn" id="perfil-tema" type="button">◐ Cambiar tema claro / oscuro</button>
  </div>
  <div class="card">
@@ -388,6 +419,11 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
   <span class="bt">Grupos de servicio</span>
  </div>
  <div class="g-wrap" id="g-wrap"></div>
+</section>
+
+<section class="view" id="v-nopasar">
+ <div class="bar" style="background:var(--brand)"><button type="button" id="np-back" class="mini-link" style="margin-right:4px">← Volver</button><span class="bt">No pasar</span></div>
+ <div class="g-wrap"><p class="sub" style="margin:0 0 12px">Elige un territorio para ver sus direcciones.</p><div id="np-grid"></div><div id="np-det" style="margin-top:14px"></div></div>
 </section>
 
 <nav aria-label="Secciones">
@@ -466,9 +502,20 @@ const MAPA_VER ='https://www.google.com/maps/d/viewer?mid=1H8j2hSNLHMMxyiIiBI___
 const MAPA_EMB ='https://www.google.com/maps/d/embed?mid=1H8j2hSNLHMMxyiIiBI___XOZpPDxobc&ll=-33.12711459716915%2C-71.57907845698026&z=15';
 /* No pasar + enlaces de territorio (editable / cargable desde JSON) */
 const NO_PASAR={
-  /* Ejemplo:
-  '12':['Los Aromos 345','Calle Mayo 120'],
-  */
+  '1':['Av. Cardenal Samoré 872'],
+  '2':['José Gil de Castro Norte 37','José Gil de Castro Sur 17 y 21','Manuel Antonio Caro 165','Av. Cardenal Samoré 1218'],
+  '3':['Roberto Matta 222','Magdalena Mira 163','Pedro Francisco Lira 143'],
+  '4':['Las Lavandas 927, 933, 956, 967, 999, 1017'],
+  '5':['Las Achiras 1367','Los Ceibos 1398'],
+  '6':['Av. Curauma Norte 1389'],
+  '7':['El Laurel 153, 163'],
+  '8':['Los Apóstoles 3'],
+  '9':['Los Abedules 322, 332'],
+  '11':['Av. Lomas de la Luz 1535, 1605, 1655','Los Abetos 252'],
+  '14':['Pallin 105','Los Avellanos 61'],
+  '15':['Los Notros 206'],
+  '16':['Los Suspiros 906-921','Los Juncos 925'],
+  '18':['Las Granadas 1709-1705','Los Coligues 1722','Los Lirios 1734']
 };
 /* Enlaces por territorio (Google Maps u otros). Ejemplo:
    '12':[{label:'Mapa T-12',url:'https://maps.google.com/?q=...'}]
@@ -821,8 +868,8 @@ function estado(){
 setInterval(estado,3e4);
 
 /* ---- Estado compartido: grupos, semanas VyM y cambios de predicación (se leen del repo y se cachean) ---- */
-const SHF={grupos:'grupos',pred:'pred-cambios',prog:'pred-programa'};
-const SH={grupos:load('cache:sh:grupos',null),pred:load('cache:sh:pred',{}),prog:load('cache:sh:prog',{})};
+const SHF={grupos:'grupos',pred:'pred-cambios',prog:'pred-programa',np:'no-pasar'};
+const SH={grupos:load('cache:sh:grupos',null),pred:load('cache:sh:pred',{}),prog:load('cache:sh:prog',{}),np:load('cache:sh:np',null)};
 if(!SH.pred||typeof SH.pred!=='object')SH.pred={};
 if(!SH.prog||typeof SH.prog!=='object'||Array.isArray(SH.prog))SH.prog={};
 let PJ=load('cache:pj',{}),SHAT=0,INGB=false;
@@ -891,11 +938,11 @@ loadToday();
 
 function npList(L){return '<ul>'+L.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'}
 function renderNoPasar(terr){
-  const k=nk(terr),L=terrToks(terr).flatMap(t=>{const h=Object.keys(NO_PASAR).find(x=>nk(x)==nk(t));return h?NO_PASAR[h]:[]});
+  const k=nk(terr),L=terrToks(terr).flatMap(t=>{const h=Object.keys(NP()).find(x=>nk(x)==nk(t));return h?NP()[h]:[]});
   $('#np-hoy').innerHTML=!k?'<p class="empty">Cuando haya un territorio asignado para hoy, aquí verás sus direcciones de “No pasar”.</p>'
     :L.length?npList(L):'<p class="empty">No hay direcciones de “No pasar” registradas para el territorio '+esc(terr)+'.</p>';
-  const keys=Object.keys(NO_PASAR).filter(x=>NO_PASAR[x]?.length).sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));
-  $('#np-all').innerHTML=keys.length?keys.map(x=>'<h3>Territorio '+esc(x)+'</h3>'+npList(NO_PASAR[x])).join(''):'<p class="empty">Aún no hay direcciones registradas.</p>';
+  const keys=Object.keys(NP()).filter(x=>NP()[x]?.length).sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));
+  $('#np-all').innerHTML=keys.length?keys.map(x=>'<h3>Territorio '+esc(x)+'</h3>'+npList(NP()[x])).join(''):'<p class="empty">Aún no hay direcciones registradas.</p>';
 }
 function renderTerrLinks(terr){
   const box=$('#terr-links');
@@ -964,8 +1011,9 @@ function renderGrupos(){
     </div>`+(ed?'<button class="btn" type="button" data-g="addm">+ Agregar hermano</button>':'');
   }
 }
-function openGrupos(){
-  G_VIEW=null;
+let G_FROM='pred';
+function openGrupos(f){
+  G_FROM=f||'pred';G_VIEW=null;
   $$('.view').forEach(v=>v.classList.remove('on'));
   $('#v-grupos').classList.add('on');
   $$('nav button').forEach(b=>b.classList.remove('on'));
@@ -975,7 +1023,7 @@ function openGrupos(){
 $('#btn-grupos')&&($('#btn-grupos').onclick=()=>openGrupos());
 $('#g-back')&&($('#g-back').onclick=()=>{
   if(G_VIEW!=null){G_VIEW=null;renderGrupos();}
-  else tab('pred');
+  else tab(G_FROM);
 });
 
 
@@ -1338,7 +1386,7 @@ async function shSave(k,def,mut){
 }
 async function loadShared(){
   SHAT=Date.now();
-  await Promise.all([pjLoad(),shLoad('pred'),shLoad('prog'),shLoad('grupos')]);
+  await Promise.all([pjLoad(),shLoad('pred'),shLoad('prog'),shLoad('grupos'),shLoad('np')]);
   renderManana();loadToday();refreshActive();ingestPred();
 }
 function refreshActive(){
@@ -1569,6 +1617,188 @@ $('#cfg-sheet').onclick=e=>{if(e.target.id==='cfg-sheet'){$('#cfg-sheet').hidden
 (function(){
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
+
+/* ======================================================================
+   NUEVO (aditivo): temas · clima · reunión + aseo · identidad y avisos · No pasar · PDF de grupos
+   ====================================================================== */
+const SKIN_K=['bosque','oceano','atardecer','lavanda','grafito'],SKIN_C=['#2D5A43','#2F6A9E','#B5532F','#6A4FA3','#4B5563'],SKIN_N=['Bosque','Océano','Atardecer','Lavanda','Grafito'];
+function applySkin(k){
+  k=SKIN_K.includes(k)?k:'bosque';
+  if(k==='bosque')document.documentElement.removeAttribute('data-skin');else document.documentElement.dataset.skin=k;
+  try{localStorage.setItem('predicapp.skin',k)}catch{}
+  $$('#skins button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+}
+$('#skins').innerHTML=SKIN_K.map((k,i)=>`<button type="button" data-k="${k}" style="--c:${SKIN_C[i]}" aria-label="${SKIN_N[i]}"><i></i><span>${SKIN_N[i]}</span></button>`).join('');
+$('#skins').onclick=e=>{const b=e.target.closest('[data-k]');if(b)applySkin(b.dataset.k)};
+applySkin(localStorage.getItem('predicapp.skin')||'bosque');
+
+/* ---- Clima Curauma (Open-Meteo, sin clave) según la hora de cada salida ---- */
+const WX_URL='https://api.open-meteo.com/v1/forecast?latitude=-33.13&longitude=-71.58&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&timezone=America%2FSantiago&forecast_days=2';
+let WX=load('cache:wx',null),WXAT=0;
+const wxIco=c=>c===0?'☀️':c<=2?'🌤️':c==3?'☁️':c<=48?'🌫️':c<=57?'🌦️':c<=67?'🌧️':c<=77?'❄️':c<=82?'🌦️':'⛈️';
+const wxTxt=c=>c===0?'Despejado':c<=2?'Poco nublado':c==3?'Nublado':c<=48?'Neblina':c<=57?'Llovizna':c<=67?'Lluvia':c<=77?'Nieve':c<=82?'Chubascos':'Tormenta';
+async function wxLoad(){
+  if(!navigator.onLine)return;WXAT=Date.now();
+  try{const r=await fetch(WX_URL);if(!r.ok)throw 0;const j=await r.json();WX={f:HOY,h:j.hourly};store('cache:wx',WX);renderWx()}catch{}
+}
+function renderWx(){
+  const box=$('#wx');if(!box)return;
+  if(!WX||!WX.h||!WX.h.time){box.innerHTML='';return}
+  const rows=window.TODAY_ROWS&&window.TODAY_ROWS.length?window.TODAY_ROWS:[{hora:'10:00'}],seen=new Set();
+  const out=rows.map(d=>{
+    const p=parseHora(d.hora);if(!p||seen.has(p[0]))return '';seen.add(p[0]);
+    const ix=[0,1,2].map(n=>WX.h.time.indexOf(HOY+'T'+String(p[0]+n).padStart(2,'0')+':00')).filter(i=>i>=0);
+    if(!ix.length)return '';
+    const g=k=>ix.map(i=>WX.h[k][i]??0),tp=g('temperature_2m'),code=Math.max(...g('weathercode'));
+    return `<div class="wx-r"><span class="wx-e">${wxIco(code)}</span><div class="wx-i"><b>${String(p[0]).padStart(2,'0')}:${String(p[1]).padStart(2,'0')} · ${wxTxt(code)}</b><span class="d">${Math.round(Math.min(...tp))}–${Math.round(Math.max(...tp))} °C · lluvia ${Math.max(...g('precipitation_probability'))}% · viento ${Math.round(Math.max(...g('windspeed_10m')))} km/h</span></div></div>`;
+  }).join('');
+  box.innerHTML=out?`<div class="card wx"><h2>Clima en Curauma</h2>${out}</div>`:'';
+}
+const _rs=renderSalidas;renderSalidas=function(l,s){_rs(l,s);renderWx()};
+
+/* ---- Reunión + aseo (se lee del PDF de Vida y Ministerio del repositorio) ---- */
+let VC=load('cache:vym',{st:{},rows:{}}),VGB=false;
+if(!VC||!VC.rows||!VC.st)VC={st:{},rows:{}};
+/* Una página por semana: “2-8 DE NOVIEMBRE …”, “19:30 Presidente …” y, abajo, la etiqueta “ASEO (GRUPO)” con su valor. */
+async function parseVymPdf(doc){
+  const out={};
+  for(let p=1;p<=doc.numPages;p++){
+    const tc=await (await doc.getPage(p)).getTextContent();
+    const it=tc.items.map(o=>({s:String(o.str||'').trim(),x:o.transform[4],e:o.transform[4]+(o.width||0),y:o.transform[5]})).filter(o=>o.s);
+    const txt=_na(it.map(o=>o.s).join(' '));
+    const m=txt.match(/(\d{1,2})\s*(?:DE\s+([A-Z]+))?\s*[-–]\s*(\d{1,2})\s*DE\s+([A-Z]+)/),hm=txt.match(/(\d{1,2}):(\d{2})\s+PRESIDENTE/);
+    if(!m||!hm||!MESN[m[4].toLowerCase()])continue;
+    const ym=txt.match(/\b(20\d\d)\b/),yr=ym?+ym[1]:hoy.getFullYear(),em=MESN[m[4].toLowerCase()];
+    let sm=m[2]&&MESN[m[2].toLowerCase()]?MESN[m[2].toLowerCase()]:(+m[1]>+m[3]?em-1:em),y0=yr;
+    if(sm<1){sm=12;y0--}
+    const d0=new Date(y0,sm-1,+m[1],12);d0.setDate(d0.getDate()+3); /* semana lunes→domingo: jueves = lunes + 3 */
+    let aseo=null;
+    const lab=it.find(o=>/ASEO/.test(_na(o.s)));
+    if(lab){
+      const cx=(lab.x+lab.e)/2,c=it.filter(o=>o!==lab&&o.y<lab.y&&lab.y-o.y<30&&Math.abs((o.x+o.e)/2-cx)<Math.max(50,lab.e-lab.x)).sort((a,b)=>b.y-a.y)[0];
+      const dm=c&&_na(c.s).match(/^(?:GRUPO\s*)?(\d)\b/);
+      if(dm&&(/GRUPO/.test(_na(c.s))||+dm[1]!==p))aseo=+dm[1];
+    }
+    if(!aseo){const a=txt.match(/ASEO\s*\(?GRUPO\)?\s*(?:[:\-]\s*(?:GRUPO\s*)?|GRUPO\s*)(\d)\b/);if(a)aseo=+a[1]}
+    out[iso(d0)]={hora:String(+hm[1]).padStart(2,'0')+':'+hm[2],aseo};
+  }
+  return out;
+}
+async function ingestVym(){
+  if(VGB||!navigator.onLine||!IDX.vym)return;
+  const nx=addDays(CUR_MES+'-15',30).slice(0,7),ms=[CUR_MES,nx].filter(m=>IDX.vym[m]&&VC.st[m]!==IDX.vym[m]);
+  if(!ms.length)return;VGB=true;
+  for(const m of ms){try{
+    const lib=await loadPdfJs(),doc=await lib.getDocument({url:pdfUrl('vym',m)}).promise;
+    Object.assign(VC.rows,await parseVymPdf(doc));VC.st[m]=IDX.vym[m];store('cache:vym',VC);
+  }catch(e){console.warn('vym',e)}}
+  VGB=false;renderReu();renderYo();aviso();
+}
+const _ip=ingestPred;ingestPred=function(){_ip();ingestVym()};
+const MEETS=d=>{const w=new Date(d+'T12:00:00').getDay(),r=VC.rows[d]||{};
+  return w===4?{t:'Reunión de entre semana',h:r.hora||'19:30',aseo:r.aseo||null,w}:w===0?{t:'Reunión de fin de semana',h:'18:00',aseo:null,w}:null};
+const grpN=n=>GRUPOS().find(x=>x.nombre==='Grupo '+n)||GRUPOS()[n-1];
+function renderReu(){
+  const box=$('#reu-hoy');if(!box)return;
+  let d=HOY,m=MEETS(d);for(let i=1;!m&&i<8;i++){d=addDays(HOY,i);m=MEETS(d)}
+  if(!m){box.innerHTML='';return}
+  const es=d===HOY,dt=new Date(d+'T12:00:00'),dn=dt.toLocaleDateString('es-CL',{weekday:'short'}).replace('.',''),dl=dt.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});
+  const g=m.aseo?grpN(m.aseo):null;
+  const aseo=m.w===4?`<div class="reu"><span class="ic"><svg class="i"><use href="#i-home"/></svg></span><div class="reu-info"><div class="reu-tipo">Aseo del Salón</div><div class="reu-hora" style="font-size:20px">${g?esc(g.nombre):'Por confirmar'}</div><div class="reu-tipo">${g?esc(g.super):'Aparecerá al subir el programa de Vida y Ministerio'}</div></div>${g?`<button class="chip" type="button" data-vg="${GRUPOS().indexOf(g)}">Ver grupo</button>`:''}</div>`:'';
+  box.innerHTML=`<div class="card reu-card"><div class="reu-head"><span class="ic"><svg class="i"><use href="#i-cal"/></svg></span><h2>${es?'Reunión de hoy':'Próxima reunión'}</h2></div><div class="reu${es?' hoy':''}"><div class="reu-dia"><b>${dt.getDate()}</b>${esc(dn)}</div><div class="reu-info"><div class="reu-hora">${esc(m.h)}</div><div class="reu-tipo">${esc(m.t)}${es?'':' · '+esc(dl)}</div></div>${es?'<span class="tag">Hoy</span>':''}</div>${aseo}</div>`;
+}
+$('#reu-hoy').onclick=e=>{const b=e.target.closest('[data-vg]');if(!b)return;openGrupos('inicio');G_VIEW=+b.dataset.vg;renderGrupos()};
+
+/* ---- Identidad en Perfil + aviso de aseo ---- */
+const YO=()=>load('predicapp.yo','');
+const gOf=n=>GRUPOS().find(g=>g.miembros.some(m=>m.n===n));
+function renderYo(){
+  const sel=$('#yo-sel');if(!sel)return;const y=YO();
+  sel.innerHTML='<option value="">Sin identificar</option>'+GRUPOS().map(g=>`<optgroup label="${esc(g.nombre)}">`+g.miembros.map(m=>`<option value="${esc(m.n)}"${m.n===y?' selected':''}>${esc(nat(m.n))}</option>`).join('')+'</optgroup>').join('');
+  const g=y&&gOf(y);let t='Elige tu nombre para recibir un aviso cuando tu grupo tenga aseo.';
+  if(g){t=g.nombre+'.';for(let i=0;i<60;i++){const d=addDays(HOY,i),r=VC.rows[d];if(r&&r.aseo&&'Grupo '+r.aseo===g.nombre){t+=' Próximo aseo: '+new Date(d+'T12:00:00').toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'})+'.';break}}}
+  $('#yo-st').textContent=t;
+  const ok='Notification' in window&&Notification.permission==='granted',nb=$('#yo-notif');
+  nb.textContent=ok?'🔔 Avisos activados':'🔔 Activar avisos de aseo';nb.classList.toggle('on',ok);
+}
+$('#yo-sel').onchange=e=>{store('predicapp.yo',e.target.value);renderYo();aviso()};
+$('#yo-notif').onclick=async()=>{
+  if(!('Notification' in window))return toast('Este navegador no permite notificaciones');
+  if(!YO())return toast('Primero elige tu nombre');
+  if(Notification.permission==='denied')return toast('Activa las notificaciones en los ajustes del navegador');
+  if(Notification.permission!=='granted'&&await Notification.requestPermission()!=='granted')return renderYo();
+  toast('Avisos activados ✓');renderYo();aviso();
+};
+const AVISO_MIN=0; /* minutos antes de la reunión (0 = a la hora exacta) */
+function aviso(){
+  clearTimeout(aviso.t);
+  const y=YO();if(!y||!('Notification' in window)||Notification.permission!=='granted')return;
+  const m=MEETS(HOY);if(!m||m.w!==4||!m.aseo)return;
+  const g=gOf(y);if(!g||g.nombre!=='Grupo '+m.aseo)return;
+  const p=parseHora(m.h);if(!p)return;
+  const t=new Date();t.setHours(p[0],p[1]-AVISO_MIN,0,0);const ms=t-Date.now();
+  const fire=()=>{
+    if(load('avisado:'+HOY,0))return;store('avisado:'+HOY,1);
+    const tt='Hoy te toca aseo',o={body:g.nombre+' · reunión a las '+m.h,icon:'apple-touch-icon.png',tag:'aseo-'+HOY};
+    (navigator.serviceWorker&&navigator.serviceWorker.ready?navigator.serviceWorker.ready.then(r=>r.showNotification(tt,o)):Promise.reject()).catch(()=>{try{new Notification(tt,o)}catch{}});
+  };
+  if(ms>0&&ms<864e5)aviso.t=setTimeout(fire,ms);else if(ms<=0&&ms>-72e5)fire();
+}
+
+/* ---- No pasar por territorio (editable con token → historial/no-pasar.json) ---- */
+function NP(){return SH.np&&typeof SH.np==='object'&&Object.keys(SH.np).length?SH.np:NO_PASAR}
+let NP_SEL=null;
+function renderNP(){
+  const g=$('#np-grid'),d=$('#np-det');if(!g)return;const N=NP();
+  g.innerHTML=Array.from({length:23},(_,i)=>{const k=String(i+1),n=(N[k]||[]).length;return `<button type="button" data-n="${k}" class="${NP_SEL===k?'on':''}">${k}${n?`<small>${n}</small>`:''}</button>`}).join('');
+  if(!NP_SEL){d.innerHTML='<p class="empty">Toca un territorio para ver sus direcciones de “No pasar”.</p>';return}
+  const L=N[NP_SEL]||[],ed=EDIT();
+  d.innerHTML=`<div class="card np"><h2>Territorio ${esc(NP_SEL)}</h2>`+(L.length?'<ul>'+L.map((x,i)=>`<li><span>${esc(x)}</span>${ed?`<button class="g-ed" type="button" data-e="${i}" aria-label="Editar">✎</button>`:''}</li>`).join('')+'</ul>':'<p class="empty">No hay direcciones de “No pasar” en este territorio.</p>')+(ed?'<button class="btn" type="button" data-e="new">+ Agregar dirección</button>':'')+'</div>';
+}
+function editNP(i){
+  const k=NP_SEL,isNew=i==null,old=(NP()[k]||[])[i];
+  edOpen({title:(isNew?'Agregar dirección':'Editar dirección')+' · Territorio '+k,html:fld('e_np','Dirección',isNew?'':old,'placeholder="Los Aromos 345"'),
+    onSave:async()=>{const v=$('#e_np').value.trim();if(!v)throw 'Escribe la dirección';
+      await shSave('np',()=>clone(NP()),c=>{c[k]=c[k]||[];if(isNew)c[k].push(v);else{const j=c[k].indexOf(old);if(j<0)throw 'La dirección cambió. Recarga.';c[k][j]=v}return c})},
+    onDelete:isNew?null:async()=>{await shSave('np',()=>clone(NP()),c=>{const j=(c[k]||[]).indexOf(old);if(j<0)throw 'La dirección cambió. Recarga.';c[k].splice(j,1);return c})},
+    delTxt:'Quitar dirección',confirmDel:'¿Quitar esta dirección?'});
+}
+$('#np-grid').onclick=e=>{const b=e.target.closest('[data-n]');if(!b)return;NP_SEL=NP_SEL===b.dataset.n?null:b.dataset.n;renderNP()};
+$('#np-det').onclick=e=>{const b=e.target.closest('[data-e]');if(!b||!EDIT())return;editNP(b.dataset.e==='new'?null:+b.dataset.e)};
+$('#pf-np').onclick=()=>{$$('.view').forEach(v=>v.classList.remove('on'));$('#v-nopasar').classList.add('on');$$('nav button').forEach(b=>b.classList.remove('on'));renderNP();try{history.replaceState(null,'','#nopasar')}catch{}};
+$('#np-back').onclick=()=>tab('perfil');
+$('#pf-grupos').onclick=()=>openGrupos('perfil');
+const _rn=renderNoPasar;renderNoPasar=function(t){window.__npt=t;_rn(t)};
+
+/* ---- Grupos: descarga en PDF (jsPDF desde cdnjs) ---- */
+let jsP;const loadJsPdf=()=>jsP||(jsP=new Promise((ok,no)=>{const e=document.createElement('script');e.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';e.onload=()=>ok(window.jspdf.jsPDF);e.onerror=()=>{jsP=null;no()};document.head.append(e)}));
+async function gruposPdf(idx){
+  if(!navigator.onLine)return toast('Necesitas conexión para generar el PDF');
+  try{
+    const J=await loadJsPdf(),doc=new J({unit:'mm',format:'a4'}),G=GRUPOS().filter((_,i)=>idx==null||i===idx);let y=20;
+    doc.setFont('helvetica','bold');doc.setFontSize(16);doc.text('Grupos de servicio · Curauma',15,y);
+    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(110);doc.text('Actualizado el '+new Date().toLocaleDateString('es-CL'),15,y+6);doc.setTextColor(0);y+=16;
+    G.forEach(g=>{
+      if(y+14+Math.min(g.miembros.length,8)*6>285&&y>30){doc.addPage();y=20}
+      doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text(g.nombre+' · '+g.super,15,y);y+=2;doc.setDrawColor(27,56,43);doc.line(15,y,195,y);y+=6;
+      doc.setFont('helvetica','normal');doc.setFontSize(10);
+      g.miembros.forEach(m=>{if(y>282){doc.addPage();y=20}doc.text(m.n,18,y);doc.text(String(m.r||''),150,y);y+=5.5});
+      y+=6;
+    });
+    doc.save(idx==null?'Grupos-de-servicio.pdf':G[0].nombre.replace(/\s+/g,'-')+'.pdf');
+  }catch{toast('No se pudo generar el PDF')}
+}
+const _rg=renderGrupos;renderGrupos=function(){
+  _rg();const b=$('#g-wrap');if(!b)return;b.querySelectorAll('[data-pdf]').forEach(x=>x.remove());
+  b.insertAdjacentHTML('beforeend',`<button class="btn" type="button" data-pdf="${G_VIEW==null?'all':G_VIEW}" style="background:var(--fill);color:var(--brand-2)">⬇ Descargar ${G_VIEW==null?'todos los grupos':'este grupo'} (PDF)</button>`);
+};
+$('#g-wrap').addEventListener('click',e=>{const b=e.target.closest('[data-pdf]');if(b)gruposPdf(b.dataset.pdf==='all'?null:+b.dataset.pdf)});
+
+/* ---- Refrescos y arranque ---- */
+const _ra=refreshActive;refreshActive=function(){_ra();renderNP();renderYo();renderReu();renderNoPasar(window.__npt);aviso()};
+document.addEventListener('visibilitychange',()=>{if(document.hidden)return;aviso();if(Date.now()-WXAT>36e5)wxLoad()});
+addEventListener('online',()=>wxLoad());
+renderYo();renderReu();renderNP();renderWx();wxLoad();ingestVym();aviso();
 
 const h=location.hash.slice(1);if(h==='grupos')openGrupos();else if(['pred','vym','mapa','perfil'].includes(h))tab(h);
 </script>
