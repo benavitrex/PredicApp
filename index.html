@@ -297,7 +297,24 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 #skins button.on i{box-shadow:0 0 0 3px var(--c)}#skins button.on{color:var(--ink)}
 .wx.card{padding:14px 18px 8px}.wx h2{margin-bottom:6px;font-size:16px}
 .wx-r{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px solid var(--line)}.wx h2+.wx-r{border-top:0}
-.wx-e{font-size:28px;line-height:1}.wx-i b{display:block;font-size:15px}.wx-i .d{display:block;color:var(--soft);font-size:13px}
+.wx-e{flex:none;width:44px;height:44px;display:grid;place-items:center;line-height:0}.wx-i b{display:block;font-size:15px}.wx-i .d{display:block;color:var(--soft);font-size:13px}
+.wx-svg{width:44px;height:44px;overflow:visible}
+.wx-rays{transform-box:fill-box;transform-origin:center;animation:wxSpin 24s linear infinite}
+.wx-cl,.wx-fg{animation:wxDrift 5s ease-in-out infinite alternate}
+.wx-moon{animation:wxBob 5s ease-in-out infinite alternate}
+.wx-dr{animation:wxDrop 1s linear infinite}
+.wx-sn{animation:wxSnow 2.4s linear infinite}
+.wx-bolt{animation:wxBolt 3s linear infinite}
+.wx-st{animation:wxTw 2.4s ease-in-out infinite}.wx-st.s2{animation-delay:.8s}.wx-st.s3{animation-delay:1.5s}
+@keyframes wxSpin{to{transform:rotate(360deg)}}
+@keyframes wxDrift{from{transform:translateX(-1.6px)}to{transform:translateX(1.6px)}}
+@keyframes wxBob{from{transform:translateY(-1px)}to{transform:translateY(1px)}}
+@keyframes wxDrop{0%{transform:translateY(-2px);opacity:0}20%{opacity:1}100%{transform:translateY(7px);opacity:0}}
+@keyframes wxSnow{0%{transform:translate(0,-2px);opacity:0}20%{opacity:1}100%{transform:translate(2px,8px);opacity:0}}
+@keyframes wxBolt{0%,55%,100%{opacity:1}60%{opacity:.1}65%{opacity:1}70%{opacity:.15}}
+@keyframes wxTw{0%,100%{opacity:.25}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.wx-svg *{animation:none!important}}
+.wx-f{padding:8px 0 6px;border-top:1px solid var(--line);font-size:11.5px;color:var(--soft)}.wx-f a{color:var(--brand-2)}
 #np-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 #np-grid button{position:relative;border:1px solid var(--line);background:var(--card);color:var(--ink);font:700 16px var(--serif);padding:12px 0;border-radius:12px;cursor:pointer;box-shadow:var(--sh);transition:var(--t)}
 #np-grid button.on{background:var(--brand-2);color:#fff;border-color:var(--brand-2)}
@@ -1405,15 +1422,16 @@ async function parsePredPdf(doc,fbYM){
   const it=[];
   for(let p=1;p<=doc.numPages;p++){
     const tc=await (await doc.getPage(p)).getTextContent();
-    tc.items.forEach(o=>{const s=String(o.str||'').trim();if(s)it.push({s,x:o.transform[4],e:o.transform[4]+(o.width||0),y:o.transform[5]-(p-1)*1e4})});
+    tc.items.forEach(o=>{const s=String(o.str||'').trim();if(s)it.push({s,p,x:o.transform[4],e:o.transform[4]+(o.width||0),y:o.transform[5]-(p-1)*1e4})});
   }
   const cell=a=>{
     const s=a.slice().sort((p,q)=>q.y-p.y||p.x-q.x),L=[];
     s.forEach(o=>{const l=L[L.length-1];if(l&&Math.abs(l.y-o.y)<2.5)l.a.push(o);else L.push({y:o.y,a:[o]})});
-    return L.map(l=>l.a.sort((p,q)=>p.x-q.x).map(o=>o.s).join(' ').trim()).filter(Boolean);
+    return L.map(l=>l.a.sort((p,q)=>p.x-q.x).map(o=>o.s).reduce((t,w)=>/^[.,;:)]/.test(w)||/[(]$/.test(t)?t+w:(t?t+' ':'')+w,'').trim()).filter(Boolean);
   };
   /* columnas a partir del encabezado */
-  const fh=it.find(o=>_na(o.s)==='FECHA');
+  const fhs=it.filter(o=>_na(o.s)==='FECHA'),fh=fhs[0],fhY={};
+  fhs.forEach(o=>{if(fhY[o.p]==null)fhY[o.p]=o.y});
   if(!fh)throw 'No encontré la tabla del programa (falta el encabezado FECHA · HORA · ENCARGADO…).';
   const hline=it.filter(o=>Math.abs(o.y-fh.y)<3).sort((a,b)=>a.x-b.x),cells=[];
   hline.forEach(o=>{const c=cells[cells.length-1];if(c&&o.x-c.e<=12){c.t+=' '+o.s;c.e=o.e}else cells.push({t:o.s,x:o.x,e:o.e})});
@@ -1424,18 +1442,20 @@ async function parsePredPdf(doc,fbYM){
   const colOf=o=>{const cx=(o.x+o.e)/2;let b='f',d=1e9;for(const k in cols){const v=Math.abs(cx-cols[k]);if(v<d){d=v;b=k}}return b};
   /* mes y año desde el título (“04 AL 18 DE OCTUBRE · 2026”) */
   const top=_na(cell(it.filter(o=>o.y>fh.y+1)).join(' '));
-  let yr,sm;
-  const hm=top.match(/(\d{1,2})\s*(?:DE\s+([A-Z]+))?\s*AL\s*(\d{1,2})\s*DE\s*([A-Z]+)\D{0,12}(\d{4})/);
+  let yr,sm,hm;
+  hm=top.match(/(\d{1,2})\s*(?:DE\s+([A-Z]+))?\s*AL\s*(\d{1,2})\s*DE\s*([A-Z]+)\D{0,30}(\d{4})/);
   if(hm&&MESN[hm[4].toLowerCase()]&&(!hm[2]||MESN[hm[2].toLowerCase()])){
     const em=MESN[hm[4].toLowerCase()];yr=+hm[5];
     sm=hm[2]?MESN[hm[2].toLowerCase()]:(+hm[1]>+hm[3]?em-1:em);
     if(sm<1){sm=12;yr--}
+  }else if((hm=top.match(/\b([A-Z]+)\s+DE\s+(20\d\d)\b/))&&MESN[hm[1].toLowerCase()]){
+    sm=MESN[hm[1].toLowerCase()];yr=+hm[2];
   }else{
     const f=/^\d{4}-\d{2}$/.test(fbYM||'')?fbYM:new Date().toISOString().slice(0,7);
     yr=+f.slice(0,4);sm=+f.slice(5,7);
   }
   /* filas = una por cada encargado (la hora puede venir en blanco cuando se repite) */
-  const body=it.filter(o=>o.y<fh.y-1&&!HDR.has(_na(o.s)));
+  const body=it.filter(o=>fhY[o.p]==null||o.y<fhY[o.p]-1);
   const rows=[];
   const eit=body.filter(o=>colOf(o)==='e').sort((a,b)=>b.y-a.y);
   eit.forEach(o=>{const l=rows[rows.length-1];if(l&&Math.abs(l.y-o.y)<2.5)l.n.push(o);else rows.push({y:o.y,n:[o]})});
@@ -1451,7 +1471,9 @@ async function parsePredPdf(doc,fbYM){
   });
   const out={};let n=0,cur=null,prev='',lastH='';
   for(const r of rows){
-    const m=_na(cell(r.c.f).join(' ')).match(/(LUNES|MARTES|MIERCOLES|JUEVES|VIERNES|SABADO|DOMINGO)\s*(\d{1,2})/);
+    const fc=_na(cell(r.c.f).join(' ')),WDR='(LUNES|MARTES|MIERCOLES|JUEVES|VIERNES|SABADO|DOMINGO)';
+    const m1=fc.match(new RegExp('(\\d{1,2})\\s*'+WDR)),m2=m1?null:fc.match(new RegExp(WDR+'\\s*(\\d{1,2})')),
+      m=m1?[0,m1[2],m1[1]]:m2?[0,m2[1],m2[2]]:null;
     if(m){
       const wd=_WD.indexOf(m[1]),day=+m[2];let found=null,first=null;
       for(let k=0;k<3&&!found;k++){
@@ -1469,9 +1491,13 @@ async function parsePredPdf(doc,fbYM){
     if(hm2)lastH=String(+hm2[1]).padStart(2,'0')+':'+hm2[2];
     const hora=lastH;if(!hora)continue;
     const cap=cell(r.c.e).join(' ');
-    const L=cell(r.c.l),gi=L.findIndex(x=>/^GRUPOS?\b/.test(_na(x)));
-    const grp=gi>=0?L.splice(gi,1)[0].replace(/[:\s]+$/,''):'';
-    const j=L.join(' '),dm=j.match(/\(([^)]*)\)/),dir=dm?dm[1].trim():'',casa=j.replace(/\([^)]*\)/,'').trim();
+    const L=cell(r.c.l),H=cell(r.c.h);let grp='';
+    [L,H].forEach(A=>{const gi=A.findIndex(x=>/^GRUPOS?\b/.test(_na(x)));if(gi>=0&&!grp)grp=A.splice(gi,1)[0].replace(/[:\s]+$/,'')});
+    const j=L.join(' '),dm=j.match(/\(([^)]*)\)/);
+    let dir,casa;
+    if(dm){dir=dm[1].trim();casa=j.replace(/\([^)]*\)/,'').trim()}
+    else if(L.length>=2){casa=L[0].trim();dir=L.slice(1).join(' ').trim()}
+    else{casa=j.trim();dir=''}
     const terr=cell(r.c.t).join(' ').replace(/territorios?/ig,'').replace(/\s*,\s*/g,', ').replace(/\s+/g,' ').trim();
     if(!(cap||casa||dir||terr))continue;
     const row={hora,cap:_tc(cap),casa:_tc(casa),dir:/[a-záéíóúñ]/.test(dir)?dir:_tc(dir),terr};
@@ -1632,28 +1658,68 @@ $('#skins').innerHTML=SKIN_K.map((k,i)=>`<button type="button" data-k="${k}" sty
 $('#skins').onclick=e=>{const b=e.target.closest('[data-k]');if(b)applySkin(b.dataset.k)};
 applySkin(localStorage.getItem('predicapp.skin')||'bosque');
 
-/* ---- Clima Curauma (Open-Meteo, sin clave) según la hora de cada salida ---- */
-const WX_URL='https://api.open-meteo.com/v1/forecast?latitude=-33.13&longitude=-71.58&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&timezone=America%2FSantiago&forecast_days=2';
-let WX=load('cache:wx',null),WXAT=0;
-const wxIco=c=>c===0?'☀️':c<=2?'🌤️':c==3?'☁️':c<=48?'🌫️':c<=57?'🌦️':c<=67?'🌧️':c<=77?'❄️':c<=82?'🌦️':'⛈️';
-const wxTxt=c=>c===0?'Despejado':c<=2?'Poco nublado':c==3?'Nublado':c<=48?'Neblina':c<=57?'Llovizna':c<=67?'Lluvia':c<=77?'Nieve':c<=82?'Chubascos':'Tormenta';
+/* ---- Clima Curauma (Open-Meteo, sin clave) a la hora exacta de cada salida; mismo punto que Meteored ---- */
+const WX_URL='https://api.open-meteo.com/v1/forecast?latitude=-33.1399&longitude=-71.5695&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation_probability,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_gusts_10m,wind_direction_10m,is_day&timezone=America%2FSantiago&forecast_days=2';
+const WX_MET='https://www.meteored.cl/curauma-1-519740.html';
+let WX=load('cache:wx2',null),WXAT=0;
+/* Iconos SVG animados (sol que gira, nubes que se mueven, gotas, nieve, rayo, niebla, luna con estrellas) */
+const wxCloud=(f,t)=>`<g transform="${t||''}"><g class="wx-cl"><path d="M14 36a8 8 0 0 1-.8-15.96A10 10 0 0 1 32.6 18 8.5 8.5 0 0 1 34 36Z" fill="${f}" stroke="rgba(0,0,0,.14)" stroke-width="1"/></g></g>`;
+const wxSun=(x,y,r)=>`<g class="wx-rays" stroke="#F5A623" stroke-width="2.4" stroke-linecap="round">${[0,1,2,3,4,5,6,7].map(i=>`<line x1="${x}" y1="${y-r-3.5}" x2="${x}" y2="${y-r-6.5}" transform="rotate(${i*45} ${x} ${y})"/>`).join('')}</g><circle cx="${x}" cy="${y}" r="${r}" fill="#FFC53D"/>`;
+const wxMoon=()=>`<g class="wx-moon"><circle cx="22" cy="23" r="11" fill="#F6E7A8"/><circle cx="28" cy="19" r="10" style="fill:var(--card)"/></g><circle class="wx-st" cx="37" cy="30" r="1.4" fill="#F6E7A8"/><circle class="wx-st s2" cx="11" cy="9" r="1.2" fill="#F6E7A8"/><circle class="wx-st s3" cx="38" cy="10" r="1.1" fill="#F6E7A8"/>`;
+const wxDr=(xs,c)=>xs.map((x,i)=>`<line class="wx-dr" style="animation-delay:${i*.27}s" x1="${x}" y1="36" x2="${x-1.5}" y2="41" stroke="${c||'#4C8DDB'}" stroke-width="2.2" stroke-linecap="round"/>`).join('');
+function wxIcon(k,n){
+  const lt='#E3EAF2',gr='#B9C5D2',dk='#8E9CAD';let b='';
+  if(k==='clear')b=n?wxMoon():wxSun(24,24,9);
+  else if(k==='few')b=(n?wxMoon():wxSun(17,17,7))+wxCloud(lt,'translate(6 6) scale(.82)');
+  else if(k==='cloudy')b=wxCloud(gr,'translate(10 -3) scale(.7)')+wxCloud(lt,'translate(-1 1)');
+  else if(k==='fog')b=wxCloud(lt,'translate(0 -5)')+[0,1,2].map(i=>`<line class="wx-fg" style="animation-delay:${i*.5}s" x1="${11+i*2}" y1="${34+i*4.5}" x2="${35-i*2}" y2="${34+i*4.5}" stroke="${dk}" stroke-width="2.2" stroke-linecap="round"/>`).join('');
+  else if(k==='drizzle')b=wxCloud(gr,'translate(0 -3)')+wxDr([17,25,33],'#7FB0E6');
+  else if(k==='rain')b=wxCloud(gr,'translate(0 -3)')+wxDr([16,22,28,34]);
+  else if(k==='heavy')b=wxCloud(dk,'translate(0 -3)')+wxDr([14,20,26,32,37],'#2F74D0');
+  else if(k==='storm')b=wxCloud(dk,'translate(0 -4)')+'<path class="wx-bolt" d="M26 31l-6 9h4.5l-2.5 7 8-10.5h-5l3-5.5z" fill="#FFC53D"/>'+wxDr([13,37],'#4C8DDB');
+  else if(k==='snow')b=wxCloud(lt,'translate(0 -3)')+[16,24,32].map((x,i)=>`<circle class="wx-sn" style="animation-delay:${i*.6}s" cx="${x}" cy="37" r="1.9" fill="#9CC4F0"/>`).join('');
+  return `<svg class="wx-svg" viewBox="0 0 48 48" aria-hidden="true">${b}</svg>`;
+}
+/* Código WMO → [tipo de icono, texto] (con el mismo estilo de texto que Meteored) */
+function wxKind(c,n){
+  if(c>=95)return['storm','Tormenta'];
+  if(c>=85)return['snow','Nevazón'];
+  if(c>=71)return['snow','Nieve'];
+  if(c===82)return['heavy','Chubascos fuertes'];
+  if(c===81)return['rain','Chubascos'];
+  if(c===80)return['rain','Chubascos débiles'];
+  if(c===65||c===67)return['heavy','Lluvia fuerte'];
+  if(c===63||c===66)return['rain','Lluvia'];
+  if(c===61)return['rain','Lluvia débil'];
+  if(c>=51)return['drizzle','Llovizna'];
+  if(c>=45)return['fog','Neblina'];
+  if(c===3)return['cloudy','Nublado'];
+  if(c===2)return['few','Parcialmente nuboso'];
+  if(c===1)return['few','Nubes y claros'];
+  return['clear',n?'Cielo despejado':'Soleado'];
+}
+const wxDir=d=>d==null?'':['Norte','Noreste','Este','Sureste','Sur','Suroeste','Oeste','Noroeste'][Math.round(d/45)%8];
 async function wxLoad(){
   if(!navigator.onLine)return;WXAT=Date.now();
-  try{const r=await fetch(WX_URL);if(!r.ok)throw 0;const j=await r.json();WX={f:HOY,h:j.hourly};store('cache:wx',WX);renderWx()}catch{}
+  try{const r=await fetch(WX_URL);if(!r.ok)throw 0;const j=await r.json();WX={f:HOY,h:j.hourly,at:Date.now()};store('cache:wx2',WX);renderWx()}catch{}
 }
 function renderWx(){
   const box=$('#wx');if(!box)return;
   if(!WX||!WX.h||!WX.h.time){box.innerHTML='';return}
-  const rows=window.TODAY_ROWS&&window.TODAY_ROWS.length?window.TODAY_ROWS:[{hora:'10:00'}],seen=new Set();
+  const rows=window.TODAY_ROWS&&window.TODAY_ROWS.length?window.TODAY_ROWS:[{hora:'10:00'}],seen=new Set(),r=Math.round;
   const out=rows.map(d=>{
-    const p=parseHora(d.hora);if(!p||seen.has(p[0]))return '';seen.add(p[0]);
-    const ix=[0,1,2].map(n=>WX.h.time.indexOf(HOY+'T'+String(p[0]+n).padStart(2,'0')+':00')).filter(i=>i>=0);
-    if(!ix.length)return '';
-    const g=k=>ix.map(i=>WX.h[k][i]??0),tp=g('temperature_2m'),code=Math.max(...g('weathercode'));
-    return `<div class="wx-r"><span class="wx-e">${wxIco(code)}</span><div class="wx-i"><b>${String(p[0]).padStart(2,'0')}:${String(p[1]).padStart(2,'0')} · ${wxTxt(code)}</b><span class="d">${Math.round(Math.min(...tp))}–${Math.round(Math.max(...tp))} °C · lluvia ${Math.max(...g('precipitation_probability'))}% · viento ${Math.round(Math.max(...g('windspeed_10m')))} km/h</span></div></div>`;
+    const p=parseHora(d.hora);if(!p)return '';
+    const hh=Math.min(23,p[0]+(p[1]>=30?1:0));if(seen.has(hh))return '';seen.add(hh);   /* la hora más cercana, como la tabla por horas de Meteored */
+    const i=WX.h.time.indexOf(HOY+'T'+String(hh).padStart(2,'0')+':00');if(i<0)return '';
+    const g=k=>WX.h[k]?WX.h[k][i]:null,n=g('is_day')===0,[k,t]=wxKind(g('weather_code')??0,n);
+    const mm=g('precipitation')||0,ws=r(g('wind_speed_10m')||0),wg=Math.max(ws,r(g('wind_gusts_10m')||0));
+    return `<div class="wx-r"><span class="wx-e">${wxIcon(k,n)}</span><div class="wx-i"><b>${String(p[0]).padStart(2,'0')}:${String(p[1]).padStart(2,'0')} · ${t}</b><span class="d">${r(g('temperature_2m'))}° · sensación ${r(g('apparent_temperature'))}° · humedad ${r(g('relative_humidity_2m'))}%</span><span class="d">lluvia ${r(g('precipitation_probability')||0)}%${mm>=0.1?' · '+mm.toFixed(1)+' mm':''} · viento ${wxDir(g('wind_direction_10m'))} ${ws}–${wg} km/h</span></div></div>`;
   }).join('');
-  box.innerHTML=out?`<div class="card wx"><h2>Clima en Curauma</h2>${out}</div>`:'';
+  if(!out){box.innerHTML='';return}
+  const a=WX.at?new Date(WX.at):null,hm=a?String(a.getHours()).padStart(2,'0')+':'+String(a.getMinutes()).padStart(2,'0'):'';
+  box.innerHTML=`<div class="card wx"><h2>Clima en Curauma</h2>${out}<div class="wx-f">${hm?'Actualizado '+hm+' · ':''}<a href="${WX_MET}" target="_blank" rel="noopener">ver en Meteored</a></div></div>`;
 }
+setInterval(()=>{if(!document.hidden&&Date.now()-WXAT>18e5)wxLoad()},6e4);
 const _rs=renderSalidas;renderSalidas=function(l,s){_rs(l,s);renderWx()};
 
 /* ---- Reunión + aseo (se lee del PDF de Vida y Ministerio del repositorio) ---- */
@@ -1796,7 +1862,7 @@ $('#g-wrap').addEventListener('click',e=>{const b=e.target.closest('[data-pdf]')
 
 /* ---- Refrescos y arranque ---- */
 const _ra=refreshActive;refreshActive=function(){_ra();renderNP();renderYo();renderReu();renderNoPasar(window.__npt);aviso()};
-document.addEventListener('visibilitychange',()=>{if(document.hidden)return;aviso();if(Date.now()-WXAT>36e5)wxLoad()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)return;aviso();if(Date.now()-WXAT>18e5)wxLoad()});
 addEventListener('online',()=>wxLoad());
 renderYo();renderReu();renderNP();renderWx();wxLoad();ingestVym();aviso();
 
