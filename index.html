@@ -325,6 +325,98 @@ body.off #net{display:flex}body.off .view:not(.full){padding-top:20px}
 #np-grid small{position:absolute;top:3px;right:6px;font:700 9px var(--sans);color:var(--bad)}#np-grid button.on small{color:#fff}
 #np-det .np li .g-ed{margin-left:auto}
 #reu-hoy .reu .chip{flex:none}
+
+/* ===== Animaciones y micro-interacciones (aditivo) ===== */
+:root{--spring:cubic-bezier(.34,1.56,.64,1);--out:cubic-bezier(.16,1,.3,1)}
+@keyframes rise{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes inR{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes inL{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes bodyIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 3px var(--brand-bg),var(--sh)}50%{box-shadow:0 0 0 7px color-mix(in srgb,var(--brand-2) 22%,transparent),var(--sh)}}
+@keyframes rip{to{transform:scale(1);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sweep{0%,70%{transform:translateX(-120%) skewX(-20deg)}100%{transform:translateX(320%) skewX(-20deg)}}
+@keyframes shine{to{background-position:200% center}}
+@keyframes spinTheme{from{transform:rotate(-180deg) scale(.6)}to{transform:none}}
+@keyframes pick{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
+
+/* entrada de cada pestaña: contenido en cascada + deslizamiento según la dirección */
+body[data-dir="r"] .view.on{animation:inR .34s var(--out)}
+body[data-dir="l"] .view.on{animation:inL .34s var(--out)}
+.view:not(.full).on>*{animation:rise .55s var(--out) backwards}
+.view:not(.full).on>*:nth-child(1){animation-delay:40ms}.view:not(.full).on>*:nth-child(2){animation-delay:100ms}.view:not(.full).on>*:nth-child(3){animation-delay:160ms}.view:not(.full).on>*:nth-child(4){animation-delay:220ms}.view:not(.full).on>*:nth-child(5){animation-delay:280ms}.view:not(.full).on>*:nth-child(6){animation-delay:340ms}.view:not(.full).on>*:nth-child(7){animation-delay:400ms}.view:not(.full).on>*:nth-child(8){animation-delay:460ms}.view:not(.full).on>*:nth-child(9){animation-delay:520ms}.view:not(.full).on>*:nth-child(10){animation-delay:580ms}.view:not(.full).on>*:nth-child(11){animation-delay:640ms}.view:not(.full).on>*:nth-child(12){animation-delay:700ms}.view:not(.full).on>*:nth-child(13){animation-delay:760ms}.view:not(.full).on>*:nth-child(14){animation-delay:820ms}.view:not(.full).on>*:nth-child(15){animation-delay:880ms}
+.stg>*{animation:rise .45s var(--out) backwards}
+.stg>*:nth-child(1){animation-delay:0ms}.stg>*:nth-child(2){animation-delay:55ms}.stg>*:nth-child(3){animation-delay:110ms}.stg>*:nth-child(4){animation-delay:165ms}.stg>*:nth-child(5){animation-delay:220ms}.stg>*:nth-child(6){animation-delay:275ms}.stg>*:nth-child(7){animation-delay:330ms}.stg>*:nth-child(8){animation-delay:385ms}.stg>*:nth-child(9){animation-delay:440ms}.stg>*:nth-child(10){animation-delay:495ms}.stg>*:nth-child(11){animation-delay:550ms}.stg>*:nth-child(12){animation-delay:605ms}.stg>*:nth-child(13){animation-delay:660ms}.stg>*:nth-child(14){animation-delay:715ms}
+.salida{animation:rise .5s var(--out) backwards}
+.salida:nth-child(2){animation-delay:.08s}.salida:nth-child(3){animation-delay:.16s}
+.salida.live{animation:rise .5s var(--out) backwards,glow 2.6s ease-in-out .6s infinite}
+.salida.open .salida-body{animation:bodyIn .38s var(--out)}
+.salida-head:active{transform:scale(.985)}
+.salida-head{transition:transform .15s var(--ease)}
+.terr-map{animation:fade .5s var(--out)}
+.salida .tag{transition:var(--t)}
+
+/* tarjetas y filas */
+@media(hover:hover){
+  .card:hover,.g-card:hover,.vcard:hover,.dia:hover{transform:translateY(-2px);box-shadow:var(--sh-hover)}
+  .salida:hover{box-shadow:var(--sh-hover)}
+}
+.g-row,.vrow.edit,.list-item,#np-det .np li{transition:background .2s var(--ease),transform .15s var(--ease)}
+.g-row:active,.vrow.edit:active{transform:scale(.99)}
+.g-menu-item .g-chev{transition:transform .25s var(--spring),opacity .2s}
+.g-menu-item:hover .g-chev{transform:translateX(5px);opacity:1}
+.card.np li{animation:rise .4s var(--out) backwards}
+.reu.hoy .reu-dia{animation:glow 3s ease-in-out infinite;box-shadow:0 0 0 0 transparent}
+
+/* logo y botón principal */
+.logo span{background:linear-gradient(100deg,var(--brand-2) 20%,color-mix(in srgb,var(--brand-2) 45%,#fff) 50%,var(--brand-2) 80%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 5s linear infinite}
+.btn-texto{position:relative;overflow:hidden}
+.btn-texto::after,.btn-maps::after{content:'';position:absolute;top:0;bottom:0;left:0;width:34%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);animation:sweep 5.5s ease-in-out infinite;pointer-events:none}
+.btn-texto .bt-go{transition:transform .25s var(--spring)}
+.btn-texto:hover .bt-go{transform:translate(3px,-3px)}
+.theme-btn.spin{animation:spinTheme .5s var(--spring)}
+.chip,.cfg-btn,.btn,.btn-dir,.theme-btn,.mini,.mini-link,.zb{transition:transform .2s var(--spring),box-shadow .2s var(--ease),background .2s var(--ease),color .2s var(--ease)}
+.chip:active,.cfg-btn:active,.btn:active,.btn-dir:active,.theme-btn:active,.mini:active,.mini-link:active,.zb:active{transform:scale(.92)}
+
+/* ripple */
+.rp{position:relative;overflow:hidden}
+.rip{position:absolute;border-radius:50%;background:currentColor;opacity:.28;transform:scale(0);animation:rip .65s var(--out) forwards;pointer-events:none}
+
+/* selectores */
+.months button{transition:transform .25s var(--spring),background .25s var(--ease),color .2s}
+.months button.on{animation:pick .4s var(--spring)}
+.seg button.on{animation:pick .35s var(--spring)}
+#np-grid button{transition:transform .2s var(--spring),background .2s,box-shadow .2s}
+#np-grid button:active{transform:scale(.9)}
+#np-grid button.on{animation:pick .35s var(--spring)}
+#skins button{transition:transform .2s var(--spring)}
+#skins button:active{transform:scale(.88)}
+#skins button.on i{animation:pick .4s var(--spring)}
+.pdf canvas{animation:rise .6s var(--out) backwards}
+.pdf .note{animation:bodyIn .4s var(--out)}
+
+/* hojas inferiores y avisos */
+.sheet:not([hidden]){animation:fade .25s var(--ease)}
+.sheet:not([hidden]) .panel{animation:sheetUp .42s var(--out)}
+.toast{transition:opacity .25s var(--ease),transform .45s var(--spring)}
+.toast.on{transform:translate(-50%,0) scale(1)}
+.status.soon::before,.status.live::before{animation:pulse 1.6s infinite}
+.status{transition:var(--t)}
+.badge{transition:var(--t)}
+
+/* indicadores de carga */
+.ld.spin::before,.frame .ld::before,.terr-map .tm-ld::before{content:'';display:block;width:30px;height:30px;margin:0 auto 12px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--brand-2);animation:spin .8s linear infinite}
+.frame .ld,.terr-map .tm-ld{align-content:center;justify-items:center}
+.terr-map .tm-ld::before{margin-bottom:8px}
+
+/* cambio suave de tema/color */
+html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:background-color .45s var(--ease),color .45s var(--ease),border-color .45s var(--ease),box-shadow .45s var(--ease)!important}
+nav button .i{transition:transform .3s var(--spring)}
+nav button:not(.fab):hover .i{transform:translateY(-2px)}
+nav button.fab:hover .fab-c{transform:translateY(-3px) scale(1.04);box-shadow:0 10px 22px rgba(27,56,43,.4)}
+@media(prefers-reduced-motion:reduce){html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:none!important}.rip,.btn-texto::after,.btn-maps::after{display:none}}
 </style></head><body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -1879,6 +1971,43 @@ const _ra=refreshActive;refreshActive=function(){_ra();renderNP();renderYo();ren
 document.addEventListener('visibilitychange',()=>{if(document.hidden)return;aviso();if(Date.now()-WXAT>18e5)wxLoad()});
 addEventListener('online',()=>wxLoad());
 renderYo();renderReu();renderNP();renderWx();wxLoad();ingestVym();aviso();
+
+
+/* ======================================================================
+   ANIMACIONES (aditivo): dirección de pestañas · ripple · cascada · carga · tema
+   ====================================================================== */
+(function(){
+  const tabNow=()=>TABS.find(x=>$('#v-'+x).classList.contains('on'));
+  /* deslizamiento según la dirección de la navegación */
+  const _t=tab;tab=function(t){
+    const a=TABS.indexOf(tabNow()),b=TABS.indexOf(t);
+    document.body.dataset.dir=a<0||a===b?'':(b>a?'r':'l');
+    _t(t);
+  };
+  const _og=openGrupos;openGrupos=function(f){document.body.dataset.dir='r';_og(f)};
+  $('#pf-np').addEventListener('click',()=>{document.body.dataset.dir='r'});
+  /* ripple + vibración suave en todo lo que se toca */
+  const RP='.btn,.chip,.cfg-btn,.g-menu-item,.btn-texto,.btn-maps,.btn-dir,.theme-btn,.mini,.mini-link,.zb,.months button,.seg button,#np-grid button,.g-ed,.list-item button,.salida-head';
+  document.addEventListener('pointerdown',e=>{
+    const el=e.target.closest(RP);if(!el||el.disabled)return;
+    if(!el.classList.contains('rp'))el.classList.add('rp');
+    const r=el.getBoundingClientRect(),d=Math.max(r.width,r.height)*2.2,s=document.createElement('span');
+    s.className='rip';s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;
+    el.append(s);setTimeout(()=>s.remove(),700);
+    if(!el.classList.contains('salida-head'))navigator.vibrate?.(6);
+  },{passive:true});
+  /* la hoja .salida-head necesita recortar el ripple dentro de la tarjeta */
+  /* listas en cascada */
+  ['#g-wrap .g-list','#g-wrap .g-menu','#np-grid','#skins','#adm-list'].forEach(q=>{const e=$(q);if(e)e.classList.add('stg')});
+  new MutationObserver(()=>{$$('#g-wrap .g-list,#g-wrap .g-menu').forEach(e=>e.classList.add('stg'))}).observe($('#g-wrap'),{childList:true});
+  $('#salidas').classList.add('stg');
+  /* spinner solo mientras dice “Cargando…” */
+  $$('.pdf').forEach(p=>new MutationObserver(()=>p.querySelectorAll('.ld').forEach(l=>l.classList.toggle('spin',/^Cargando/.test(l.textContent)))).observe(p,{childList:true}));
+  /* transición suave al cambiar tema/color */
+  const fx=()=>{const h=document.documentElement;h.classList.add('theme-anim');clearTimeout(fx.t);fx.t=setTimeout(()=>h.classList.remove('theme-anim'),600)};
+  ['#theme-btn','#perfil-tema','#skins'].forEach(q=>$(q).addEventListener('click',fx,true));
+  ['#theme-btn','#perfil-tema'].forEach(q=>$(q).addEventListener('click',()=>{const b=$('#theme-btn');b.classList.remove('spin');void b.offsetWidth;b.classList.add('spin')}));
+})();
 
 const h=location.hash.slice(1);if(h==='grupos')openGrupos();else if(['pred','vym','mapa','perfil'].includes(h))tab(h);
 </script>

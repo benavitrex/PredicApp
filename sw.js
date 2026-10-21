@@ -1,4 +1,4 @@
-const C='predicacion-v15';
+const C='predicacion-v16';
 const ASSETS=['./','./index.html','./sw.js','./manifest.webmanifest','./favicon.svg','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./apple-touch-icon.png'];
 
 self.addEventListener('install',e=>{
