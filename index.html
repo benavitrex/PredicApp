@@ -75,10 +75,14 @@ h2{font:600 18px/1.3 var(--serif);margin:0 0 10px;color:var(--ink)}
 .salidas{display:flex;flex-direction:column;gap:12px;margin-bottom:14px}
 .salida{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--sh);transition:var(--t);position:relative;overflow:hidden}
 .salida.live{border-color:var(--brand-2);box-shadow:0 0 0 3px var(--brand-bg),var(--sh)}
-.salida.past{opacity:.55;order:9}
-.salida.past .salida-body{display:none}
-.salida.past.expanded .salida-body{display:block}
+.salida.past .salida-head{opacity:.6}
+.salida .salida-body{display:none}
+.salida.open .salida-body{display:block}
 .salida-head{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
+.salida-head .sh-r{display:flex;align-items:center;gap:10px;flex:none}
+.salida-head .chev{width:18px;height:18px;color:var(--soft);transition:transform .2s var(--ease)}
+.salida.open .chev{transform:rotate(180deg)}
+.salida.past .tag{background:var(--fill);color:var(--soft)}
 .salida-head .tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:4px 10px;border-radius:9999px;background:var(--fill);color:var(--soft)}
 .salida.live .tag{background:var(--brand-bg);color:var(--ok)}
 .salida.soon .tag{background:var(--gold-bg);color:var(--gold)}
@@ -763,9 +767,12 @@ function jornadaLabel(h){
   const p=parseHora(h);if(!p)return 'Salida';
   return p[0]<14?'Mañana':'Tarde';
 }
+/* Fin de cada salida: la de la mañana termina ~12:30 y la de la tarde ~20:00 */
 function salidaState(h){
   const p=parseHora(h);if(!p)return 'soon';
-  const n=new Date(),ini=new Date(n.getFullYear(),n.getMonth(),n.getDate(),p[0],p[1]),fin=new Date(+ini+DUR*36e5);
+  const n=new Date(),ini=new Date(n.getFullYear(),n.getMonth(),n.getDate(),p[0],p[1]);
+  let fin=new Date(n.getFullYear(),n.getMonth(),n.getDate(),p[0]<14?12:20,p[0]<14?30:0);
+  if(fin<=ini)fin=new Date(+ini+DUR*36e5);
   if(n<ini)return 'soon';
   if(n<fin)return 'live';
   return 'past';
@@ -801,6 +808,7 @@ function dirBtn(lugar){
 }
 function mapsBtn(lugar){return dirBtn(lugar)}
 
+let SAL_OPEN=null,SAL_SIG='';
 function renderSalidas(list,src){
   const box=$('#salidas');
   $('#src').textContent=src||'';
@@ -809,25 +817,27 @@ function renderSalidas(list,src){
     renderNoPasar(null);
     return;
   }
-  // ordenar por hora
+  // ordenar por hora: mañana arriba, tarde abajo
   list=list.slice().sort((a,b)=>String(a.hora||'').localeCompare(String(b.hora||'')));
   const states=list.map(d=>salidaState(d.hora));
-  // Si hay una en curso o próxima, minimizar las pasadas
-  const hasActive=states.some(s=>s==='live'||s==='soon');
+  SAL_SIG=states.join('|');
+  // abierta por defecto: la en curso, o la próxima; si el usuario tocó una, se respeta su elección
+  let auto=states.indexOf('live');if(auto<0)auto=states.indexOf('soon');
+  const openI=SAL_OPEN==null?auto:SAL_OPEN;
 
   box.innerHTML=list.map((d,i)=>{
     const st=states[i];
     const j=jornadaLabel(d.hora);
     const lugar=(d.dir||d.casa||'').trim();
-    const pastCls=st==='past'&&hasActive?' past':'';
-    const liveCls=st==='live'?' live':(st==='soon'?' soon':'');
-    return `<div class="salida${pastCls}${liveCls}" data-i="${i}">
-      <div class="salida-head">
+    const cls=(st==='past'?' past':st==='live'?' live':' soon')+(i===openI?' open':'');
+    const tag=st==='past'?'Terminada':st==='live'?'En curso':'Próxima';
+    return `<div class="salida${cls}" data-i="${i}">
+      <div class="salida-head" role="button" tabindex="0" aria-expanded="${i===openI}">
         <div>
           <div class="salida-hora">${esc(fmtHora(d.hora))}</div>
-          <div class="salida-meta">${esc(j)}${st==='live'?' · En curso':st==='soon'?' · Próxima':st==='past'?' · Finalizada':''}</div>
+          <div class="salida-meta">${esc(j)}${d.grp?' · '+esc(d.grp):''}</div>
         </div>
-        <span class="tag">${esc(j)}</span>
+        <div class="sh-r"><span class="tag">${tag}</span><svg class="i chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
       </div>
       <div class="salida-body">
         <div class="dl">
@@ -845,9 +855,15 @@ function renderSalidas(list,src){
     </div>`;
   }).join('');
 
-  // click para expandir pasadas
-  box.querySelectorAll('.salida.past .salida-head').forEach(h=>{
-    h.onclick=()=>h.parentElement.classList.toggle('expanded');
+  // acordeón: al tocar una se despliega y las demás se pliegan
+  box.querySelectorAll('.salida-head').forEach(h=>{
+    const go=()=>{
+      const c=h.parentElement,i=+c.dataset.i,was=c.classList.contains('open');
+      SAL_OPEN=was?-1:i;
+      box.querySelectorAll('.salida').forEach(x=>{const o=!was&&x===c;x.classList.toggle('open',o);x.querySelector('.salida-head').setAttribute('aria-expanded',o)});
+    };
+    h.onclick=go;
+    h.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}};
   });
 
   // No pasar del territorio prioritario (en curso > próxima > primera)
@@ -874,13 +890,9 @@ function estado(){
       e.className='status soon';e.textContent='Próxima salida en '+(h?h+' h':'')+(h&&mm?' ':'')+(mm?mm+' min':'');
     }else{e.className='status soon';e.textContent='Próxima salida';}
   }else{e.className='status';e.textContent='Salidas finalizadas hoy';}
-  // refresh collapse classes
-  const hasActive=states.some(s=>s==='live'||s==='soon');
-  cards.forEach((c,i)=>{
-    c.classList.toggle('live',states[i]==='live');
-    c.classList.toggle('soon',states[i]==='soon');
-    c.classList.toggle('past',states[i]==='past'&&hasActive);
-  });
+  // si cambió el estado de alguna salida (p. ej. terminó), se vuelve a dibujar
+  const sig=rows.slice().sort((x,y)=>String(x.hora||'').localeCompare(String(y.hora||''))).map(d=>salidaState(d.hora)).join('|');
+  if(SAL_SIG&&sig!==SAL_SIG)renderSalidas(rows,$('#src').textContent);
 }
 setInterval(estado,3e4);
 
@@ -1724,7 +1736,7 @@ const _rs=renderSalidas;renderSalidas=function(l,s){_rs(l,s);renderWx()};
 
 /* ---- Reunión + aseo (se lee del PDF de Vida y Ministerio del repositorio) ---- */
 let VC=load('cache:vym',{st:{},rows:{}}),VGB=false;
-if(!VC||!VC.rows||!VC.st)VC={st:{},rows:{}};
+if(!VC||!VC.rows||!VC.st||VC.v!==2)VC={v:2,st:{},rows:{}}; /* v2: lectura corregida del aseo → descarta la caché antigua */
 /* Una página por semana: “2-8 DE NOVIEMBRE …”, “19:30 Presidente …” y, abajo, la etiqueta “ASEO (GRUPO)” con su valor. */
 async function parseVymPdf(doc){
   const out={};
@@ -1732,20 +1744,22 @@ async function parseVymPdf(doc){
     const tc=await (await doc.getPage(p)).getTextContent();
     const it=tc.items.map(o=>({s:String(o.str||'').trim(),x:o.transform[4],e:o.transform[4]+(o.width||0),y:o.transform[5]})).filter(o=>o.s);
     const txt=_na(it.map(o=>o.s).join(' '));
-    const m=txt.match(/(\d{1,2})\s*(?:DE\s+([A-Z]+))?\s*[-–]\s*(\d{1,2})\s*DE\s+([A-Z]+)/),hm=txt.match(/(\d{1,2}):(\d{2})\s+PRESIDENTE/);
+    const m=txt.match(/(\d{1,2})\s*(?:DE\s+([A-Z]+))?\s*(?:[-–]|\bA\b)\s*(\d{1,2})\s*DE\s+([A-Z]+)/),hm=txt.match(/(\d{1,2}):(\d{2})\s+PRESIDENTE/);
     if(!m||!hm||!MESN[m[4].toLowerCase()])continue;
     const ym=txt.match(/\b(20\d\d)\b/),yr=ym?+ym[1]:hoy.getFullYear(),em=MESN[m[4].toLowerCase()];
     let sm=m[2]&&MESN[m[2].toLowerCase()]?MESN[m[2].toLowerCase()]:(+m[1]>+m[3]?em-1:em),y0=yr;
     if(sm<1){sm=12;y0--}
     const d0=new Date(y0,sm-1,+m[1],12);d0.setDate(d0.getDate()+3); /* semana lunes→domingo: jueves = lunes + 3 */
+    /* ASEO (GRUPO): el número está justo debajo de la etiqueta (puede coincidir con el nº de página: es normal) */
     let aseo=null;
     const lab=it.find(o=>/ASEO/.test(_na(o.s)));
     if(lab){
-      const cx=(lab.x+lab.e)/2,c=it.filter(o=>o!==lab&&o.y<lab.y&&lab.y-o.y<30&&Math.abs((o.x+o.e)/2-cx)<Math.max(50,lab.e-lab.x)).sort((a,b)=>b.y-a.y)[0];
-      const dm=c&&_na(c.s).match(/^(?:GRUPO\s*)?(\d)\b/);
-      if(dm&&(/GRUPO/.test(_na(c.s))||+dm[1]!==p))aseo=+dm[1];
+      const ln=it.filter(o=>Math.abs(o.y-lab.y)<3&&o.x>=lab.x-2&&o.x-lab.x<130),x0=Math.min(...ln.map(o=>o.x)),x1=Math.max(...ln.map(o=>o.e)),cx=(x0+x1)/2;
+      const cand=it.filter(o=>o.y<lab.y-1&&lab.y-o.y<70&&/^(?:GRUPO\s*)?[1-9]$/.test(_na(o.s))&&Math.abs((o.x+o.e)/2-cx)<(x1-x0)/2+40)
+        .sort((a,b)=>(lab.y-a.y)-(lab.y-b.y)||Math.abs((a.x+a.e)/2-cx)-Math.abs((b.x+b.e)/2-cx))[0];
+      if(cand)aseo=+_na(cand.s).slice(-1);
     }
-    if(!aseo){const a=txt.match(/ASEO\s*\(?GRUPO\)?\s*(?:[:\-]\s*(?:GRUPO\s*)?|GRUPO\s*)(\d)\b/);if(a)aseo=+a[1]}
+    if(!aseo){const a=txt.match(/ASEO\s*\(\s*GRUPO\s*\)\s*(?:GRUPO\s*)?([1-9])\b/);if(a)aseo=+a[1]}
     out[iso(d0)]={hora:String(+hm[1]).padStart(2,'0')+':'+hm[2],aseo};
   }
   return out;
