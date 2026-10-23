@@ -479,6 +479,49 @@ nav button.fab:hover .fab-c{transform:translateY(-3px) scale(1.04);box-shadow:0 
 .wx-rec.warn .wx-re{background:var(--gold-bg)}.wx-rec.bad .wx-re{background:var(--bad-bg)}
 .wx-rec b{display:block;font-size:14.5px;font-weight:700;line-height:1.25}
 .wx-rec .d{display:block;color:var(--soft);font-size:12.5px;margin-top:1px}
+
+/* ===== Asistente ===== */
+.theme-btn.as-btn{display:inline-flex;align-items:center;width:auto;padding:0 13px;gap:6px;font:600 13px var(--sans);color:var(--brand-2)}
+.as-top{display:flex;gap:8px;align-items:center}
+#as-sheet{position:fixed;left:0;right:0;top:0;height:100%;z-index:300;display:none;background:rgba(8,18,13,.5);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+#as-sheet.on{display:flex;align-items:flex-end;justify-content:center;animation:asf .2s}
+.as-p{width:100%;max-width:640px;height:min(94%,820px);background:var(--bg);border-radius:24px 24px 0 0;display:flex;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,.28);animation:asu .32s cubic-bezier(.2,.9,.3,1);overflow:hidden}
+.as-h{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--card);border-bottom:1px solid var(--line)}
+.as-av{width:38px;height:38px;border-radius:12px;background:var(--brand-bg);display:grid;place-items:center;font-size:18px}
+.as-ht{flex:1;line-height:1.25}.as-ht b{display:block;font-size:16px}.as-ht small{color:var(--soft);font-size:12px}
+.as-x{border:0;background:var(--fill);color:var(--ink);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:14px}
+.as-m{flex:1;min-height:0;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:10px;-webkit-user-select:text;user-select:text}
+.as-b{max-width:92%;padding:11px 14px;border-radius:18px;font-size:14.5px;line-height:1.45;box-shadow:var(--sh);animation:asf .25s}
+.as-b.bot{align-self:flex-start;background:var(--card);border-bottom-left-radius:6px}.as-b.me{align-self:flex-end;background:var(--brand-2);color:#fff;border-bottom-right-radius:6px}
+.as-b p{margin:0 0 8px}.as-b p:last-child{margin:0}.as-n{font-size:12px;color:var(--soft)}
+.as-c{background:var(--fill);border-radius:14px;padding:10px 12px;margin:6px 0;font-size:14px}
+.as-l{margin:6px 0 0;padding-left:18px}.as-l li{margin:3px 0}.as-l small{color:var(--soft)}
+.as-a{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.as-f{background:var(--card);border-top:1px solid var(--line);padding:8px 12px calc(10px + env(safe-area-inset-bottom))}
+.as-qs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}.as-qs::-webkit-scrollbar{display:none}.as-qs .chip{flex:none;white-space:nowrap}
+.as-in{display:flex;gap:8px}
+.as-in input{flex:1;font:inherit;font-size:16px;color:var(--ink);background:var(--fill);border:1.5px solid transparent;border-radius:9999px;padding:11px 16px;min-width:0}
+.as-in input:focus{outline:none;border-color:var(--brand-2)}
+.as-in button{flex:none;width:44px;height:44px;border:0;border-radius:50%;background:var(--brand-2);color:#fff;font-size:20px;cursor:pointer}
+.as-dots i{display:inline-block;width:7px;height:7px;margin:0 2px;border-radius:50%;background:var(--soft);animation:asd 1s infinite}.as-dots i:nth-child(2){animation-delay:.15s}.as-dots i:nth-child(3){animation-delay:.3s}
+
+.rb-w{display:inline-block;width:28px;height:28px;flex:none}.rb{width:100%;height:100%;display:block;overflow:visible}
+.rb-hd,.rb-st{fill:var(--brand-2)}.rb-ear{fill:var(--brand-2);opacity:.7}.rb-pl{fill:#fff}.rb-ey,.rb-mo{fill:var(--brand);transform-box:fill-box;transform-origin:center}
+.rb-ball{fill:#F5A623;transform-box:fill-box;transform-origin:center;animation:rbP 2s ease-in-out infinite}
+.rb-ey{animation:rbK 4.2s infinite}.rb-b{transform-box:fill-box;transform-origin:center bottom;animation:rbB 2.6s ease-in-out infinite}
+.rb-an{transform-box:fill-box;transform-origin:center bottom;animation:rbW 3.2s ease-in-out infinite}
+.as-btn .rb-w{width:30px;height:30px;margin-left:-4px}
+.as-av{width:46px!important;height:46px!important;padding:4px}.as-av .rb-w{width:100%;height:100%}
+.as-r{display:flex;gap:8px;align-items:flex-end;align-self:flex-start;max-width:97%}.as-r .as-b{max-width:none;flex:0 1 auto}.as-r .rb-w{width:32px;height:32px;margin-bottom:2px}
+#as-sheet.busy .as-av .rb-mo,.as-r.talk .rb-mo{animation:rbT .32s ease-in-out infinite}
+#as-sheet.busy .as-av .rb-an,.as-r.talk .rb-an{animation-duration:.7s}
+@keyframes rbB{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.6px)}}
+@keyframes rbK{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes rbW{0%,100%{transform:rotate(0)}30%{transform:rotate(-10deg)}60%{transform:rotate(8deg)}}
+@keyframes rbP{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+@keyframes rbT{0%,100%{transform:scaleY(1)}50%{transform:scaleY(2.4)}}
+@media(prefers-reduced-motion:reduce){.rb *{animation:none!important}}
+@keyframes asf{from{opacity:0}to{opacity:1}}@keyframes asu{from{transform:translateY(40px);opacity:.6}to{transform:none;opacity:1}}@keyframes asd{0%,80%,100%{opacity:.3;transform:none}40%{opacity:1;transform:translateY(-3px)}}
 </style></head><body>
 
 <div id="splash" aria-hidden="true">
@@ -536,7 +579,8 @@ nav button.fab:hover .fab-c{transform:translateY(-3px) scale(1.04);box-shadow:0 
 <section class="view on" id="v-inicio">
  <div class="top-row">
   <div class="logo" aria-label="PrediApp">Predi<span>App</span></div>
-  <button class="theme-btn" id="theme-btn" type="button" aria-label="Cambiar tema" title="Cambiar tema">◐</button>
+  <div class="as-top"><button class="theme-btn as-btn" id="as-open" type="button" aria-label="Abrir asistente"><span class="rb-w"><svg class="rb" viewBox="0 0 40 40" aria-hidden="true"><g class="rb-b"><g class="rb-an"><rect class="rb-st" x="19" y="4" width="2" height="7" rx="1"/><circle class="rb-ball" cx="20" cy="4" r="2.6"/></g><rect class="rb-ear" x="3" y="19" width="4" height="9" rx="2"/><rect class="rb-ear" x="33" y="19" width="4" height="9" rx="2"/><rect class="rb-hd" x="6" y="9" width="28" height="25" rx="9"/><rect class="rb-pl" x="10" y="14" width="20" height="15" rx="6"/><rect class="rb-ey" x="14" y="18" width="4" height="6" rx="2"/><rect class="rb-ey" x="22" y="18" width="4" height="6" rx="2"/><rect class="rb-mo" x="17" y="26" width="6" height="1.6" rx=".8"/></g></svg></span>Asistente</button>
+  <button class="theme-btn" id="theme-btn" type="button" aria-label="Cambiar tema" title="Cambiar tema">◐</button></div>
  </div>
  <span class="status" id="estado">…</span>
  <h1 id="fecha"></h1>
@@ -2006,7 +2050,86 @@ const _rs=renderSalidas;renderSalidas=function(l,s){_rs(l,s);renderWx()};
 
 /* ---- Reunión + aseo (se lee del PDF de Vida y Ministerio del repositorio) ---- */
 let VC=load('cache:vym',{st:{},rows:{}}),VGB=false;
-if(!VC||!VC.rows||!VC.st||VC.v!==2)VC={v:2,st:{},rows:{}}; /* v2: lectura corregida del aseo → descarta la caché antigua */
+if(!VC||!VC.rows||!VC.st||VC.v!==3)VC={v:3,st:{},rows:{}}; /* v3: además del aseo se guarda el programa completo (partes, asignados, encargados) → descarta la caché antigua */
+/* ---- Programa completo de una página: presidente, oraciones, canciones, partes con sus asignados y encargados ----
+   Lee las posiciones del texto del PDF (mismo formato de la “Guía de actividades”): hora a la izquierda (x<60), nº de parte (x≈66),
+   título (x≥85), nombres a la derecha (x≥390) y, abajo, las etiquetas ACOMODADOR/MICRÓFONOS/PLATAFORMA/AUDIO VIDEO con su valor justo debajo. */
+function vymExtract(items){
+  const NX=390,T=[];
+  items.forEach(o=>{
+    const s=String(o.s||'').trim();if(!s)return;const y=-o.y,w=o.e-o.x;
+    const mm=o.x<60&&s.match(/^(\d{1,2}:\d{2})\s+(\d{1,2})$/);
+    if(mm){T.push({s:mm[1],x:o.x,e:o.x+30,y});T.push({s:mm[2],x:o.x+38,e:o.x+46,y});return}
+    if(/\s{2,}/.test(s)){let pos=0;const L=s.length;s.split(/(\s{2,})/).forEach(p=>{if(!p)return;if(!/^\s+$/.test(p))T.push({s:p,x:o.x+w*pos/L,e:o.x+w*(pos+p.length)/L,y});pos+=p.length});return}
+    if(o.x>=NX&&o.x<470&&o.e>488&&/ /.test(s)){ /* dos nombres pegados en un mismo texto: corta donde empieza la 2.ª columna */
+      const ws=s.split(' '),L=s.length;let pos=0,cut=-1;
+      ws.forEach((wd,k)=>{if(cut<0&&k>=2&&o.x+w*pos/L>=470)cut=k;pos+=wd.length+1});
+      if(cut>0){const a=ws.slice(0,cut).join(' '),b=ws.slice(cut).join(' ');T.push({s:a,x:o.x,e:o.x+w*a.length/L,y});T.push({s:b,x:o.x+w*(a.length+1)/L,e:o.e,y});return}
+    }
+    T.push({s,x:o.x,e:o.e,y});
+  });
+  const cap=s=>String(s||'').toLocaleLowerCase('es').replace(/(^|\s)(\S)/g,(m,a,b)=>a+b.toLocaleUpperCase('es'));
+  const clean=s=>String(s||'').replace(/\s+/g,' ').replace(/min\.\)(?=\S)/g,'min.) ').replace(/\(\s*(\d+)\s*min/gi,'($1 min').trim();
+  const lines=arr=>{const L=[];arr.slice().sort((a,b)=>a.y-b.y||a.x-b.x).forEach(o=>{const l=L[L.length-1];if(l&&Math.abs(o.y-l.y)<=3){l.t.push(o);l.y=(l.y*(l.t.length-1)+o.y)/l.t.length}else L.push({y:o.y,t:[o]})});L.forEach(l=>l.t.sort((a,b)=>a.x-b.x));return L};
+  /* separa varios nombres de una misma línea: por “/”, por 2+ espacios o por un hueco horizontal grande */
+  const splitNames=toks=>{const out=[];let cur=[],pe=null;
+    toks.forEach(o=>{o.s.split('/').forEach((seg,i)=>{seg=seg.trim();
+      if(i>0){if(cur.length)out.push(cur.join(' '));cur=[];pe=null}
+      if(!seg)return;
+      if(i===0&&pe!==null&&(o.x-pe>=4.5||(o.x>=478&&cur.length&&cur.start<478))){out.push(cur.join(' '));cur=[]}
+      if(!cur.length)cur.start=o.x;
+      cur.push(seg);pe=o.e})});
+    if(cur.length)out.push(cur.join(' '));
+    return out.map(x=>x.replace(/\s+/g,' ').trim()).filter(Boolean)};
+  /* cabecera: “2-8 DE NOVIEMBRE JEREMÍAS 49, 50 … SALA PRINCIPAL” */
+  const h0=T.filter(o=>o.x<45&&/^\d{1,2}(\s*[-–]\s*\d{1,2})?(\s|$)/.test(o.s)).sort((a,b)=>a.y-b.y)[0];
+  let sem='',rest='';
+  if(h0){
+    const hl=T.filter(o=>Math.abs(o.y-h0.y)<=3&&o.x<490).sort((a,b)=>a.x-b.x).map(o=>o.s).join(' ');
+    const hm=hl.match(/^(\d{1,2}(?:\s*DE\s+[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)?\s*[-–]\s*\d{1,2}\s+DE\s+[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)\s*(.*)$/i);
+    if(hm){sem=hm[1].replace(/\s+/g,' ').toLowerCase();rest=cap(hm[2].trim())}
+    const rt=T.filter(o=>Math.abs(o.y-h0.y)<=6&&o.x>=490&&!/SALA|PRINCIPAL/.test(_na(o.s))).map(o=>o.s).join(' ').trim();
+    if(!rest&&rt)rest=cap(rt);
+  }
+  const anc=T.filter(o=>o.x<60&&/^\d{1,2}:\d{2}$/.test(o.s)).sort((a,b)=>a.y-b.y);
+  const hdrs=T.filter(o=>o.x<80&&/^(TESOROS|SEAMOS|NUESTRA)\b/.test(_na(o.s))).map(o=>({y:o.y,k:{TESOROS:'T',SEAMOS:'S',NUESTRA:'V'}[_na(o.s).split(' ')[0]]})).sort((a,b)=>a.y-b.y);
+  const fA=T.find(o=>o.x<100&&/^ACOMODADOR\b/.test(_na(o.s))),fB=T.find(o=>o.x<100&&/^PLATAFORMA\b/.test(_na(o.s)));
+  const lim=fA?fA.y-6:1e9;
+  const v={pres:'',ori:'',orf:'',c:[],p:[],f:{}};let seen=false;
+  anc.forEach((a,i)=>{
+    let b=Math.min(i+1<anc.length?anc[i+1].y-5:1e9,lim);const h=hdrs.find(h=>h.y>a.y-1);if(h)b=Math.min(b,h.y-5);
+    const row=T.filter(o=>o.y>=a.y-5&&o.y<b);
+    const left=row.filter(o=>o.x>=85&&o.x<NX),right=row.filter(o=>o.x>=NX);
+    const lt=clean(lines(left).map(l=>l.t.map(o=>o.s).join(' ')).join(' '));
+    for(const c of lt.matchAll(/Canci[oó]n\s+(\d+)/gi))v.c.push(+c[1]);
+    const num=row.find(o=>o.x>=58&&o.x<86&&/^\d{1,2}$/.test(o.s)&&Math.abs(o.y-a.y)<5);
+    const NL=lines(right);
+    if(!num){
+      NL.forEach(l=>{const near=_na(left.filter(o=>Math.abs(o.y-l.y)<=3).map(o=>o.s).join(' ')),nm=splitNames(l.t);if(!nm.length)return;
+        if(/PRESIDENTE/.test(near)){if(!v.pres)v.pres=nm[0]}
+        else if(/ORACION/.test(near)){if(!seen){if(!v.ori)v.ori=nm[0]}else if(!v.orf)v.orf=nm[0]}});
+      return;
+    }
+    seen=true;
+    const names=NL.flatMap(l=>splitNames(l.t)),sec=([...hdrs].reverse().find(h=>h.y<a.y)||{}).k||'';
+    const mt=lt.match(/^(.*?)\s*\(\s*(\d+)\s*min\.?\s*\)\s*(.*)$/i);
+    const t=(mt?mt[1]:lt).trim(),d=mt?+mt[2]:null,x=mt?mt[3].trim():'';
+    let roles;
+    if(/estudio b[ií]blico de la congregaci/i.test(t))roles=['Conductor','Lector'];
+    else if(sec==='S'&&/^discurso/i.test(t))roles=['Discursante'];
+    else if(sec==='S')roles=names.length>1?['Estudiante','Ayudante']:['Estudiante'];
+    else roles=[];
+    v.p.push({n:+num.s,s:sec,t,d,x:x.slice(0,260),a:names.map((n,k)=>({r:roles[k]||'',n}))});
+  });
+  /* encargados de abajo: cada valor queda justo debajo de su etiqueta (3 columnas) */
+  if(fA&&fB){
+    const zone=(x0,x1,y0,y1)=>lines(T.filter(o=>o.x>=x0&&o.x<x1&&o.y>y0&&o.y<y1)).flatMap(l=>splitNames(l.t));
+    const r1=[fA.y+3,fB.y-3],r2=[fB.y+3,fB.y+45];
+    v.f={ent:zone(0,205,...r1),mic:zone(205,NX,...r1),aud:zone(NX,1e4,...r1),pla:zone(0,205,...r2),av:zone(205,NX,...r2)};
+  }
+  const ok=!!(v.pres||v.p.length);
+  return {sem,rest,vm:ok?Object.assign(v,{sem,lec:rest}):null};
+}
 /* Una página por semana: “2-8 DE NOVIEMBRE …”, “19:30 Presidente …” y, abajo, la etiqueta “ASEO (GRUPO)” con su valor. */
 async function parseVymPdf(doc){
   const out={};
@@ -2015,11 +2138,17 @@ async function parseVymPdf(doc){
     const it=tc.items.map(o=>({s:String(o.str||'').trim(),x:o.transform[4],e:o.transform[4]+(o.width||0),y:o.transform[5]})).filter(o=>o.s);
     const txt=_na(it.map(o=>o.s).join(' '));
     const m=txt.match(/(\d{1,2})\s*(?:DE\s+([A-Z]+))?\s*(?:[-–]|\bA\b)\s*(\d{1,2})\s*DE\s+([A-Z]+)/),hm=txt.match(/(\d{1,2}):(\d{2})\s+PRESIDENTE/);
-    if(!m||!hm||!MESN[m[4].toLowerCase()])continue;
+    if(!m||!MESN[m[4].toLowerCase()])continue;
     const ym=txt.match(/\b(20\d\d)\b/),yr=ym?+ym[1]:hoy.getFullYear(),em=MESN[m[4].toLowerCase()];
     let sm=m[2]&&MESN[m[2].toLowerCase()]?MESN[m[2].toLowerCase()]:(+m[1]>+m[3]?em-1:em),y0=yr;
     if(sm<1){sm=12;y0--}
     const d0=new Date(y0,sm-1,+m[1],12);d0.setDate(d0.getDate()+3); /* semana lunes→domingo: jueves = lunes + 3 */
+    let X=null;try{X=vymExtract(it)}catch(e){console.warn('vymExtract',e)}
+    if(!hm){ /* semana sin reunión de entre semana (p. ej. Asamblea Regional) */
+      const esp=(X&&X.rest)||(/ASAMBLEA/.test(txt)?'Asamblea Regional':'');
+      if(esp)out[iso(d0)]={hora:null,aseo:null,esp,sem:X?X.sem:''};
+      continue;
+    }
     /* ASEO (GRUPO): el número está justo debajo de la etiqueta (puede coincidir con el nº de página: es normal) */
     let aseo=null;
     const lab=it.find(o=>/ASEO/.test(_na(o.s)));
@@ -2030,7 +2159,7 @@ async function parseVymPdf(doc){
       if(cand)aseo=+_na(cand.s).slice(-1);
     }
     if(!aseo){const a=txt.match(/ASEO\s*\(\s*GRUPO\s*\)\s*(?:GRUPO\s*)?([1-9])\b/);if(a)aseo=+a[1]}
-    out[iso(d0)]={hora:String(+hm[1]).padStart(2,'0')+':'+hm[2],aseo};
+    out[iso(d0)]={hora:String(+hm[1]).padStart(2,'0')+':'+hm[2],aseo,vm:X&&X.vm||null};
   }
   return out;
 }
@@ -2065,8 +2194,9 @@ const gOf=n=>GRUPOS().find(g=>g.miembros.some(m=>m.n===n));
 function renderYo(){
   const sel=$('#yo-sel');if(!sel)return;const y=YO();
   sel.innerHTML='<option value="">Sin identificar</option>'+GRUPOS().map(g=>`<optgroup label="${esc(g.nombre)}">`+g.miembros.map(m=>`<option value="${esc(m.n)}"${m.n===y?' selected':''}>${esc(nat(m.n))}</option>`).join('')+'</optgroup>').join('');
-  const g=y&&gOf(y);let t='Elige tu nombre para recibir un aviso cuando tu grupo tenga aseo.';
+  const g=y&&gOf(y);let t='Elige tu nombre para recibir un aviso cuando tu grupo tenga aseo y para que el asistente conozca tus asignaciones de Vida y Ministerio.';
   if(g){t=g.nombre+'.';for(let i=0;i<60;i++){const d=addDays(HOY,i),r=VC.rows[d];if(r&&r.aseo&&'Grupo '+r.aseo===g.nombre){t+=' Próximo aseo: '+new Date(d+'T12:00:00').toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'})+'.';break}}}
+  if(g)t+=' Pregúntale al asistente «¿Qué asignaciones tengo?».';
   $('#yo-st').textContent=t;
   const ok='Notification' in window&&Notification.permission==='granted',nb=$('#yo-notif');
   nb.textContent=ok?'🔔 Avisos activados':'🔔 Activar avisos de aseo';nb.classList.toggle('on',ok);
@@ -2199,5 +2329,380 @@ renderYo();renderReu();renderNP();renderPfFeat();renderWx();wxLoad();ingestVym()
 })();
 
 const h=location.hash.slice(1);if(h==='grupos')openGrupos();else if(['pred','vym','mapa','perfil'].includes(h))tab(h);
+</script>
+<script id="asistente">
+/* ===== Asistente local: responde SOLO con los datos de la app (sin internet, sin inventar) ===== */
+(function(){
+const N=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9\s:\/\.\-]/g,' ').replace(/\s+/g,' ').trim();
+const DOW=['domingo','lunes','martes','miercoles','jueves','viernes','sabado'],DOWL=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const MON={enero:1,ene:1,febrero:2,feb:2,marzo:3,mar:3,abril:4,abr:4,mayo:5,may:5,junio:6,jun:6,julio:7,jul:7,agosto:8,ago:8,septiembre:9,setiembre:9,sept:9,sep:9,octubre:10,oct:10,noviembre:11,nov:11,diciembre:12,dic:12};
+const today=()=>iso(new Date()),dO=d=>new Date(d+'T12:00:00');
+const dLong=d=>{const t=dO(d);return DOWL[t.getDay()]+' '+t.getDate()+' de '+t.toLocaleDateString('es-CL',{month:'long'})};
+const dShort=d=>{const t=dO(d);return DOWL[t.getDay()].slice(0,3)+' '+t.getDate()+' '+t.toLocaleDateString('es-CL',{month:'short'}).replace('.','')};
+const rel=d=>{const T=today();return d===T?'hoy':d===addDays(T,1)?'mañana':d===addDays(T,-1)?'ayer':''};
+const lab=d=>rel(d)?rel(d)+' ('+dLong(d)+')':dLong(d);
+const mon=d=>addDays(d,-((dO(d).getDay()+6)%7));
+const fix=(y,mo,da)=>{const t=new Date(y,mo-1,da,12);return t.getMonth()===mo-1?iso(t):null};
+function parseFecha(q0){
+  const T=today(),Y=new Date().getFullYear();
+  const q=q0.replace(/\bmanana\s+(?:en|por|a)\s+la\s+(?:manana|tarde|noche)\b/g,'manana').replace(/\b(?:de|por|en|a)\s+la\s+manana\b/g,' ').replace(/\besta manana\b/g,' ');
+  let m;
+  if(/\bpasado manana\b/.test(q))return{d:addDays(T,2)};
+  if(/\banteayer\b/.test(q))return{d:addDays(T,-2)};
+  m=q.match(/\b(\d{1,2})\s*(?:de\s+)?(enero|ene|febrero|feb|marzo|mar|abril|abr|mayo|may|junio|jun|julio|jul|agosto|ago|septiembre|setiembre|sept|sep|octubre|oct|noviembre|nov|diciembre|dic)\b/);
+  if(m){const d=fix(Y,MON[m[2]],+m[1]);if(d)return{d,k:'x'}}
+  m=q.match(/\b(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?\b/);
+  if(m){const d=fix(m[3]?(+m[3]<100?2000+ +m[3]:+m[3]):Y,+m[2],+m[1]);if(d)return{d,k:'x'}}
+  m=q.match(/\bel\s+(\d{1,2})\b/);
+  if(m&&+m[1]>=1&&+m[1]<=31){const n=new Date();let mo=n.getMonth()+1,yy=Y;if(+m[1]<n.getDate())mo++;if(mo>12){mo=1;yy++}const d=fix(yy,mo,+m[1]);if(d)return{d,k:'bare'}}
+  const nw=/\b(?:proxima|siguiente)\s+semana\b|\bsemana\s+(?:que viene|proxima|siguiente)\b/.test(q);
+  const wk=q.match(/\b(lunes|martes|miercoles|jueves|viernes|sabado|domingo)s?\b/);
+  if(wk){
+    const idx=DOW.indexOf(wk[1]),cur=dO(T).getDay(),p=q.indexOf(wk[0]);
+    if(nw)return{d:addDays(mon(T),7+(idx+6)%7)};
+    if(/^\s*(?:pasado|anterior)/.test(q.slice(p+wk[0].length,p+wk[0].length+14))||/(?:ultimo|anterior)\s*$/.test(q.slice(Math.max(0,p-10),p)))return{d:addDays(T,-((cur-idx+7)%7||7))};
+    let df=(idx-cur+7)%7;if(df===0&&/\b(?:proximo|proxima|que viene|siguiente)\b/.test(q))df=7;return{d:addDays(T,df)};
+  }
+  if(/\bfin de semana\b/.test(q)){const c=dO(T).getDay(),s=c===0?addDays(T,-1):addDays(T,(6-c)%7);return{range:[s<T?T:s,addDays(s,1)]}}
+  if(nw)return{range:[addDays(mon(T),7),addDays(mon(T),13)]};
+  if(/\bsemana\b/.test(q))return{range:[T,addDays(mon(T),6)]};
+  if(/\bhoy\b/.test(q))return{d:T};
+  if(/\bmanana\b/.test(q))return{d:addDays(T,1)};
+  if(/\bayer\b/.test(q))return{d:addDays(T,-1)};
+  return null;
+}
+const jorn=q=>{const t=/\btarde\b/.test(q),m=/\b(?:en|por|de|a)\s+la\s+manana\b|\besta manana\b/.test(q);return t&&!m?'T':m&&!t?'M':''};
+function horaPed(q){const m=q.match(/\b(?:a\s+las|las)\s+(\d{1,2})(?::(\d{2}))?\b/)||q.match(/\b(\d{1,2}):(\d{2})\b/);if(!m)return null;let h=+m[1];if(h>=1&&h<=7)h+=12;return h<24?[h,+(m[2]||0)]:null}
+function terrs(q){const o=[],re=/(?:territorios?|terr\.?|\bt)\s*[-°º#]*\s*(\d{1,3})((?:\s*(?:,|y|e|\/|&)\s*\d{1,3})*)/g;let m;while((m=re.exec(q))){o.push(m[1]);(m[2].match(/\d+/g)||[]).forEach(x=>o.push(x))}return[...new Set(o)]}
+const rowsOf=d=>{try{return(pjRows(d)||[]).slice().sort((a,b)=>String(a.hora||'').localeCompare(String(b.hora||'')))}catch{return[]}};
+const npFor=t=>{const D=NP(),k=Object.keys(D).find(x=>nk(x)===nk(t));return k?D[k]:null};
+const linksFor=t=>{const k=Object.keys(TERR_LINKS).find(x=>nk(x)===nk(t));return k?TERR_LINKS[k]:[]};
+const ROL={AN:'anciano',SM:'siervo ministerial',PR:'precursor regular',PE:'precursor especial',PTJ:'publicador',PNB:'publicador no bautizado'};
+const rolTxt=r=>String(r||'').split('/').map(x=>ROL[x.trim()]||x.trim()).join(' y ');
+const STOP=new Set('de del la el los las un una al con para por que quien quienes cual cuales como donde esta estan estoy soy es son en y a me mi mis tu toca tocan cuando dia dias hermano hermana grupo grupos rol telefono numero tiene tienen pertenece sabes dime puedes info informacion sobre acerca salida salidas casa capitan territorio hora proxima proximo hoy manana ayer semana anciano ancianos siervo siervos precursor precursores publicador publicadores'.split(' '));
+const nameToks=q=>q.split(' ').filter(t=>t.length>=3&&!STOP.has(t)&&!/\d/.test(t));
+const tm=(a,b)=>a.length>=3&&b.length>=3&&a.slice(0,5)===b.slice(0,5);
+const gnum=g=>+String(g&&g.nombre||'').replace(/\D/g,'')||null;
+const meGrupo=()=>{const y=YO();return y?gOf(y):null};
+const A=(h,c)=>({html:h,chips:c||[]});
+const go=(w,t)=>`<button class="chip" type="button" data-go="${w}">${t}</button>`;
+
+function card(r){
+  const q=encodeURIComponent(r.dir||r.casa||''),T=terrToks(r.terr);
+  return `<div class="as-c"><b>${esc(r.hora?fmtHora(r.hora):'Salida')}</b>${r.hora?' · '+jornadaLabel(r.hora):''}<br>Capitán: <b>${esc(r.cap||'por confirmar')}</b><br>Casa: <b>${esc(r.casa||'por confirmar')}</b>${r.dir?' · '+esc(r.dir):''}<br>${esc(terrTxt(r.terr))}${q?`<div class="as-a"><a class="chip" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=${q}">Cómo llegar</a><a class="chip" target="_blank" rel="noopener" href="https://waze.com/ul?q=${q}&navigate=yes">Waze</a></div>`:''}</div>`;
+}
+function ansDia(pf,q,raw){
+  if(pf.range){
+    const L=[];for(let d=pf.range[0];d<=pf.range[1];d=addDays(d,1))rowsOf(d).forEach(r=>L.push(`<li><b>${dShort(d)}</b> · ${esc(r.hora?fmtHora(r.hora):'')} · ${esc(r.cap||'—')} · ${esc(r.casa||'—')} · ${esc(terrTxt(r.terr))}</li>`));
+    return A(L.length?`Salidas del ${dShort(pf.range[0])} al ${dShort(pf.range[1])}:<ul class="as-l">${L.join('')}</ul>`:'No tengo salidas cargadas en ese período.',['¿Qué toca hoy?','Próxima reunión']);
+  }
+  const d=pf.d;let rows=rowsOf(d);const j=jorn(raw),f=j?rows.filter(r=>(parseHora(r.hora)||[12])[0]<14===(j==='M')):[];if(f.length)rows=f;
+  if(!rows.length){
+    let n=null;for(let i=1;i<=45&&!n;i++){const x=addDays(d,i);if(rowsOf(x).length)n=x}
+    return A(`No tengo salidas cargadas para <b>${esc(lab(d))}</b>. Puede que no haya salida ese día o que el programa de ese mes aún no esté subido.${n?` La siguiente que tengo es el <b>${esc(dLong(n))}</b>.`:''}`,n?['Qué toca el '+dO(n).getDate()+' de '+dO(n).toLocaleDateString('es-CL',{month:'long'})]:[]);
+  }
+  const foc=/\bhora\b|a que hora|cuando sale/.test(q)?'h':/capitan|quien saca|quien dirige|quien lleva/.test(q)?'c':/territorio|terr/.test(q)?'t':/casa|donde|direccion|lugar/.test(q)?'k':'';
+  const part=r=>{const h=r.hora?fmtHora(r.hora)+': ':'';return foc==='h'?'<b>'+esc(fmtHora(r.hora))+'</b>':foc==='c'?h+'<b>'+esc(r.cap||'sin capitán asignado')+'</b>':foc==='t'?h+esc(terrTxt(r.terr)):foc==='k'?h+'<b>'+esc(r.casa||'casa por confirmar')+'</b>'+(r.dir?' · '+esc(r.dir):''):''};
+  const lead=foc?`<p>${esc(lab(d))}: ${rows.map(part).join(' · ')}</p>`:`<p>Salidas de <b>${esc(lab(d))}</b>:</p>`;
+  const m=MEETS(d),ex=m&&!foc?`<p>Ese día también hay <b>${esc(m.t.toLowerCase())}</b> a las ${esc(fmtHora(m.h))}.</p>`:'';
+  const ts=[...new Set(rows.flatMap(r=>terrToks(r.terr)))].slice(0,2);
+  return A(lead+rows.map(card).join('')+ex,[...ts.map(t=>'No pasar territorio '+t),...(['hoy','mañana'].includes(rel(d))?['¿Va a llover '+rel(d)+'?']:[])]);
+}
+function ansNP(q,pf,tr){
+  let ts=tr.slice(),src='';
+  if(!ts.length&&(!pf||pf.k==='bare')){const n=q.match(/\b\d{1,3}\b/g);if(n)ts=[...new Set(n)]}
+  if(!ts.length&&/\btodos?\b|\btodas\b|lista/.test(q)){const D=NP();return A('<b>No pasar por territorio</b><ul class="as-l">'+Object.keys(D).sort((a,b)=>a-b).map(k=>`<li><b>T-${esc(k)}</b>: ${D[k].map(esc).join(' · ')}</li>`).join('')+'</ul>')}
+  if(!ts.length){const d=pf&&pf.d||today();ts=[...new Set(rowsOf(d).flatMap(r=>terrToks(r.terr)))];if(ts.length)src=`<p>Territorio(s) de ${esc(lab(d))}:</p>`}
+  if(!ts.length)return A('¿De qué territorio? Dime el número, por ejemplo <i>no pasar del territorio 5</i>.',['No pasar territorio 2','Todos los no pasar']);
+  return A(src+ts.map(t=>{const L=npFor(t),lk=linksFor(t);return `<div class="as-c"><b>${esc(terrTxt(t))}</b>${L?'<ul class="as-l">'+L.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':'<br>No tiene direcciones de «no pasar» registradas.'}${lk.length?`<div class="as-a">${lk.map(x=>`<a class="chip" target="_blank" rel="noopener" href="${esc(x.url)}">${esc(x.label)}</a>`).join('')}</div>`:''}</div>`}).join(''));
+}
+function ansMapa(tr){const ts=tr.length?tr:[];if(!ts.length)return A('Abre el mapa de la congregación:'+'<div class="as-a">'+go('mapa','Abrir mapa')+'</div>');return A(ts.map(t=>{const lk=linksFor(t);return `<div class="as-c"><b>${esc(terrTxt(t))}</b>${lk.length?`<div class="as-a">${lk.map(x=>`<a class="chip" target="_blank" rel="noopener" href="${esc(x.url)}">${esc(x.label)}</a>`).join('')}</div>`:'<br>No tengo enlace de mapa para ese territorio.'}</div>`}).join(''),ts.map(t=>'No pasar territorio '+t))}
+function ansReu(q,pf){
+  const L=[];
+  if(pf&&pf.d){const m=MEETS(pf.d);if(!m)return A(`El <b>${esc(lab(pf.d))}</b> no hay reunión (son jueves y domingos).`,['Próxima reunión']);L.push([pf.d,m])}
+  else{const fs=/fin de semana/.test(q),ms=/entre semana|jueves|vida y ministerio/.test(q);let a=0,b=0;for(let i=0;i<15;i++){const d=addDays(today(),i),m=MEETS(d);if(!m)continue;if(m.w===4&&!a&&!fs){a=1;L.push([d,m])}if(m.w===0&&!b&&!ms){b=1;L.push([d,m])}}}
+  return A(L.map(([d,m])=>{const g=m.aseo?grpN(m.aseo):null;return `<div class="as-c"><b>${esc(m.t)}</b><br>${esc(lab(d))} · <b>${esc(fmtHora(m.h))}</b>${m.w===4?`<br>Aseo: <b>${g?esc(g.nombre):'por confirmar'}</b>${g?' ('+esc(g.super)+')':''}`:''}</div>`}).join(''),['Programa de la reunión','¿Cuándo me toca aseo?']);
+}
+function ansAseo(q){
+  const al=Object.keys(VC.rows||{}).filter(d=>d>=today()&&VC.rows[d]&&VC.rows[d].aseo).sort();
+  const nota=/asignaci/.test(q)?'<p class="as-n">Ojo: de las asignaciones, la app solo conoce el <b>aseo del salón</b> por grupo; las partes de la reunión no se leen del programa.</p>':'';
+  if(!al.length)return A('Aún no tengo cargado el programa de Vida y Ministerio con el aseo.'+nota);
+  const gm=q.match(/grupo\s*(\d)/);let g=gm?+gm[1]:null,mine=false;
+  if(!g&&/me toca|mi grupo|mi aseo|asignaci|\byo\b|nos toca/.test(q)){const mg=meGrupo();if(!mg)return A('Para saber cuándo te toca, elige tu nombre en Perfil.'+nota+'<div class="as-a">'+go('perfil','Ir a Perfil')+'</div>',['¿Qué grupo tiene aseo?']);g=gnum(mg);mine=true}
+  if(!g){const d=al[0],G=grpN(VC.rows[d].aseo);return A(`El próximo aseo es del <b>${esc(G?G.nombre:'Grupo '+VC.rows[d].aseo)}</b> el ${esc(dLong(d))}.${nota}`,['¿Cuándo me toca aseo?'])}
+  const L=al.filter(d=>+VC.rows[d].aseo===g).slice(0,3);
+  return A(L.length?`${mine?'Tu grupo (':'('}Grupo ${g}${mine?')':')'} tiene aseo: <b>${L.map(d=>esc(dLong(d))).join('</b>, <b>')}</b>.${nota}`:`No veo aseo del Grupo ${g} en los programas cargados.${nota}`);
+}
+function people(q){const T=nameToks(q);if(!T.length)return[];const out=[];GRUPOS().forEach(g=>g.miembros.forEach(m=>{const nt=N(nat(m.n)).split(' '),s=T.filter(t=>nt.some(x=>tm(t,x))).length;if(s)out.push({g,m,s})}));const mx=Math.max(0,...out.map(o=>o.s));return out.filter(o=>o.s===mx)}
+function ansGrp(q){
+  const G=GRUPOS(),gm=q.match(/grupo\s*n?[°º]?\s*(\d{1,2})/);
+  if(/mi grupo|en que grupo (?:estoy|soy)|a que grupo (?:pertenezco|voy)/.test(q)){const g=meGrupo();if(!g)return A('Elige tu nombre en Perfil para saber tu grupo.<div class="as-a">'+go('perfil','Ir a Perfil')+'</div>');return A(`Estás en el <b>${esc(g.nombre)}</b>. Superintendente: <b>${esc(g.super)}</b>.`,['¿Cuándo me toca aseo?'])}
+  if(gm){const g=grpN(+gm[1]);if(!g)return A('No encuentro ese grupo.');
+    if(/super|encargad|dirige/.test(q))return A(`El superintendente del <b>${esc(g.nombre)}</b> es <b>${esc(g.super)}</b>.`);
+    return A(`<b>${esc(g.nombre)}</b> · Superintendente: <b>${esc(g.super)}</b> · ${g.miembros.length} miembros<ul class="as-l">${g.miembros.map(m=>`<li>${esc(nat(m.n))} <small>${esc(m.r||'')}</small></li>`).join('')}</ul>`)}
+  const rr=/anciano/.test(q)?'AN':/siervo/.test(q)?'SM':/precursor/.test(q)?'PR|PE':'';
+  if(rr&&!nameToks(q).length){const re=new RegExp('\\b('+rr+')\\b');return A(G.map(g=>{const L=g.miembros.filter(m=>re.test(m.r||''));return L.length?`<b>${esc(g.nombre)}</b>: ${L.map(m=>esc(nat(m.n))).join(', ')}`:''}).filter(Boolean).join('<br>')||'Sin resultados.')}
+  const P=people(q);
+  if(P.length)return A(P.slice(0,6).map(o=>`<b>${esc(nat(o.m.n))}</b> · ${esc(o.g.nombre)} · ${esc(rolTxt(o.m.r)||'sin rol')}`).join('<br>')+(P.length>6?`<br>…y ${P.length-6} más. Sé más específico.`:''));
+  return A('Dime un nombre o un grupo, por ejemplo <i>quién es el superintendente del grupo 2</i>.',['Superintendente del grupo 1','Ancianos']);
+}
+function ansWhen(q,tr,raw){
+  const me=/\bme toca\b|\byo\b/.test(q);let tk=[],T=tr;
+  if(me){const y=YO();if(!y)return A('Elige tu nombre en Perfil para saber cuándo te toca.<div class="as-a">'+go('perfil','Ir a Perfil')+'</div>');tk=nameToks(N(nat(y)))}else if(!T.length)tk=nameToks(q);
+  const out=[];for(let i=0;i<=60&&out.length<6;i++){const d=addDays(today(),i);rowsOf(d).forEach(r=>{
+    const byT=T.length&&terrToks(r.terr).some(t=>T.includes(String(t).trim())),cn=N(r.cap).split(' '),ca=N(r.casa).split(' '),
+      byN=tk.length&&(me?tk.filter(t=>cn.some(x=>tm(t,x))).length>=Math.min(2,tk.length):tk.some(t=>cn.some(x=>tm(t,x))||ca.some(x=>tm(t,x))));
+    if(byT||byN)out.push(`<li><b>${dShort(d)}</b> · ${esc(r.hora?fmtHora(r.hora):'')} · ${esc(r.cap||'—')} · ${esc(r.casa||'—')} · ${esc(terrTxt(r.terr))}</li>`)})}
+  if(T.length||tk.length)return A(out.length?`Próximas salidas${T.length?' del '+esc(terrTxt(T.join(', '))):me?' donde eres capitán':' que coinciden'}:<ul class="as-l">${out.join('')}</ul>`:'No encontré salidas con eso en los próximos 60 días del programa cargado.');
+  const nx=[];for(let i=0;i<=30&&nx.length<3;i++){const d=addDays(today(),i);rowsOf(d).forEach(r=>nx.length<3&&nx.push(`<li><b>${dShort(d)}</b> · ${esc(r.hora?fmtHora(r.hora):'')} · ${esc(r.cap||'—')} · ${esc(r.casa||'—')} · ${esc(terrTxt(r.terr))}</li>`))}
+  return A(nx.length?`Próximas salidas:<ul class="as-l">${nx.join('')}</ul>`:'No tengo salidas cargadas próximas.');
+}
+async function ansWx(q,pf,raw){
+  const d=pf&&pf.d||today();
+  const ok=()=>WX&&WX.h&&WX.h.time&&WX.h.time.some(t=>t.startsWith(d));
+  if(!ok()&&navigator.onLine&&typeof wxLoad==='function')await wxLoad();
+  if(!WX||!WX.h||!WX.h.time)return A('No tengo pronóstico guardado ahora (sin conexión). Abre la app con internet y vuelvo a tener datos.');
+  if(!ok())return A('Solo tengo el pronóstico de <b>hoy y mañana</b>.',['¿Va a llover hoy?','¿Va a llover mañana?']);
+  const H=WX.h,g=(k,i)=>H[k]?H[k][i]:null,hp=horaPed(raw);let hs=[];
+  if(hp)hs=[hp];else{rowsOf(d).forEach(r=>{const p=parseHora(r.hora);if(p&&!hs.some(x=>x[0]===p[0]))hs.push(p)})}
+  if(!hs.length)hs=[[10,0],[18,0]];const j=jorn(raw);if(j&&!hp)hs=hs.filter(p=>p[0]<14===(j==='M'))||hs;if(!hs.length)hs=[[10,0]];
+  const idx=[],ln=[];hs.forEach(p=>{const hh=Math.min(23,p[0]+(p[1]>=30?1:0)),i=H.time.indexOf(d+'T'+String(hh).padStart(2,'0')+':00');if(i<0)return;idx.push(i);
+    const [,t]=wxKind(g('weather_code',i)??0,g('is_day',i)===0),r=Math.round,mm=g('precipitation',i)||0;
+    ln.push(`<b>${String(p[0]).padStart(2,'0')}:${String(p[1]).padStart(2,'0')}</b> · ${esc(t)} · ${r(g('temperature_2m',i))}° (sensación ${r(g('apparent_temperature',i))}°) · lluvia ${r(g('precipitation_probability',i)||0)}%${mm>=.1?' ('+mm.toFixed(1)+' mm)':''} · viento ${r(g('wind_speed_10m',i)||0)}–${Math.max(r(g('wind_gusts_10m',i)||0),r(g('wind_speed_10m',i)||0))} km/h`)});
+  if(!ln.length)return A('No tengo datos horarios para esa hora.');
+  const pop=Math.max(...idx.map(i=>g('precipitation_probability',i)||0)),pr=idx.reduce((s,i)=>s+(g('precipitation',i)||0),0),tmin=Math.min(...idx.map(i=>g('apparent_temperature',i)??99)),tmax=Math.max(...idx.map(i=>g('temperature_2m',i)??-99)),gu=Math.max(...idx.map(i=>g('wind_gusts_10m',i)||0)),uv=Math.max(...idx.map(i=>g('uv_index',i)||0));
+  const adv=[];if(pop>=40||pr>=.3)adv.push('Lleva paraguas o chaqueta impermeable.');if(tmin<=12)adv.push('Abrígate bien.');else if(tmax>=27)adv.push('Hará calor: agua y gorro.');if(uv>=6)adv.push('UV alto: protector solar.');if(gu>=40)adv.push('Ráfagas fuertes de viento.');
+  const lead=/llov|paraguas/.test(q)?`<p>${pop>=40||pr>=.3?'<b>Sí, es probable que llueva</b>':'<b>Poco probable que llueva</b>'} (hasta ${Math.round(pop)}%) · ${esc(lab(d))}.</p>`:`<p>Clima de <b>${esc(lab(d))}</b>:</p>`;
+  return A(lead+'<div class="as-c">'+ln.join('<br>')+'</div>'+(adv.length?'<p>'+adv.join(' ')+'</p>':'')+'<p class="as-n">Pronóstico de consenso (Open-Meteo)'+(WX.at?' · actualizado '+new Date(WX.at).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'}):'')+'.</p>',['¿Va a llover mañana?','Qué toca hoy']);
+}
+/* ===== Vida y Ministerio: asignaciones, partes y encargados (datos leídos del PDF del programa) ===== */
+const MONRE=/\b(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\b/;
+const MNAME=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const thu=d=>addDays(mon(d),3);
+const cap1=s=>s?s.charAt(0).toUpperCase()+s.slice(1):s;
+/* comparación de nombres tolerante: ignora “de”, tildes, orden y nombres cortados del PDF (p. ej. «Benavide» = «Benavides») */
+const PT=s=>N(s).split(' ').filter(t=>t&&!['de','del','la','aux'].includes(t));
+const tkEq=(a,b)=>a===b||(Math.min(a.length,b.length)>=4&&(a.startsWith(b)||b.startsWith(a)));
+const sameP=(a,b)=>{const A=PT(a),B=PT(b);return A.length>0&&B.length>0&&A.every(x=>B.some(y=>tkEq(x,y)))&&B.every(y=>A.some(x=>tkEq(x,y)))};
+const hasP=(name,tk)=>{const B=PT(name);return tk.length>0&&tk.every(t=>B.some(y=>tkEq(t,y)))};
+const isMe=n=>{const y=YO();return !!y&&sameP(n,y)};
+const VSTOP=new Set(('asignacion asignaciones asignado asignada asignados presidente presidir oracion oraciones orar lector lectores ayudante ayudantes estudiante estudiantes microfono microfonos acomodador acomodadores plataforma audio video zoom perlas tesoros discurso maestros discipulos revisita revisitas empecemos dirias cancion canciones participacion participaciones reunion reuniones programa vida ministerio cristiana nuestra lectura biblia biblico estudio semana semanas mes meses jueves proxima proximo siguiente tiene tienen tengo tendra parte partes toca tocan dia dias fecha fechas quien quienes cual cuales cuantas cuantos veces vez entrada auditorio inicial final aseo limpieza congregacion todas todos todo toda sala principal seamos mejores wcg conductor lista listado hoy manana ayer este esta estos estas ese esa hay hace hacer dar dice lee leer hermano hermana hermanos nombre lunes martes miercoles viernes sabado domingo enero febrero marzo abril mayo junio julio agosto septiembre setiembre octubre noviembre diciembre').split(' '));
+
+const vmDates=()=>Object.keys(VC.rows||{}).filter(d=>{const r=VC.rows[d];return r&&(r.vm||r.esp)}).sort();
+
+/* Qué encargo(s) menciona la pregunta (etiquetas que llevan las entradas de cada semana) */
+function vmFoc(q){
+  const f=[],t=(...k)=>k.forEach(x=>f.push(x));
+  if(/\bpresid\w*/.test(q))t('pres');
+  if(/\boracion\w*|\borar\b|\bora\b/.test(q)){if(/\b(inicial|inicio|apertura|principio|empez\w*|comienzo)\b/.test(q))t('ori');else if(/\b(final|cierre|conclusi\w*|termin\w*)\b/.test(q))t('orf');else t('oracion')}
+  if(/\bperlas\b/.test(q))t('perlas');
+  if(/\btesoros\b/.test(q))t('tesoros');
+  if(/\bmaestros\b/.test(q))t('maestros');
+  if(/vida cristiana|nuestra vida/.test(q))t('vcristiana');
+  if(/estudio biblico|\bwcg\b|conductor/.test(q))t('estudio');
+  if(/lectura de la semana|que se lee|que lee\b|capitulos|que leemos/.test(q))t('lec');
+  else if(/lectura de la biblia|leer la biblia|lee la biblia|lectura biblica|\blectura\b/.test(q))t('lectura');
+  if(/\blector(?:es)?\b|\bquien lee\b/.test(q))t('lector');
+  if(/empecemos|conversaciones/.test(q))t('empecemos');
+  if(/revisitas?/.test(q))t('revisitas');
+  if(/discipulos/.test(q))t('discipulos');
+  if(/que dirias/.test(q))t('dirias');
+  if(/\bdiscurso\b/.test(q))t('discurso');
+  if(/\bayudantes?\b/.test(q))t('ayudante');
+  if(/\bestudiantes?\b/.test(q))t('estudiante');
+  if(/microfonos?/.test(q))t('mic');
+  if(/acomodador\w*/.test(q)){if(/entrada|puerta/.test(q))t('ent');else if(/auditorio|sala/.test(q))t('aud');else t('ent','aud')}
+  if(/plataforma/.test(q))t('pla');
+  if(/\baudio\b|\bvideo\b|zoom/.test(q))t('av');
+  if(/\baseo\b|limpieza/.test(q))t('aseo');
+  if(/cancion|canciones|himno/.test(q))t('songs');
+  if(f.includes('tesoros')&&f.includes('discurso')){f.splice(f.indexOf('discurso'),1);f[f.indexOf('tesoros')]='p1'}
+  return [...new Set(f)];
+}
+
+/* Todo lo asignado en una semana, como lista de entradas con etiquetas */
+function vmEntries(d){
+  const r=VC.rows[d]||{},v=r.vm,E=[];
+  const add=(k,lbl,a,x,tg)=>E.push({k,lbl,a:(a||[]).filter(z=>z&&z.n),x:x||'',tg:tg||[k]});
+  if(v){
+    if(v.pres)add('pres','Presidente',[{r:'',n:v.pres}],'Incluye las palabras de introducción y de conclusión.',['pres']);
+    if(v.ori)add('ori','Oración inicial',[{r:'',n:v.ori}],'',['ori','oracion']);
+    (v.p||[]).forEach(p=>{
+      const tn=N(p.t),tg=['p','p'+p.n,{T:'tesoros',S:'maestros',V:'vcristiana'}[p.s]].filter(Boolean);
+      if(/perlas/.test(tn))tg.push('perlas');
+      if(/lectura de la biblia/.test(tn))tg.push('lectura');
+      if(/estudio biblico de la congregacion/.test(tn))tg.push('estudio');
+      if(/empecemos/.test(tn))tg.push('empecemos');
+      if(/revisitas/.test(tn))tg.push('revisitas');
+      if(/discipulos/.test(tn))tg.push('discipulos');
+      if(/que dirias/.test(tn))tg.push('dirias');
+      if(/discurso/.test(tn))tg.push('discurso');
+      (p.a||[]).forEach(z=>{const rn=N(z.r);if(rn==='lector')tg.push('lector');else if(rn==='ayudante')tg.push('ayudante');else if(rn==='estudiante')tg.push('estudiante');else if(rn==='conductor')tg.push('conductor')});
+      add('p'+p.n,p.n+'. '+p.t+(p.d?' ('+p.d+' min.)':''),p.a,p.x,tg);
+    });
+    if(v.orf)add('orf','Oración final',[{r:'',n:v.orf}],'',['orf','oracion']);
+    const f=v.f||{};
+    [['ent','Acomodador de entrada'],['mic','Micrófonos'],['aud','Acomodador del auditorio'],['pla','Plataforma'],['av','Audio y video / Zoom']].forEach(([k,l])=>{if(f[k]&&f[k].length)add(k,l,f[k].map(n=>({r:'',n})),'',[k])});
+  }
+  if(r.aseo)E.push({k:'aseo',lbl:'Aseo del salón',a:[],x:'',tg:['aseo'],g:+r.aseo});
+  return E;
+}
+const personHit=(e,P)=>e.a.some(z=>P.test(z.n))||(e.g!=null&&P.g!=null&&e.g===P.g);
+const markP=(z,P)=>P&&P.test(z.n)?(P.me?' <b>(tú)</b>':' <b>←</b>'):(!P&&isMe(z.n)?' <b>(tú)</b>':'');
+const whoH=(e,P)=>e.a.map(z=>(z.r?'<small>'+esc(z.r)+':</small> ':'')+'<b>'+esc(z.n)+'</b>'+markP(z,P)).join(' · ');
+function eHtml(e,P,show){
+  if(e.g!=null){const G=grpN(e.g);return '<li><b>Aseo del salón</b>: '+esc(G?G.nombre:'Grupo '+e.g)+(G&&G.super?' <small>(superintendente: '+esc(G.super)+')</small>':'')+(P&&P.g===e.g?' <small>· '+(P.me?'es tu grupo':'es su grupo')+'</small>':'')+'</li>'}
+  const x=show&&e.x?'<br><small>'+esc(e.x.length>150?e.x.slice(0,147)+'…':e.x)+'</small>':'';
+  return '<li><b>'+esc(e.lbl)+'</b>'+(e.a.length?'<br>'+whoH(e,P):'')+x+'</li>';
+}
+function wkCard(d,E,P,foc,full){
+  const r=VC.rows[d]||{},v=r.vm||{},ex=[];
+  if(v.lec)ex.push('Lectura de la semana: <b>'+esc(v.lec)+'</b>');
+  if((full||foc.includes('songs'))&&v.c&&v.c.length)ex.push('Canciones: '+v.c.map(esc).join(', '));
+  const show=!!P||foc.length>0;
+  return '<div class="as-c"><b>'+esc(cap1(dLong(d)))+'</b>'+(r.hora?' · '+esc(fmtHora(r.hora)):'')+(ex.length?'<br>'+ex.join(' · '):'')+(E.length?'<ul class="as-l">'+E.map(e=>eHtml(e,P,show||e.tg.includes('lectura'))).join('')+'</ul>':'')+'</div>';
+}
+const dayChip=d=>'Programa de Vida y Ministerio el '+dO(d).getDate()+' de '+MNAME[dO(d).getMonth()];
+const perLbl=L=>{const m=[...new Set(L.map(d=>+d.slice(5,7)))];return m.length===1?MNAME[m[0]-1]:'las semanas cargadas'};
+
+/* Asegura que el programa esté leído (si el bot se abre antes de que termine la carga) */
+async function vmReady(){
+  try{
+    if(vmDates().length||!navigator.onLine)return;
+    const wait=async()=>{for(let i=0;i<80&&typeof VGB!=='undefined'&&VGB;i++)await new Promise(r=>setTimeout(r,150))};
+    if(typeof VGB!=='undefined'&&VGB){await wait();return}
+    if(!(IDX&&IDX.vym&&Object.keys(IDX.vym).length)&&typeof loadIdx==='function'){await loadIdx();await wait()}
+    if(!vmDates().length&&typeof ingestVym==='function'){await ingestVym();await wait()}
+  }catch{}
+}
+
+function vmPeople(tk,D){
+  const out=[];
+  GRUPOS().forEach(gr=>gr.miembros.forEach(m=>{if(hasP(nat(m.n),tk))out.push({label:nat(m.n),test:n=>sameP(n,m.n),g:gnum(gr)})}));
+  const names=new Set();D.forEach(d=>vmEntries(d).forEach(e=>e.a.forEach(z=>names.add(z.n))));
+  names.forEach(n=>{if(hasP(n,tk)&&!out.some(o=>o.test(n)))out.push({label:n,test:x=>sameP(x,n),g:null})});
+  return out;
+}
+
+function vymIntent(q){
+  const strong=/\b(asignaci\w*|presid\w*|oracion|oraciones|orar|lector(?:es)?|ayudantes?|estudiantes?|microfonos?|acomodador\w*|plataforma|audio|video|zoom|perlas|tesoros|discurso|maestros|discipulos|revisitas?|empecemos|dirias|cancion(?:es)?|participaci\w*)\b|lectura de la biblia|estudio biblico|vida cristiana|\bwcg\b|que se lee|lectura de la semana|programa de la (?:reunion|semana)/.test(q);
+  if(strong)return true;
+  if(/\b(reunion|reuniones)\b/.test(q)&&/\b(toca|tocan|tiene|tienen|tengo|mis|participo|participa|participar|asignad\w*)\b/.test(q))return true;
+  if(/\b(?:que|cual|cuales|mi|mis|tengo|tiene|tienen|toca)\s+(?:\w+\s+){0,2}partes?\b|\bpartes? de la reunion\b/.test(q))return true;
+  if(/vida y ministerio/.test(q)&&!/\bhora\b|\bcuando es\b/.test(q))return true;
+  return false;
+}
+
+async function ansVym(q,raw,pf){
+  await vmReady();
+  const D=vmDates(),foc=vmFoc(q);
+  if(!D.length)return A('Aún no tengo cargado el programa de <b>Vida y Ministerio</b>. Lo leo del PDF que se sube a la app (mes actual y siguiente); cuando esté disponible te digo asignaciones, partes y encargados.'+(navigator.onLine?'':' Ahora estás sin conexión.'),['Próxima reunión']);
+  const T0=today(),mine=/\b(me toca|me tocan|mis|mi|tengo|soy|yo|conmigo|nos toca)\b/.test(q);
+  const nt=nameToks(q).filter(t=>!VSTOP.has(t));
+  let people=[];
+  if(mine){
+    const y=YO();
+    if(!y)return A('Para decirte <b>tus asignaciones</b> necesito saber quién eres: elige tu nombre en <b>Perfil → Mi perfil</b>. También puedes preguntarme por otro hermano, por ejemplo <i>asignaciones de Felipe Gonzalez</i>.<div class="as-a">'+go('perfil','Ir a Perfil')+'</div>',['Programa de la reunión']);
+    const g=gOf(y);people=[{label:nat(y),test:n=>sameP(n,y),g:g?gnum(g):null,me:true}];
+  }else if(nt.length){
+    people=vmPeople(nt,D);
+    if(!people.length&&!foc.length&&!(pf&&(pf.d||pf.range)))return A(`No encontré a ningún hermano que coincida con «${esc(nt.join(' '))}» en los grupos ni en el programa. Prueba con nombre y apellido.`,['Programa de la reunión']);
+    if(people.length>4)return A('Hay varios hermanos que coinciden: '+people.slice(0,8).map(o=>'<b>'+esc(o.label)+'</b>').join(', ')+'. ¿De cuál quieres saber?',people.slice(0,4).map(o=>'Asignaciones de '+o.label));
+  }
+  /* período */
+  const mm=q.match(MONRE);let sel=[];
+  if(pf&&pf.d){const t=thu(pf.d);sel=D.filter(x=>x===t)}
+  else if(pf&&pf.range){const[a,b]=pf.range;sel=D.filter(x=>addDays(x,3)>=a&&addDays(x,-3)<=b)}
+  else if(mm){const n=MON[mm[1]];sel=D.filter(x=>+x.slice(5,7)===n)}
+  else if(/\b(?:este|del|en el|el) mes\b/.test(q)){const ym=T0.slice(0,7);sel=D.filter(x=>x.startsWith(ym))}
+  else if(people.length){sel=D.filter(x=>x>=mon(T0));if(!sel.length)sel=D}
+  else sel=[D.find(x=>x>=T0)||D[D.length-1]];
+  if(!sel.length)return A('No tengo cargado el programa de Vida y Ministerio de ese período. Tengo estos jueves: <b>'+D.map(x=>esc(dShort(x))).join('</b>, <b>')+'</b>.',D.slice(0,3).map(dayChip));
+  const esps=sel.filter(x=>VC.rows[x].esp&&!VC.rows[x].vm);
+  const espN=esps.length?'<p class="as-n">'+esps.map(x=>`La semana del ${esc(VC.rows[x].sem||dLong(x))} el programa dice «${esc(VC.rows[x].esp)}» y no trae partes de la reunión.`).join(' ')+'</p>':'';
+  const real=sel.filter(x=>VC.rows[x].vm||VC.rows[x].aseo);
+  const chips=()=>{const o=D.filter(x=>VC.rows[x].vm&&!sel.includes(x)).slice(0,2);return o.map(dayChip)};
+
+  /* ---- por persona (yo u otro hermano) ---- */
+  if(people.length){
+    const html=people.slice(0,4).map(P=>{
+      let nA=0,nS=0;const cards=[];
+      real.forEach(d=>{
+        let E=vmEntries(d).filter(e=>personHit(e,P));
+        if(foc.length)E=E.filter(e=>e.tg.some(t=>foc.includes(t)));
+        if(!E.length)return;
+        E.forEach(e=>e.g!=null?nS++:nA++);cards.push(wkCard(d,E,P,foc,false));
+      });
+      const per=perLbl(real.length?real:sel),who=P.me?'Tienes':'<b>'+esc(P.label)+'</b> tiene';
+      const cnt=[nA?`<b>${nA} asignaci${nA>1?'ones':'ón'}</b>`:'',nS?`aseo del salón <b>${nS} ${nS>1?'veces':'vez'}</b>`:''].filter(Boolean).join(' y ');
+      if(!cards.length)return `<p>${P.me?'No veo asignaciones para ti':'No veo asignaciones para <b>'+esc(P.label)+'</b>'} en ${esc(per)}${foc.length?' con ese encargo':''}. Revisé: ${real.map(x=>'<b>'+esc(dShort(x))+'</b>').join(', ')}.</p>`;
+      return `<p>${who} ${cnt} en ${esc(per)}${!P.me&&P.g?' · Grupo '+P.g:''}:</p>`+cards.join('');
+    }).join('');
+    const hint='<p class="as-n">Las asignaciones salen del PDF de Vida y Ministerio'+(people[0].me?'; si falta alguna, revisa que tu nombre en Perfil coincida con el del programa':'')+'.</p>';
+    return A(html+espN+hint,people[0].me?['Programa de la reunión','¿Cuándo me toca aseo?']:['Programa de la reunión']);
+  }
+
+  /* ---- por semana / encargo ---- */
+  if(sel.length===1){
+    const d=sel[0],r=VC.rows[d];
+    if(r.esp&&!r.vm)return A(espN||`El programa de esa semana dice «${esc(r.esp)}».`,chips());
+    let E=vmEntries(d);const only=foc.filter(f=>f!=='songs'&&f!=='lec');
+    if(foc.length)E=E.filter(e=>e.tg.some(t=>foc.includes(t)));
+    const miss=only.length&&!E.length?`<p>En el programa del <b>${esc(dLong(d))}</b> no veo a nadie asignado a eso (puede estar en blanco en el PDF).</p>`:'';
+    return A((miss||wkCard(d,E,null,foc,!foc.length))+(pf&&pf.d&&dO(pf.d).getDay()!==4&&!miss?`<p class="as-n">La reunión de Vida y Ministerio es el jueves; te muestro la de esa semana.</p>`:''),chips());
+  }
+  if(foc.length){
+    const cards=real.map(d=>{const E=vmEntries(d).filter(e=>e.tg.some(t=>foc.includes(t)));return (E.length||foc.includes('songs')||foc.includes('lec'))?wkCard(d,E,null,foc,false):''}).join('');
+    return A((cards||'<p>No veo a nadie asignado a eso en esas semanas.</p>')+espN,[]);
+  }
+  return A(`<p>Programa de Vida y Ministerio · <b>${esc(perLbl(real))}</b>:</p><ul class="as-l">`+real.filter(d=>VC.rows[d].vm).map(d=>{const v=VC.rows[d].vm;return `<li><b>${esc(dShort(d))}</b> · ${esc(v.lec||'')}${v.pres?' · Presidente: '+esc(v.pres):''}</li>`}).join('')+'</ul>'+espN,real.filter(d=>VC.rows[d].vm).slice(0,3).map(dayChip));
+}
+const HELP=A('Puedo responder con los datos de la app:<ul class="as-l"><li><b>Salidas</b>: casa, capitán, hora y territorio de cualquier día (hoy, el viernes, el 21 de octubre, esta semana).</li><li><b>No pasar</b> de cualquier territorio.</li><li><b>Reuniones y aseo</b>: cuándo es y qué grupo limpia.</li><li><b>Vida y Ministerio</b>: <i>tus asignaciones</i> (elige tu nombre en Perfil) o las de otro hermano, el programa de cada jueves, presidente, oraciones, lector, ayudantes, micrófonos, audio y video.</li><li><b>Grupos</b>: superintendentes, miembros y roles.</li><li><b>Cuándo toca</b> un territorio, hermano o casa.</li><li><b>Clima</b> de hoy y mañana a la hora de la salida.</li></ul>',['¿Qué toca hoy?','¿Qué asignaciones tengo?','Programa de la reunión','No pasar de hoy','¿Va a llover?','Próxima reunión','¿Cuándo me toca aseo?']);
+async function answer(raw){
+  const q=N(raw),has=(...a)=>a.some(w=>q.includes(w)),pf=parseFecha(q),tr=terrs(q);
+  if(!q)return HELP;
+  if(/^(hola|buenas|buenos dias|hey|ayuda|help|menu)\b/.test(q)||has('que puedes','que sabes','como funciona','que haces'))return HELP;
+  if(has('no pasar','nopasar','no pasen','no tocar','no visitar'))return ansNP(q,pf,tr);
+  if(has('clima','llov','lluvia','paraguas','temperatura','pronostico','que tiempo','el tiempo','hace frio','hace calor','abrigo','chaqueta','viento','nublado','grados'))return ansWx(q,pf,raw);
+  if(vymIntent(q))return ansVym(q,raw,pf);
+  if(has('aseo','limpieza')&&pf&&(pf.d||pf.range)&&!/grupo\s*\d/.test(q)&&!/\bme toca\b/.test(q))return ansVym(q,raw,pf);
+  if(has('aseo','limpieza','asignaci'))return ansAseo(q);
+  if(has('reunion','reuniones','vida y ministerio','congregacion'))return ansReu(q,pf);
+  if(has('mapa','plano','enlace','link'))return ansMapa(tr);
+  const dayish=pf&&has('salida','casa','saca','predic','donde','hora','capitan');
+  if(!dayish&&has('grupo','superintendente','ancianos','siervos','precursores','publicadores'))return ansGrp(q);
+  if(!pf&&has('cuando','proxim','que dia','en que fecha','me toca','nos toca','le toca','les toca'))return ansWhen(q,tr,raw);
+  if(pf&&!(pf.k==='bare'&&tr.length))return ansDia(pf,q,raw);
+  if(tr.length)return ansWhen(q,tr,raw);
+  if(has('casa','salida','predic','capitan','direccion','donde','hora','programa','agenda','que toca','que hay'))return ansDia({d:today()},q,raw);
+  if(people(q).length)return ansGrp(q);
+  return A('No estoy seguro de haberte entendido. Prueba con una de estas:',['¿Qué toca hoy?','En qué casa es el viernes','No pasar territorio 5','¿Va a llover?','Ayuda']);
+}
+window.PrediAsistente={answer,parseFecha};
+
+/* ---------- Interfaz ---------- */
+const btn=$('#as-open');if(!btn)return;
+const ROBOT='<span class="rb-w"><svg class="rb" viewBox="0 0 40 40" aria-hidden="true"><g class="rb-b"><g class="rb-an"><rect class="rb-st" x="19" y="4" width="2" height="7" rx="1"/><circle class="rb-ball" cx="20" cy="4" r="2.6"/></g><rect class="rb-ear" x="3" y="19" width="4" height="9" rx="2"/><rect class="rb-ear" x="33" y="19" width="4" height="9" rx="2"/><rect class="rb-hd" x="6" y="9" width="28" height="25" rx="9"/><rect class="rb-pl" x="10" y="14" width="20" height="15" rx="6"/><rect class="rb-ey" x="14" y="18" width="4" height="6" rx="2"/><rect class="rb-ey" x="22" y="18" width="4" height="6" rx="2"/><rect class="rb-mo" x="17" y="26" width="6" height="1.6" rx=".8"/></g></svg></span>';
+const sh=document.createElement('div');sh.id='as-sheet';sh.setAttribute('role','dialog');sh.setAttribute('aria-label','Asistente');
+sh.innerHTML='<div class="as-p"><div class="as-h"><span class="as-av">'+ROBOT+'</span><div class="as-ht"><b>Asistente</b><small>Robi responde con los datos de la app</small></div><button type="button" class="as-x" id="as-x" aria-label="Cerrar">✕</button></div><div class="as-m" id="as-m" aria-live="polite"></div><div class="as-f"><div class="as-qs" id="as-qs"></div><form class="as-in" id="as-form"><input id="as-in" type="text" placeholder="Pregunta algo…" autocomplete="off" enterkeyhint="send" aria-label="Pregunta"><button type="submit" aria-label="Enviar">↑</button></form></div></div>';
+document.body.appendChild(sh);
+const M=$('#as-m'),QS=$('#as-qs'),IN=$('#as-in');let first=true,busy=false;
+const add=(c,h,t)=>{const b=document.createElement('div');b.className='as-b '+c;t?b.textContent=h:b.innerHTML=h;if(c==='bot'){const r=document.createElement('div');r.className='as-r';r.innerHTML=ROBOT;r.appendChild(b);M.appendChild(r)}else M.appendChild(b);M.scrollTop=M.scrollHeight;return b};
+const chips=a=>{QS.innerHTML=(a||[]).slice(0,5).map(x=>`<button type="button" class="chip" data-q="${esc(x)}">${esc(x)}</button>`).join('')};
+async function ask(t){
+  t=String(t||'').trim();if(!t||busy)return;busy=true;add('me',t,1);IN.value='';chips([]);
+  const w=add('bot','<span class="as-dots"><i></i><i></i><i></i></span>');sh.classList.add('busy');w.parentNode.classList.add('talk');
+  try{const r=await answer(t);w.innerHTML=r.html;chips(r.chips)}catch(e){console.warn(e);w.textContent='Tuve un problema al buscar eso. Prueba de otra forma.'}
+  busy=false;sh.classList.remove('busy');w.parentNode.classList.remove('talk');M.scrollTop=M.scrollHeight;
+}
+const fit=()=>{const v=window.visualViewport;if(v&&sh.classList.contains('on')){sh.style.top=v.offsetTop+'px';sh.style.height=v.height+'px'}};
+function open(){sh.classList.add('on');fit();if(first){first=false;add('bot','Hola 👋 Soy Robi, tu asistente. Pregúntame por salidas, no pasar, reuniones, grupos o el clima.');chips(['¿Qué toca hoy?','¿Qué toca mañana?','No pasar de hoy','¿Va a llover?','Próxima reunión','¿Cuándo me toca aseo?'])}if(matchMedia('(pointer:fine)').matches)setTimeout(()=>IN.focus(),120)}
+const close=()=>{sh.classList.remove('on');sh.style.top=sh.style.height=''};
+btn.onclick=open;$('#as-x').onclick=close;sh.addEventListener('click',e=>{if(e.target===sh)close()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&sh.classList.contains('on'))close()});
+if(window.visualViewport){visualViewport.addEventListener('resize',fit);visualViewport.addEventListener('scroll',fit)}
+$('#as-form').onsubmit=e=>{e.preventDefault();ask(IN.value)};
+sh.addEventListener('click',e=>{const q=e.target.closest('[data-q]'),g=e.target.closest('[data-go]');if(q)ask(q.dataset.q);if(g){close();tab(g.dataset.go)}});
+})();
 </script>
 </body></html>
