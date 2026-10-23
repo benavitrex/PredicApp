@@ -417,7 +417,101 @@ nav button .i{transition:transform .3s var(--spring)}
 nav button:not(.fab):hover .i{transform:translateY(-2px)}
 nav button.fab:hover .fab-c{transform:translateY(-3px) scale(1.04);box-shadow:0 10px 22px rgba(27,56,43,.4)}
 @media(prefers-reduced-motion:reduce){html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:none!important}.rip,.btn-texto::after,.btn-maps::after{display:none}}
+
+/* ===== Pantalla de carga ===== */
+#splash{position:fixed;inset:0;z-index:100;background:#1B382B;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;transition:opacity .55s ease,transform .55s ease,visibility .55s}
+#splash.out{opacity:0;transform:scale(1.06);visibility:hidden;pointer-events:none}
+#splash .sp-glow{position:absolute;left:50%;top:50%;width:460px;height:460px;margin:-250px 0 0 -230px;border-radius:50%;background:radial-gradient(circle,rgba(67,130,96,.5),rgba(67,130,96,0) 65%);animation:spGlow 2.8s ease-in-out both}
+#splash .sp-logo{position:relative;width:min(46vw,190px);height:auto;overflow:visible;animation:spFloat 3.2s ease-in-out 1s infinite}
+#splash .sp-logo *{transform-box:fill-box}
+.sp-card{transform-origin:50% 100%;animation:spCard .85s cubic-bezier(.34,1.56,.64,1) both}
+.sp-clip{transform-origin:50% 100%;animation:spClip .6s cubic-bezier(.34,1.56,.64,1) .4s both}
+.sp-pin{transform-origin:50% 100%;animation:spPin .6s cubic-bezier(.34,1.56,.64,1) both}
+.sp-pin.p1{animation-delay:.75s}.sp-pin.p2{animation-delay:1s}.sp-pin.p3{animation-delay:1.25s}
+.sp-ln{transform-origin:0 50%;animation:spLine .5s cubic-bezier(.16,1,.3,1) both}
+.sp-ln.l1{animation-delay:.9s}.sp-ln.l2{animation-delay:1.15s}.sp-ln.l3{animation-delay:1.4s}
+.sp-ping{transform-origin:50% 50%;opacity:0;animation:spPing 1.5s ease-out 1.55s 2}
+.sp-shine{animation:spShine 1s ease-in-out 1.6s both}
+#splash .sp-name{position:relative;margin-top:26px;font:700 36px/1 var(--serif);letter-spacing:-.03em;color:#fff;animation:spUp .7s cubic-bezier(.16,1,.3,1) .95s both}
+#splash .sp-name span{color:#8FCBA9;font-style:italic;font-weight:600}
+#splash .sp-sub{position:relative;margin-top:8px;font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);animation:spUp .7s cubic-bezier(.16,1,.3,1) 1.15s both}
+#splash .sp-bar{position:relative;width:132px;height:4px;margin-top:26px;border-radius:9px;background:rgba(255,255,255,.14);overflow:hidden;animation:spFade .4s ease 1s both}
+#splash .sp-bar i{display:block;width:100%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#438260,#A5DDBD);transform-origin:0 50%;animation:spBar 2.2s cubic-bezier(.4,0,.2,1) .35s both}
+@keyframes spCard{from{opacity:0;transform:translateY(70px) scale(.7)}to{opacity:1;transform:none}}
+@keyframes spClip{from{opacity:0;transform:translateY(-46px) scale(.6)}to{opacity:1;transform:none}}
+@keyframes spPin{from{opacity:0;transform:translateY(-34px) scale(0)}to{opacity:1;transform:none}}
+@keyframes spLine{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:none}}
+@keyframes spPing{0%{opacity:.7;transform:scale(.6)}100%{opacity:0;transform:scale(3.2)}}
+@keyframes spShine{from{transform:translateX(0)}to{transform:translateX(430px)}}
+@keyframes spFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes spGlow{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+@keyframes spUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes spFade{from{opacity:0}to{opacity:1}}
+@keyframes spBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* ===== Perfil: accesos destacados ===== */
+.pf-feat{display:flex;flex-direction:column;gap:12px;margin:0 0 16px}
+.pf-big{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;border:0;text-align:left;color:#fff;font:inherit;padding:18px;border-radius:20px;cursor:pointer;box-shadow:0 8px 22px rgba(27,56,43,.26);transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s var(--ease)}
+.pf-big.gr{background:linear-gradient(135deg,var(--brand),var(--brand-2))}
+.pf-big.np{background:linear-gradient(135deg,#6E221A,#B33A2E);box-shadow:0 8px 22px rgba(130,38,28,.3)}
+.pf-big::after{content:'';position:absolute;right:-34px;top:-34px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
+.pf-big:hover{transform:translateY(-2px)}.pf-big:active{transform:scale(.98)}
+.pf-ic{position:relative;z-index:1;flex:none;width:54px;height:54px;border-radius:16px;background:rgba(255,255,255,.18);color:#fff;display:grid;place-items:center}
+.pf-ic svg{width:28px;height:28px}
+.pf-t{position:relative;z-index:1;flex:1;min-width:0}
+.pf-t b{display:block;font:700 20px/1.15 var(--serif);letter-spacing:-.01em}
+.pf-t span{display:block;font-size:13px;opacity:.85;margin-top:3px}
+.pf-n{position:relative;z-index:1;flex:none;font:700 13px var(--sans);padding:5px 11px;border-radius:9999px;background:rgba(255,255,255,.2)}
+.pf-n:empty{display:none}
+.pf-go{position:relative;z-index:1;flex:none;font-size:26px;line-height:1;opacity:.8;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.pf-big:hover .pf-go{transform:translateX(4px)}
+
+/* ===== Clima: recomendaciones ===== */
+.wx-recs{border-top:1px solid var(--line);padding:10px 0 2px;margin-top:2px}
+.wx-recs h3{margin:0 0 4px;font:700 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.wx-rec{display:flex;align-items:center;gap:12px;padding:7px 0;animation:rise .45s var(--out) backwards}
+.wx-rec:nth-of-type(2){animation-delay:.06s}.wx-rec:nth-of-type(3){animation-delay:.12s}.wx-rec:nth-of-type(4){animation-delay:.18s}.wx-rec:nth-of-type(5){animation-delay:.24s}
+.wx-re{flex:none;width:40px;height:40px;border-radius:13px;display:grid;place-items:center;font-size:21px;line-height:1;background:var(--brand-bg)}
+.wx-rec.warn .wx-re{background:var(--gold-bg)}.wx-rec.bad .wx-re{background:var(--bad-bg)}
+.wx-rec b{display:block;font-size:14.5px;font-weight:700;line-height:1.25}
+.wx-rec .d{display:block;color:var(--soft);font-size:12.5px;margin-top:1px}
 </style></head><body>
+
+<div id="splash" aria-hidden="true">
+ <div class="sp-glow"></div>
+ <svg class="sp-logo" viewBox="136 88 240 328">
+  <defs>
+   <clipPath id="sp-cp"><rect x="136" y="116" width="240" height="300" rx="40"/></clipPath>
+   <linearGradient id="sp-g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#8FCBA9" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+   <filter id="sp-sh" x="-20%" y="-10%" width="140%" height="130%"><feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#000" flood-opacity=".35"/></filter>
+  </defs>
+  <g class="sp-card"><rect x="136" y="116" width="240" height="300" rx="40" fill="#fff" filter="url(#sp-sh)"/></g>
+  <g clip-path="url(#sp-cp)"><path class="sp-shine" d="M-30 116h60l-46 300h-60z" fill="url(#sp-g)"/></g>
+  <g class="sp-clip"><rect x="194" y="88" width="124" height="64" rx="28" fill="#438260"/><rect x="226" y="113" width="60" height="14" rx="7" fill="#1B382B"/></g>
+  <rect class="sp-ln l1" x="224" y="222" width="112" height="13" rx="6.5" fill="#1B382B"/>
+  <rect class="sp-ln l2" x="223" y="285" width="95" height="13" rx="6.5" fill="#D6E2DA"/>
+  <rect class="sp-ln l3" x="223" y="349" width="75" height="13" rx="6.5" fill="#D6E2DA"/>
+  <g class="sp-pin p1"><path d="M183.5 247C183.5 247 169 232 169 220a14.5 14.5 0 1 1 29 0c0 12-14.5 27-14.5 27z" fill="#1B382B"/><circle cx="183.5" cy="219.5" r="5" fill="#fff"/></g>
+  <circle class="sp-ping" cx="183.5" cy="219.5" r="14" fill="none" stroke="#438260" stroke-width="3"/>
+  <g class="sp-pin p2"><path d="M183.5 311C183.5 311 169 296 169 284a14.5 14.5 0 1 1 29 0c0 12-14.5 27-14.5 27z" fill="#438260"/><circle cx="183.5" cy="283.5" r="5" fill="#fff"/></g>
+  <g class="sp-pin p3"><path d="M183.5 375C183.5 375 169 360 169 348a14.5 14.5 0 1 1 29 0c0 12-14.5 27-14.5 27z" fill="#438260"/><circle cx="183.5" cy="347.5" r="5" fill="#fff"/></g>
+ </svg>
+ <div class="sp-name">Predi<span>App</span></div>
+ <div class="sp-sub">Cargando tu programa</div>
+ <div class="sp-bar"><i></i></div>
+</div>
+<script>
+(function(){
+  var sp=document.getElementById('splash');if(!sp)return;
+  var skip=false;try{skip=sessionStorage.getItem('predi.nosplash')==='1';sessionStorage.removeItem('predi.nosplash')}catch(e){}
+  if(skip){sp.remove();return}
+  var t0=Date.now(),MIN=2400,MAX=4800,done=false;
+  function hide(){if(done)return;done=true;sp.classList.add('out');setTimeout(function(){sp.remove()},700)}
+  function ready(){setTimeout(hide,Math.max(0,MIN-(Date.now()-t0)))}
+  if(document.readyState==='complete')ready();else addEventListener('load',ready,{once:true});
+  setTimeout(hide,MAX);
+})();
+</script>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></symbol>
@@ -427,6 +521,8 @@ nav button.fab:hover .fab-c{transform:translateY(-3px) scale(1.04);box-shadow:0 
 <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></symbol>
 <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol>
 <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 4 5.8 4 9s-1.4 6.3-4 9c-2.6-2.7-4-5.8-4-9s1.4-6.3 4-9z"/></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9" r="2.6"/><path d="M17.5 14c2.6 0 4 1.8 4 4.5"/></symbol>
 <symbol id="i-off" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 20h.01M3 3l18 18"/></symbol>
 </defs></svg>
 
@@ -434,7 +530,6 @@ nav button.fab:hover .fab-c{transform:translateY(-3px) scale(1.04);box-shadow:0 
 <div id="net" role="status"><svg class="i"><use href="#i-off"/></svg>Sin conexión · mostrando datos guardados</div>
 
 <section class="view on" id="v-inicio">
- <a class="btn-texto" href="https://wol.jw.org/es/wol/h/r4/lp-s" target="_blank" rel="noopener"><svg class="i"><use href="#i-book"/></svg><span>Texto diario</span><span class="bt-go">↗</span></a>
  <div class="top-row">
   <div class="logo" aria-label="PrediApp">Predi<span>App</span></div>
   <button class="theme-btn" id="theme-btn" type="button" aria-label="Cambiar tema" title="Cambiar tema">◐</button>
@@ -446,16 +541,17 @@ nav button.fab:hover .fab-c{transform:translateY(-3px) scale(1.04);box-shadow:0 
  <div id="wx"></div>
  <div class="salidas" id="salidas"></div>
  <p class="st" id="src" style="margin-top:0;margin-bottom:14px"></p>
- <div id="reu-hoy"></div>
-
-
-
  <div class="card np">
   <h2>No pasar</h2>
   <div id="np-hoy"></div>
   <div id="terr-links" class="terr-links" hidden></div>
   <details><summary>Ver todos los territorios</summary><div id="np-all"></div></details>
  </div>
+ <div id="reu-hoy"></div>
+
+
+
+
 
  <div class="card" id="man"></div>
 
@@ -495,7 +591,11 @@ nav button.fab:hover .fab-c{transform:translateY(-3px) scale(1.04);box-shadow:0 
 
 <section class="view" id="v-perfil">
  <h1>Perfil</h1>
- <p class="sub">Reuniones, apariencia y guardado de la app.</p>
+ <p class="sub">No pasar, grupos, reuniones y ajustes de la app.</p>
+ <div class="pf-feat">
+  <button type="button" class="pf-big np" id="pf-np"><span class="pf-ic"><svg class="i"><use href="#i-ban"/></svg></span><div class="pf-t"><b>No pasar</b><span id="pf-np-sub">Direcciones por territorio</span></div><span class="pf-n" id="pf-np-n"></span><span class="pf-go">›</span></button>
+  <button type="button" class="pf-big gr" id="pf-grupos"><span class="pf-ic"><svg class="i"><use href="#i-users"/></svg></span><div class="pf-t"><b>Grupos de servicio</b><span id="pf-gr-sub">Integrantes y descarga en PDF</span></div><span class="pf-n" id="pf-gr-n"></span><span class="pf-go">›</span></button>
+ </div>
  <div class="card reu-card">
   <div class="reu-head"><span class="ic"><svg class="i"><use href="#i-cal"/></svg></span><h2>Reuniones</h2></div>
   <div class="reu" data-dow="4">
@@ -508,16 +608,12 @@ nav button.fab:hover .fab-c{transform:translateY(-3px) scale(1.04);box-shadow:0 
   </div>
  </div>
  <a class="btn-texto" href="https://www.jw.org/es/" target="_blank" rel="noopener" style="margin:0 0 14px"><svg class="i"><use href="#i-globe"/></svg><span>Ir a jw.org</span><span class="bt-go">↗</span></a>
- <div class="card" id="yo-card"><h2>Mi perfil</h2><p class="st" style="margin:0" id="yo-st"></p><label for="yo-sel">¿Quién eres?</label><select id="yo-sel"></select><button class="cfg-btn" id="yo-notif" type="button" style="margin-top:12px"></button></div>
- <div class="g-menu" style="margin-bottom:14px">
-  <button type="button" class="g-menu-item" id="pf-grupos"><div class="g-mi-left"><p class="g-mi-title">Grupos de servicio</p><p class="g-mi-sub">Integrantes y descarga en PDF</p></div><div class="g-mi-right"><span class="g-chev">›</span></div></button>
-  <button type="button" class="g-menu-item" id="pf-np"><div class="g-mi-left"><p class="g-mi-title">No pasar</p><p class="g-mi-sub">Direcciones por territorio</p></div><div class="g-mi-right"><span class="g-chev">›</span></div></button>
- </div>
  <div class="card">
   <h2>Apariencia</h2>
   <p class="st" style="margin:0 0 10px">Tema de color</p><div id="skins"></div>
   <button class="cfg-btn" id="perfil-tema" type="button">◐ Cambiar tema claro / oscuro</button>
  </div>
+ <div class="card" id="yo-card"><h2>Mi perfil</h2><p class="st" style="margin:0" id="yo-st"></p><label for="yo-sel">¿Quién eres?</label><select id="yo-sel"></select><button class="cfg-btn" id="yo-notif" type="button" style="margin-top:12px"></button></div>
  <div class="card">
   <h2>Guardado</h2>
   <p class="st" style="margin:0 0 12px" id="perfil-st">Sin conectar</p>
@@ -1727,7 +1823,7 @@ $('#g-wrap').addEventListener('click',e=>{
 /* ---- “Mañana” pasa a ser “hoy” solo: al abrir/volver a la app, si cambió el día se recarga ---- */
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden)return;
-  if(iso(new Date())!==HOY){location.reload();return}
+  if(iso(new Date())!==HOY){try{sessionStorage.setItem('predi.nosplash','1')}catch{}location.reload();return}
   if(Date.now()-SHAT>6e4)loadShared();
 });
 addEventListener('online',()=>loadShared());
@@ -1763,9 +1859,13 @@ $('#skins').onclick=e=>{const b=e.target.closest('[data-k]');if(b)applySkin(b.da
 applySkin(localStorage.getItem('predicapp.skin')||'bosque');
 
 /* ---- Clima Curauma (Open-Meteo, sin clave) a la hora exacta de cada salida; mismo punto que Meteored ---- */
-const WX_URL='https://api.open-meteo.com/v1/forecast?latitude=-33.1399&longitude=-71.5695&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation_probability,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_gusts_10m,wind_direction_10m,is_day&timezone=America%2FSantiago&forecast_days=2';
+const WX_BASE='https://api.open-meteo.com/v1/forecast?latitude=-33.1399&longitude=-71.5695&timezone=America%2FSantiago&forecast_days=2&wind_speed_unit=kmh';
+const WX_URL=WX_BASE+'&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation_probability,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_gusts_10m,wind_direction_10m,is_day,uv_index';
+/* Consenso: se pide el mismo punto a 4 modelos globales distintos y se combinan con el modelo “mejor ajuste” (mediana en temperatura/viento, promedio en lluvia) */
+const WX_MODELS=['ecmwf_ifs025','gfs_seamless','icon_seamless','gem_seamless'];
+const WX_URL_M=WX_BASE+'&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,cloud_cover,wind_speed_10m,wind_gusts_10m&models='+WX_MODELS.join(',');
 const WX_MET='https://www.meteored.cl/curauma-1-519740.html';
-let WX=load('cache:wx2',null),WXAT=0;
+let WX=load('cache:wx3',null),WXAT=0;
 /* Iconos SVG animados (sol que gira, nubes que se mueven, gotas, nieve, rayo, niebla, luna con estrellas) */
 const wxCloud=(f,t)=>`<g transform="${t||''}"><g class="wx-cl"><path d="M14 36a8 8 0 0 1-.8-15.96A10 10 0 0 1 32.6 18 8.5 8.5 0 0 1 34 36Z" fill="${f}" stroke="rgba(0,0,0,.14)" stroke-width="1"/></g></g>`;
 const wxSun=(x,y,r)=>`<g class="wx-rays" stroke="#F5A623" stroke-width="2.4" stroke-linecap="round">${[0,1,2,3,4,5,6,7].map(i=>`<line x1="${x}" y1="${y-r-3.5}" x2="${x}" y2="${y-r-6.5}" transform="rotate(${i*45} ${x} ${y})"/>`).join('')}</g><circle cx="${x}" cy="${y}" r="${r}" fill="#FFC53D"/>`;
@@ -1787,8 +1887,8 @@ function wxIcon(k,n){
 /* Código WMO → [tipo de icono, texto] (con el mismo estilo de texto que Meteored) */
 function wxKind(c,n){
   if(c>=95)return['storm','Tormenta'];
-  if(c>=85)return['snow','Nevazón'];
-  if(c>=71)return['snow','Nieve'];
+  if(c===85||c===86)return['snow','Nevazón'];
+  if(c>=71&&c<=77)return['snow','Nieve'];
   if(c===82)return['heavy','Chubascos fuertes'];
   if(c===81)return['rain','Chubascos'];
   if(c===80)return['rain','Chubascos débiles'];
@@ -1803,14 +1903,86 @@ function wxKind(c,n){
   return['clear',n?'Cielo despejado':'Soleado'];
 }
 const wxDir=d=>d==null?'':['Norte','Noreste','Este','Sureste','Sur','Suroeste','Oeste','Noroeste'][Math.round(d/45)%8];
+const _num=x=>typeof x==='number'&&isFinite(x);
+const _med=a=>{a=a.filter(_num).sort((x,y)=>x-y);if(!a.length)return null;const m=a.length>>1;return a.length%2?a[m]:(a[m-1]+a[m])/2};
+const _avg=a=>{a=a.filter(_num);return a.length?a.reduce((s,v)=>s+v,0)/a.length:null};
+const _isSnow=c=>(c>=71&&c<=77)||c===85||c===86,_isRain=c=>(c>=51&&c<=67)||(c>=80&&c<=82);
+/* Reconcilia el código de tiempo con el consenso de lluvia y nubosidad */
+function wxCode(c,mm,pp,cc){
+  c=c??0;mm=mm||0;
+  if(c>=95||_isSnow(c)||c===45||c===48)return c;
+  if(mm>=0.1&&(pp==null||pp>=30))return _isRain(c)?c:(mm<0.5?51:mm<2.5?61:mm<7.6?63:65);
+  if(cc==null)return _isRain(c)?3:c;
+  return cc<12?0:cc<35?1:cc<70?2:3;
+}
+function wxMerge(b,m){
+  const h=Object.assign({},b),n=(b.time||[]).length;let used=0;
+  if(m&&m.time&&n){
+    const mi=new Map(m.time.map((t,i)=>[t,i])),ks=(v,i)=>{const j=mi.get(b.time[i]);return WX_MODELS.map(k=>j==null||!m[v+'_'+k]?null:m[v+'_'+k][j])};
+    WX_MODELS.forEach(k=>{if(m['temperature_2m_'+k]&&m['temperature_2m_'+k].some(_num))used++});
+    ['temperature_2m','apparent_temperature','relative_humidity_2m','wind_speed_10m','wind_gusts_10m','cloud_cover'].forEach(v=>{
+      if(!b[v])return;h[v]=b[v].map((x,i)=>{const r=_med([x,...ks(v,i)]);return r==null?x:r});
+    });
+    if(b.precipitation){
+      h.precipitation=b.precipitation.map((x,i)=>{const r=_avg([x,...ks('precipitation',i)]);return r==null?x:r});
+      h.precipitation_probability=(b.precipitation_probability||b.precipitation.map(()=>null)).map((x,i)=>{
+        const P=ks('precipitation',i).filter(_num);if(!P.length)return x;
+        const f=100*P.filter(v=>v>=0.1).length/P.length;return Math.round(_num(x)?(x+f)/2:f);
+      });
+    }
+  }
+  h.weather_code=(b.weather_code||[]).map((c,i)=>wxCode(c,h.precipitation&&h.precipitation[i],h.precipitation_probability&&h.precipitation_probability[i],h.cloud_cover&&h.cloud_cover[i]));
+  return {h,used:used?used+1:1};
+}
 async function wxLoad(){
   if(!navigator.onLine)return;WXAT=Date.now();
-  try{const r=await fetch(WX_URL);if(!r.ok)throw 0;const j=await r.json();WX={f:HOY,h:j.hourly,at:Date.now()};store('cache:wx2',WX);renderWx()}catch{}
+  try{
+    const get=u=>fetch(u).then(r=>r.ok?r.json():Promise.reject());
+    const [a,b]=await Promise.allSettled([get(WX_URL),get(WX_URL_M)]);
+    if(a.status!=='fulfilled'||!a.value.hourly)throw 0;
+    const mg=wxMerge(a.value.hourly,b.status==='fulfilled'?b.value.hourly:null);
+    WX={f:HOY,h:mg.h,n:mg.used,at:Date.now()};store('cache:wx3',WX);renderWx();
+  }catch{}
+}
+const UVL=u=>u>=11?'extremo':u>=8?'muy alto':u>=6?'alto':'moderado';
+/* Recomendaciones según el clima durante la(s) salida(s) de hoy (de la hora de salida a +2 h) */
+function wxRecs(rows,has){
+  const H=WX.h;if(!H||!H.time)return null;
+  const hs=new Set();
+  rows.forEach(d=>{const p=parseHora(d.hora);if(!p)return;for(let k=0;k<=DUR;k++)hs.add(Math.min(23,p[0]+k))});
+  if(!hs.size)[9,10,11,12].forEach(x=>hs.add(x));
+  const ix=[...hs].map(h=>H.time.indexOf(HOY+'T'+String(h).padStart(2,'0')+':00')).filter(i=>i>=0);
+  if(!ix.length)return null;
+  const v=k=>ix.map(i=>H[k]?H[k][i]:null).filter(_num),mx=a=>a.length?Math.max(...a):null,mn=a=>a.length?Math.min(...a):null,r=Math.round;
+  const feel=mn(v('apparent_temperature')),tmax=mx(v('temperature_2m')),pp=mx(v('precipitation_probability'))||0,mm=v('precipitation').reduce((a,x)=>a+x,0),gust=mx(v('wind_gusts_10m'))||0;
+  const uv=mx(ix.filter(i=>H.is_day&&H.is_day[i]===1).map(i=>H.uv_index?H.uv_index[i]:null).filter(_num))||0;
+  const codes=ix.map(i=>H.weather_code?H.weather_code[i]:0),when=has?'en tu salida':'hoy',o=[];
+  if(codes.some(c=>c>=95))o.push({e:'⛈️',t:'Riesgo de tormenta',d:'Mantente atento al cielo y evita zonas abiertas.',k:'bad'});
+  if(pp>=30||mm>=0.5){
+    const heavy=mm>=4||pp>=85;
+    if(pp>=55||mm>=1)o.push({e:'☔',t:heavy?'Lleva paraguas e impermeable':'Lleva paraguas',d:'Lluvia probable '+when+' ('+r(pp)+'%'+(mm>=0.1?' · '+mm.toFixed(1)+' mm':'')+').',k:'bad'});
+    else o.push({e:'🌂',t:'Lleva paraguas por si acaso',d:r(pp)+'% de probabilidad de lluvia '+when+'.',k:'warn'});
+  }
+  if(feel!=null){
+    if(feel<=8)o.push({e:'🧣',t:'Anda bien abrigado hoy',d:'Sensación de '+r(feel)+'° '+when+'. Chaqueta gruesa, y gorro si puedes.',k:'bad'});
+    else if(feel<=13)o.push({e:'🧥',t:'Anda abrigado hoy',d:'Sensación de '+r(feel)+'° '+when+'. Lleva chaqueta.',k:'warn'});
+    else if(feel<=17)o.push({e:'🧥',t:'Lleva una chaqueta liviana',d:'Sensación de '+r(feel)+'° '+when+', puede refrescar.'});
+  }
+  if(tmax!=null){
+    if(tmax>=30)o.push({e:'🥵',t:'Mucho calor: toma agua',d:'Máxima de '+r(tmax)+'°. Busca sombra y lleva gorro.',k:'bad'});
+    else if(tmax>=25)o.push({e:'💧',t:'Lleva agua',d:'Máxima de '+r(tmax)+'° '+when+'.',k:'warn'});
+  }
+  if(uv>=3)o.push({e:'🧴',t:'Ponte protector solar',d:'Índice UV '+r(uv)+' ('+UVL(uv)+')'+(uv>=6?' · usa también gorro y lentes.':'.'),k:uv>=8?'bad':uv>=6?'warn':''});
+  if(gust>=40)o.push({e:'💨',t:'Viento fuerte: lleva cortaviento',d:'Ráfagas de hasta '+r(gust)+' km/h.',k:'warn'});
+  else if(gust>=28)o.push({e:'🌬️',t:'Se siente el viento',d:'Ráfagas de hasta '+r(gust)+' km/h. Un cortaviento ayuda.'});
+  if(codes.some(c=>c===45||c===48))o.push({e:'🌫️',t:'Neblina: poca visibilidad',d:'Ten cuidado al cruzar calles.',k:'warn'});
+  if(!o.length)o.push({e:'😎',t:'Buen clima para salir',d:'Sin alertas '+when+'.'});
+  return {list:o.slice(0,5),title:has?'Para tu salida':'Para hoy'};
 }
 function renderWx(){
   const box=$('#wx');if(!box)return;
   if(!WX||!WX.h||!WX.h.time){box.innerHTML='';return}
-  const rows=window.TODAY_ROWS&&window.TODAY_ROWS.length?window.TODAY_ROWS:[{hora:'10:00'}],seen=new Set(),r=Math.round;
+  const has=!!(window.TODAY_ROWS&&window.TODAY_ROWS.length),rows=has?window.TODAY_ROWS:[{hora:'10:00'}],seen=new Set(),r=Math.round;
   const out=rows.map(d=>{
     const p=parseHora(d.hora);if(!p)return '';
     const hh=Math.min(23,p[0]+(p[1]>=30?1:0));if(seen.has(hh))return '';seen.add(hh);   /* la hora más cercana, como la tabla por horas de Meteored */
@@ -1820,8 +1992,9 @@ function renderWx(){
     return `<div class="wx-r"><span class="wx-e">${wxIcon(k,n)}</span><div class="wx-i"><b>${String(p[0]).padStart(2,'0')}:${String(p[1]).padStart(2,'0')} · ${t}</b><span class="d">${r(g('temperature_2m'))}° · sensación ${r(g('apparent_temperature'))}° · humedad ${r(g('relative_humidity_2m'))}%</span><span class="d">lluvia ${r(g('precipitation_probability')||0)}%${mm>=0.1?' · '+mm.toFixed(1)+' mm':''} · viento ${wxDir(g('wind_direction_10m'))} ${ws}–${wg} km/h</span></div></div>`;
   }).join('');
   if(!out){box.innerHTML='';return}
+  const R=wxRecs(rows,has),recs=R?`<div class="wx-recs"><h3>${R.title}</h3>${R.list.map(x=>`<div class="wx-rec ${x.k||''}"><span class="wx-re">${x.e}</span><div><b>${esc(x.t)}</b><span class="d">${esc(x.d)}</span></div></div>`).join('')}</div>`:'';
   const a=WX.at?new Date(WX.at):null,hm=a?String(a.getHours()).padStart(2,'0')+':'+String(a.getMinutes()).padStart(2,'0'):'';
-  box.innerHTML=`<div class="card wx"><h2>Clima en Curauma</h2>${out}<div class="wx-f">${hm?'Actualizado '+hm+' · ':''}<a href="${WX_MET}" target="_blank" rel="noopener">ver en Meteored</a></div></div>`;
+  box.innerHTML=`<div class="card wx"><h2>Clima en Curauma</h2>${out}${recs}<div class="wx-f">${hm?'Actualizado '+hm+' · ':''}${WX.n>1?'consenso de '+WX.n+' modelos · ':''}<a href="${WX_MET}" target="_blank" rel="noopener">ver en Meteored</a></div></div>`;
 }
 setInterval(()=>{if(!document.hidden&&Date.now()-WXAT>18e5)wxLoad()},6e4);
 const _rs=renderSalidas;renderSalidas=function(l,s){_rs(l,s);renderWx()};
@@ -1967,10 +2140,16 @@ const _rg=renderGrupos;renderGrupos=function(){
 $('#g-wrap').addEventListener('click',e=>{const b=e.target.closest('[data-pdf]');if(b)gruposPdf(b.dataset.pdf==='all'?null:+b.dataset.pdf)});
 
 /* ---- Refrescos y arranque ---- */
-const _ra=refreshActive;refreshActive=function(){_ra();renderNP();renderYo();renderReu();renderNoPasar(window.__npt);aviso()};
+function renderPfFeat(){
+  const N=NP(),ks=Object.keys(N).filter(k=>(N[k]||[]).length),tot=ks.reduce((a,k)=>a+N[k].length,0),G=GRUPOS(),mem=G.reduce((a,g)=>a+g.miembros.length,0);
+  const a=$('#pf-np-n'),b=$('#pf-gr-n');
+  if(a){a.textContent=tot||'';$('#pf-np-sub').textContent=tot?tot+' direcciones en '+ks.length+' territorios':'Direcciones por territorio'}
+  if(b){b.textContent=G.length||'';$('#pf-gr-sub').textContent=G.length+' grupos · '+mem+' hermanos · PDF'}
+}
+const _ra=refreshActive;refreshActive=function(){_ra();renderNP();renderYo();renderReu();renderNoPasar(window.__npt);renderPfFeat();aviso()};
 document.addEventListener('visibilitychange',()=>{if(document.hidden)return;aviso();if(Date.now()-WXAT>18e5)wxLoad()});
 addEventListener('online',()=>wxLoad());
-renderYo();renderReu();renderNP();renderWx();wxLoad();ingestVym();aviso();
+renderYo();renderReu();renderNP();renderPfFeat();renderWx();wxLoad();ingestVym();aviso();
 
 
 /* ======================================================================
@@ -1987,7 +2166,7 @@ renderYo();renderReu();renderNP();renderWx();wxLoad();ingestVym();aviso();
   const _og=openGrupos;openGrupos=function(f){document.body.dataset.dir='r';_og(f)};
   $('#pf-np').addEventListener('click',()=>{document.body.dataset.dir='r'});
   /* ripple + vibración suave en todo lo que se toca */
-  const RP='.btn,.chip,.cfg-btn,.g-menu-item,.btn-texto,.btn-maps,.btn-dir,.theme-btn,.mini,.mini-link,.zb,.months button,.seg button,#np-grid button,.g-ed,.list-item button,.salida-head';
+  const RP='.btn,.chip,.cfg-btn,.g-menu-item,.pf-big,.btn-texto,.btn-maps,.btn-dir,.theme-btn,.mini,.mini-link,.zb,.months button,.seg button,#np-grid button,.g-ed,.list-item button,.salida-head';
   document.addEventListener('pointerdown',e=>{
     const el=e.target.closest(RP);if(!el||el.disabled)return;
     if(!el.classList.contains('rp'))el.classList.add('rp');
